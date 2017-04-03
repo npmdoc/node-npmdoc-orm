@@ -1,0 +1,4893 @@
+<html><head></head><body><div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a href="http://dresende.github.io/node-orm2">orm (v3.2.3)</a>
+</h1>
+<h4>NodeJS Object-relational mapping</h4>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.orm">module orm</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Error">
+            function <span class="apidocSignatureSpan">orm.</span>Error
+            <span class="apidocSignatureSpan">(message, code, extras)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Text">
+            function <span class="apidocSignatureSpan">orm.</span>Text
+            <span class="apidocSignatureSpan">(data)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.addAdapter">
+            function <span class="apidocSignatureSpan">orm.</span>addAdapter
+            <span class="apidocSignatureSpan">(name, constructor)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.between">
+            function <span class="apidocSignatureSpan">orm.</span>between
+            <span class="apidocSignatureSpan">(a, b)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.connect">
+            function <span class="apidocSignatureSpan">orm.</span>connect
+            <span class="apidocSignatureSpan">(opts, cb)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.Enforce">
+            function <span class="apidocSignatureSpan">orm.</span>enforce.Enforce
+            <span class="apidocSignatureSpan">(options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.Validator">
+            function <span class="apidocSignatureSpan">orm.</span>enforce.Validator
+            <span class="apidocSignatureSpan">(validate)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.eq">
+            function <span class="apidocSignatureSpan">orm.</span>eq
+            <span class="apidocSignatureSpan">(v)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.express">
+            function <span class="apidocSignatureSpan">orm.</span>express
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.gt">
+            function <span class="apidocSignatureSpan">orm.</span>gt
+            <span class="apidocSignatureSpan">(v)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.gte">
+            function <span class="apidocSignatureSpan">orm.</span>gte
+            <span class="apidocSignatureSpan">(v)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.like">
+            function <span class="apidocSignatureSpan">orm.</span>like
+            <span class="apidocSignatureSpan">(expr)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.lt">
+            function <span class="apidocSignatureSpan">orm.</span>lt
+            <span class="apidocSignatureSpan">(v)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.lte">
+            function <span class="apidocSignatureSpan">orm.</span>lte
+            <span class="apidocSignatureSpan">(v)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.ne">
+            function <span class="apidocSignatureSpan">orm.</span>ne
+            <span class="apidocSignatureSpan">(v)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.not_between">
+            function <span class="apidocSignatureSpan">orm.</span>not_between
+            <span class="apidocSignatureSpan">(a, b)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.not_in">
+            function <span class="apidocSignatureSpan">orm.</span>not_in
+            <span class="apidocSignatureSpan">(v)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.not_like">
+            function <span class="apidocSignatureSpan">orm.</span>not_like
+            <span class="apidocSignatureSpan">(expr)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.use">
+            function <span class="apidocSignatureSpan">orm.</span>use
+            <span class="apidocSignatureSpan">(connection, proto, opts, cb)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.</span>Adapters</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.</span>Debug</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.</span>Error.prototype</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.</span>ErrorCodes</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.</span>Hook</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.</span>Instance</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.</span>LazyLoad</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.</span>Model</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.</span>Promise</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.</span>Property</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.</span>Settings</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.</span>Utilities</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.</span>enforce</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.</span>enforce.Enforce.prototype</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.</span>enforce.Validator.prototype</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.</span>enforce.lists</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.</span>enforce.patterns</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.</span>enforce.ranges</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.</span>enforce.security</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.</span>settings</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.</span>singleton</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.</span>validators</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.orm.Adapters">module orm.Adapters</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Adapters.add">
+            function <span class="apidocSignatureSpan">orm.Adapters.</span>add
+            <span class="apidocSignatureSpan">(name, constructor)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Adapters.get">
+            function <span class="apidocSignatureSpan">orm.Adapters.</span>get
+            <span class="apidocSignatureSpan">(name)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.orm.Debug">module orm.Debug</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Debug.sql">
+            function <span class="apidocSignatureSpan">orm.Debug.</span>sql
+            <span class="apidocSignatureSpan">(driver, sql)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.orm.Error">module orm.Error</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Error.Error">
+            function <span class="apidocSignatureSpan">orm.</span>Error
+            <span class="apidocSignatureSpan">(message, code, extras)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.Error.</span>codes</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.orm.Error.prototype">module orm.Error.prototype</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Error.prototype.constructor">
+            function <span class="apidocSignatureSpan">orm.Error.prototype.</span>constructor
+            <span class="apidocSignatureSpan">(message, code, extras)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Error.prototype.toString">
+            function <span class="apidocSignatureSpan">orm.Error.prototype.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">orm.Error.prototype.</span>name</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.orm.Hook">module orm.Hook</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Hook.trigger">
+            function <span class="apidocSignatureSpan">orm.Hook.</span>trigger
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Hook.wait">
+            function <span class="apidocSignatureSpan">orm.Hook.</span>wait
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.orm.Instance">module orm.Instance</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Instance.Instance">
+            function <span class="apidocSignatureSpan">orm.</span>Instance
+            <span class="apidocSignatureSpan">(Model, opts)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.orm.LazyLoad">module orm.LazyLoad</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.LazyLoad.extend">
+            function <span class="apidocSignatureSpan">orm.LazyLoad.</span>extend
+            <span class="apidocSignatureSpan">(Instance, Model, properties)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.orm.Model">module orm.Model</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Model.Model">
+            function <span class="apidocSignatureSpan">orm.</span>Model
+            <span class="apidocSignatureSpan">(opts)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.orm.Promise">module orm.Promise</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Promise.Promise">
+            function <span class="apidocSignatureSpan">orm.</span>Promise
+            <span class="apidocSignatureSpan">(opts)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.orm.Property">module orm.Property</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Property.normalize">
+            function <span class="apidocSignatureSpan">orm.Property.</span>normalize
+            <span class="apidocSignatureSpan">(opts)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.orm.Settings">module orm.Settings</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Settings.Container">
+            function <span class="apidocSignatureSpan">orm.Settings.</span>Container
+            <span class="apidocSignatureSpan">(settings)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Settings.defaults">
+            function <span class="apidocSignatureSpan">orm.Settings.</span>defaults
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.orm.Utilities">module orm.Utilities</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Utilities.checkConditions">
+            function <span class="apidocSignatureSpan">orm.Utilities.</span>checkConditions
+            <span class="apidocSignatureSpan">(conditions, one_associations)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Utilities.convertPropToJoinKeyProp">
+            function <span class="apidocSignatureSpan">orm.Utilities.</span>convertPropToJoinKeyProp
+            <span class="apidocSignatureSpan">(props, opts)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Utilities.formatField">
+            function <span class="apidocSignatureSpan">orm.Utilities.</span>formatField
+            <span class="apidocSignatureSpan">(model, name, required, reversed)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Utilities.getConditions">
+            function <span class="apidocSignatureSpan">orm.Utilities.</span>getConditions
+            <span class="apidocSignatureSpan">(model, fields, from)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Utilities.getRealPath">
+            function <span class="apidocSignatureSpan">orm.Utilities.</span>getRealPath
+            <span class="apidocSignatureSpan">(path_str, stack_index)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Utilities.hasValues">
+            function <span class="apidocSignatureSpan">orm.Utilities.</span>hasValues
+            <span class="apidocSignatureSpan">(obj, keys)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Utilities.populateConditions">
+            function <span class="apidocSignatureSpan">orm.Utilities.</span>populateConditions
+            <span class="apidocSignatureSpan">(model, fields, source, target, overwrite)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Utilities.renameDatastoreFieldsToPropertyNames">
+            function <span class="apidocSignatureSpan">orm.Utilities.</span>renameDatastoreFieldsToPropertyNames
+            <span class="apidocSignatureSpan">(data, fieldToPropertyMap)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Utilities.standardizeOrder">
+            function <span class="apidocSignatureSpan">orm.Utilities.</span>standardizeOrder
+            <span class="apidocSignatureSpan">(order)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Utilities.transformOrderPropertyNames">
+            function <span class="apidocSignatureSpan">orm.Utilities.</span>transformOrderPropertyNames
+            <span class="apidocSignatureSpan">(order, properties)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Utilities.transformPropertyNames">
+            function <span class="apidocSignatureSpan">orm.Utilities.</span>transformPropertyNames
+            <span class="apidocSignatureSpan">(dataIn, properties)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Utilities.values">
+            function <span class="apidocSignatureSpan">orm.Utilities.</span>values
+            <span class="apidocSignatureSpan">(obj, keys)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.Utilities.wrapFieldObject">
+            function <span class="apidocSignatureSpan">orm.Utilities.</span>wrapFieldObject
+            <span class="apidocSignatureSpan">(params)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.orm.enforce">module orm.enforce</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.Enforce">
+            function <span class="apidocSignatureSpan">orm.enforce.</span>Enforce
+            <span class="apidocSignatureSpan">(options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.Validator">
+            function <span class="apidocSignatureSpan">orm.enforce.</span>Validator
+            <span class="apidocSignatureSpan">(validate)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.equalToProperty">
+            function <span class="apidocSignatureSpan">orm.enforce.</span>equalToProperty
+            <span class="apidocSignatureSpan">(name, msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.notEmptyString">
+            function <span class="apidocSignatureSpan">orm.enforce.</span>notEmptyString
+            <span class="apidocSignatureSpan">(message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.required">
+            function <span class="apidocSignatureSpan">orm.enforce.</span>required
+            <span class="apidocSignatureSpan">(message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.sameAs">
+            function <span class="apidocSignatureSpan">orm.enforce.</span>sameAs
+            <span class="apidocSignatureSpan">(property, message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.unique">
+            function <span class="apidocSignatureSpan">orm.enforce.</span>unique
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.enforce.</span>lists</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.enforce.</span>patterns</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.enforce.</span>ranges</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.enforce.</span>security</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.orm.enforce.Enforce">module orm.enforce.Enforce</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.Enforce.Enforce">
+            function <span class="apidocSignatureSpan">orm.enforce.</span>Enforce
+            <span class="apidocSignatureSpan">(options)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.orm.enforce.Enforce.prototype">module orm.enforce.Enforce.prototype</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.Enforce.prototype.add">
+            function <span class="apidocSignatureSpan">orm.enforce.Enforce.prototype.</span>add
+            <span class="apidocSignatureSpan">(property, validator)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.Enforce.prototype.check">
+            function <span class="apidocSignatureSpan">orm.enforce.Enforce.prototype.</span>check
+            <span class="apidocSignatureSpan">(data, cb)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.Enforce.prototype.clear">
+            function <span class="apidocSignatureSpan">orm.enforce.Enforce.prototype.</span>clear
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.Enforce.prototype.context">
+            function <span class="apidocSignatureSpan">orm.enforce.Enforce.prototype.</span>context
+            <span class="apidocSignatureSpan">(name, value)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.orm.enforce.Validator">module orm.enforce.Validator</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.Validator.Validator">
+            function <span class="apidocSignatureSpan">orm.enforce.</span>Validator
+            <span class="apidocSignatureSpan">(validate)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.orm.enforce.Validator.prototype">module orm.enforce.Validator.prototype</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.Validator.prototype.ifDefined">
+            function <span class="apidocSignatureSpan">orm.enforce.Validator.prototype.</span>ifDefined
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.Validator.prototype.ifNotEmptyString">
+            function <span class="apidocSignatureSpan">orm.enforce.Validator.prototype.</span>ifNotEmptyString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.Validator.prototype.ifNotType">
+            function <span class="apidocSignatureSpan">orm.enforce.Validator.prototype.</span>ifNotType
+            <span class="apidocSignatureSpan">(type)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.Validator.prototype.ifType">
+            function <span class="apidocSignatureSpan">orm.enforce.Validator.prototype.</span>ifType
+            <span class="apidocSignatureSpan">(type)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.Validator.prototype.validate">
+            function <span class="apidocSignatureSpan">orm.enforce.Validator.prototype.</span>validate
+            <span class="apidocSignatureSpan">(data, next, thisArg, contexts)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.orm.enforce.lists">module orm.enforce.lists</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.lists.inside">
+            function <span class="apidocSignatureSpan">orm.enforce.lists.</span>inside
+            <span class="apidocSignatureSpan">(list, message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.lists.outside">
+            function <span class="apidocSignatureSpan">orm.enforce.lists.</span>outside
+            <span class="apidocSignatureSpan">(list, message)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.orm.enforce.patterns">module orm.enforce.patterns</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.patterns.email">
+            function <span class="apidocSignatureSpan">orm.enforce.patterns.</span>email
+            <span class="apidocSignatureSpan">(message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.patterns.hexString">
+            function <span class="apidocSignatureSpan">orm.enforce.patterns.</span>hexString
+            <span class="apidocSignatureSpan">(message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.patterns.ipv4">
+            function <span class="apidocSignatureSpan">orm.enforce.patterns.</span>ipv4
+            <span class="apidocSignatureSpan">(message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.patterns.ipv6">
+            function <span class="apidocSignatureSpan">orm.enforce.patterns.</span>ipv6
+            <span class="apidocSignatureSpan">(message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.patterns.mac">
+            function <span class="apidocSignatureSpan">orm.enforce.patterns.</span>mac
+            <span class="apidocSignatureSpan">(message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.patterns.match">
+            function <span class="apidocSignatureSpan">orm.enforce.patterns.</span>match
+            <span class="apidocSignatureSpan">(pattern, modifiers, message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.patterns.uuid3">
+            function <span class="apidocSignatureSpan">orm.enforce.patterns.</span>uuid3
+            <span class="apidocSignatureSpan">(message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.patterns.uuid4">
+            function <span class="apidocSignatureSpan">orm.enforce.patterns.</span>uuid4
+            <span class="apidocSignatureSpan">(message)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.orm.enforce.ranges">module orm.enforce.ranges</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.ranges.length">
+            function <span class="apidocSignatureSpan">orm.enforce.ranges.</span>length
+            <span class="apidocSignatureSpan">(min, max, message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.ranges.number">
+            function <span class="apidocSignatureSpan">orm.enforce.ranges.</span>number
+            <span class="apidocSignatureSpan">(min, max, message)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.orm.enforce.security">module orm.enforce.security</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.security.creditcard">
+            function <span class="apidocSignatureSpan">orm.enforce.security.</span>creditcard
+            <span class="apidocSignatureSpan">(types, message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.security.password">
+            function <span class="apidocSignatureSpan">orm.enforce.security.</span>password
+            <span class="apidocSignatureSpan">(checks, message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.enforce.security.username">
+            function <span class="apidocSignatureSpan">orm.enforce.security.</span>username
+            <span class="apidocSignatureSpan">(options, message)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.orm.settings">module orm.settings</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.settings.get">
+            function <span class="apidocSignatureSpan">orm.settings.</span>get
+            <span class="apidocSignatureSpan">(key, def)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.settings.set">
+            function <span class="apidocSignatureSpan">orm.settings.</span>set
+            <span class="apidocSignatureSpan">(key, value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.settings.unset">
+            function <span class="apidocSignatureSpan">orm.settings.</span>unset
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.orm.singleton">module orm.singleton</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.singleton.clear">
+            function <span class="apidocSignatureSpan">orm.singleton.</span>clear
+            <span class="apidocSignatureSpan">(key)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.singleton.get">
+            function <span class="apidocSignatureSpan">orm.singleton.</span>get
+            <span class="apidocSignatureSpan">(key, opts, createCb, returnCb)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.orm.validators">module orm.validators</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.validators.equalToProperty">
+            function <span class="apidocSignatureSpan">orm.validators.</span>equalToProperty
+            <span class="apidocSignatureSpan">(name, msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.validators.insideList">
+            function <span class="apidocSignatureSpan">orm.validators.</span>insideList
+            <span class="apidocSignatureSpan">(list, message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.validators.notEmptyString">
+            function <span class="apidocSignatureSpan">orm.validators.</span>notEmptyString
+            <span class="apidocSignatureSpan">(message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.validators.outsideList">
+            function <span class="apidocSignatureSpan">orm.validators.</span>outsideList
+            <span class="apidocSignatureSpan">(list, message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.validators.password">
+            function <span class="apidocSignatureSpan">orm.validators.</span>password
+            <span class="apidocSignatureSpan">(checks, message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.validators.rangeLength">
+            function <span class="apidocSignatureSpan">orm.validators.</span>rangeLength
+            <span class="apidocSignatureSpan">(min, max, message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.validators.rangeNumber">
+            function <span class="apidocSignatureSpan">orm.validators.</span>rangeNumber
+            <span class="apidocSignatureSpan">(min, max, message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.validators.required">
+            function <span class="apidocSignatureSpan">orm.validators.</span>required
+            <span class="apidocSignatureSpan">(message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.orm.validators.unique">
+            function <span class="apidocSignatureSpan">orm.validators.</span>unique
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">orm.validators.</span>patterns</span>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.orm" id="apidoc.module.orm">module orm</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Error" id="apidoc.element.orm.Error">
+        function <span class="apidocSignatureSpan">orm.</span>Error
+        <span class="apidocSignatureSpan">(message, code, extras)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function ORMError(message, code, extras) {
+  Error.call(this);
+  Error.captureStackTrace(this, this.constructor);
+
+  this.message = message;
+  if (code) {
+  	this.code = codes[code];
+    this.literalCode = code;
+    if (!this.code) {
+  		throw new Error("Invalid error code: " +  code);
+  	}
+  }
+  if (extras) {
+  	for(var k in extras) {
+  		this[k] = extras[k];
+  	}
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Text" id="apidoc.element.orm.Text">
+        function <span class="apidocSignatureSpan">orm.</span>Text
+        <span class="apidocSignatureSpan">(data)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">Text = function (data) {
+		var o = { data: data };
+
+		Object.defineProperty(o, "type", {
+			value: function () {
+				return type;
+			},
+			enumerable: false
+		});
+
+		return o;
+	}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.addAdapter" id="apidoc.element.orm.addAdapter">
+        function <span class="apidocSignatureSpan">orm.</span>addAdapter
+        <span class="apidocSignatureSpan">(name, constructor)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function addAdapter(name, constructor) {
+  adapters[name] = constructor;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+## Adding external database adapters
+
+To add an external database adapter to `orm`, call the `addAdapter` method, passing in the alias to use for connecting
+with this adapter, along with the constructor for the adapter:
+
+```js
+require('orm').<span class="apidocCodeKeywordSpan">addAdapter</span>('cassandra', CassandraAdapter);
+```
+
+See [the documentation for creating adapters](./Adapters.md) for more details.
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.between" id="apidoc.element.orm.between">
+        function <span class="apidocSignatureSpan">orm.</span>between
+        <span class="apidocSignatureSpan">(a, b)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">between = function (a, b) {
+	return createSpecialObject({ from: a, to: b }, 'between');
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```js
+{ col1: orm.eq(123) } // `col1` = 123 (default)
+{ col1: orm.ne(123) } // `col1` &lt;&gt; 123
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
+{ col1: orm.<span class="apidocCodeKeywordSpan">between</span>(123, 456) } // `col1` BETWEEN 123 AND 456
+{ col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
+{ col1: orm.like(12 + "%") } // `col1` LIKE '12%'
+{ col1: orm.not_like(12 + "%") } // `col1` NOT LIKE '12%'
+{ col1: orm.not_in([1, 4, 8]) } // `col1` NOT IN (1, 4, 8)
+```
+
+#### Raw queries
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.connect" id="apidoc.element.orm.connect">
+        function <span class="apidocSignatureSpan">orm.</span>connect
+        <span class="apidocSignatureSpan">(opts, cb)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">connect = function (opts, cb) {
+	if (arguments.length === 0 || !opts) {
+		return ORM_Error(new ORMError("CONNECTION_URL_EMPTY", 'PARAM_MISMATCH'), cb);
+	}
+	if (typeof opts == 'string') {
+		if (opts.trim().length === 0) {
+			return ORM_Error(new ORMError("CONNECTION_URL_EMPTY", 'PARAM_MISMATCH'), cb);
+		}
+		opts = url.parse(opts, true);
+	} else if (typeof opts == 'object') {
+		opts = _.cloneDeep(opts);
+	}
+
+	opts.query = opts.query || {};
+
+	for(var k in opts.query) {
+		opts.query[k] = queryParamCast(opts.query[k]);
+		opts[k] = opts.query[k];
+	}
+
+	if (!opts.database) {
+		// if (!opts.pathname) {
+		// 	return cb(new Error("CONNECTION_URL_NO_DATABASE"));
+		// }
+		opts.database = (opts.pathname ? opts.pathname.substr(1) : "");
+	}
+	if (!opts.protocol) {
+		return ORM_Error(new ORMError("CONNECTION_URL_NO_PROTOCOL", 'PARAM_MISMATCH'), cb);
+	}
+	// if (!opts.host) {
+	// 	opts.host = opts.hostname = "localhost";
+	// }
+	if (opts.auth) {
+		opts.user = opts.auth.split(":")[0];
+		opts.password = opts.auth.split(":")[1];
+	}
+	if (!opts.hasOwnProperty("user")) {
+		opts.user = "root";
+	}
+	if (!opts.hasOwnProperty("password")) {
+		opts.password = "";
+	}
+	if (opts.hasOwnProperty("hostname")) {
+		opts.host = opts.hostname;
+	}
+
+	var proto  = opts.protocol.replace(/:$/, '');
+	var db;
+	if (DriverAliases[proto]) {
+		proto = DriverAliases[proto];
+	}
+
+	try {
+		var Driver   = adapters.get(proto);
+		var settings = new Settings.Container(exports.settings.get('*'));
+		var driver   = new Driver(opts, null, {
+			debug    : 'debug' in opts.query ? opts.query.debug : settings.get("connection.debug"),
+			pool     : 'pool'  in opts.query ? opts.query.pool  : settings.get("connection.pool"),
+			settings : settings
+		});
+
+		db = new ORM(proto, driver, settings);
+
+		driver.connect(function (err) {
+			if (typeof cb === "function") {
+				if (err) {
+					return cb(err);
+				} else {
+					return cb(null, db);
+				}
+			}
+
+			db.emit("connect", err, !err ? db : null);
+		});
+	} catch (ex) {
+		if (ex.code === "MODULE_NOT_FOUND" || ex.message.indexOf('find module') &gt; -1) {
+			return ORM_Error(new ORMError("Connection protocol not supported - have you installed the database driver for " + proto + "?", '
+NO_SUPPORT'), cb);
+		}
+		return ORM_Error(ex, cb);
+	}
+
+	return db;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+This is a node.js object relational mapping module.
+
+An example:
+
+```js
+var orm = require("orm");
+
+orm.<span class="apidocCodeKeywordSpan">connect</span>("mysql://username:password@host/database", function (err, db) {
+  if (err) throw err;
+
+	var Person = db.define("person", {
+		name      : String,
+		surname   : String,
+		age       : Number, // FLOAT
+		male      : Boolean,
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.Enforce" id="apidoc.element.orm.enforce.Enforce">
+        function <span class="apidocSignatureSpan">orm.</span>enforce.Enforce
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Enforce(options) {
+    this.validations = {};
+    this.contexts = {};
+    this.options = {
+        returnAllErrors: options &amp;&amp; !!options.returnAllErrors
+    };
+
+    return this;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.Validator" id="apidoc.element.orm.enforce.Validator">
+        function <span class="apidocSignatureSpan">orm.</span>enforce.Validator
+        <span class="apidocSignatureSpan">(validate)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Validator(validate) {
+    this.validator = validate;
+    return this;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.eq" id="apidoc.element.orm.eq">
+        function <span class="apidocSignatureSpan">orm.</span>eq
+        <span class="apidocSignatureSpan">(v)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">eq = function (v) {
+	return createSpecialObject({ val: v }, 'eq');
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+{ col1: [ 1, 3, 5 ] } // `col1` IN (1, 3, 5)
+```
+
+If you need other comparisons, you have to use a special object created by some helper functions. Here are
+a few examples to describe it:
+
+```js
+{ col1: orm.<span class="apidocCodeKeywordSpan">eq</span>(123) } // `col1` = 123 (default)
+{ col1: orm.ne(123) } // `col1` &lt;&gt; 123
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
+{ col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
+{ col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.express" id="apidoc.element.orm.express">
+        function <span class="apidocSignatureSpan">orm.</span>express
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">express = function () {
+	return require("./Express").apply(this, arguments);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+If you're using Express, you might want to use the simple middleware to integrate more easily.
+
+```js
+var express = require('express');
+var orm = require('orm');
+var app = express();
+
+app.use(orm.<span class="apidocCodeKeywordSpan">express</span>("mysql://username:password@host/database", {
+	define: function (db, models, next) {
+		models.person = db.define("person", { ... });
+		next();
+	}
+}));
+app.listen(80);
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.gt" id="apidoc.element.orm.gt">
+        function <span class="apidocSignatureSpan">orm.</span>gt
+        <span class="apidocSignatureSpan">(v)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">gt = function (v) {
+	return createSpecialObject({ val: v }, 'gt');
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+```js
+var Person = db.define('person', {
+    name    : String,
+    height  : { type: 'integer' }
+});
+Person.tallerThan = function(height, callback) {
+    this.find({ height: orm.<span class="apidocCodeKeywordSpan">gt</span>(height) }, callback);
+};
+
+Person.tallerThan( 192, function(err, tallPeople) { ... } );
+```
+
+
+## Loading Models
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.gte" id="apidoc.element.orm.gte">
+        function <span class="apidocSignatureSpan">orm.</span>gte
+        <span class="apidocSignatureSpan">(v)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">gte = function (v) {
+	return createSpecialObject({ val: v }, 'gte');
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+If you need other comparisons, you have to use a special object created by some helper functions. Here are
+a few examples to describe it:
+
+```js
+{ col1: orm.eq(123) } // `col1` = 123 (default)
+{ col1: orm.ne(123) } // `col1` &lt;&gt; 123
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.<span class="apidocCodeKeywordSpan">gte</span>(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
+{ col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
+{ col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
+{ col1: orm.like(12 + "%") } // `col1` LIKE '12%'
+{ col1: orm.not_like(12 + "%") } // `col1` NOT LIKE '12%'
+{ col1: orm.not_in([1, 4, 8]) } // `col1` NOT IN (1, 4, 8)
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.like" id="apidoc.element.orm.like">
+        function <span class="apidocSignatureSpan">orm.</span>like
+        <span class="apidocSignatureSpan">(expr)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">like = function (expr) {
+	return createSpecialObject({ expr: expr }, 'like');
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+{ col1: orm.ne(123) } // `col1` &lt;&gt; 123
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
+{ col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
+{ col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
+{ col1: orm.<span class="apidocCodeKeywordSpan">like</span>(12 + "%") } // `col1` LIKE '12%'
+{ col1: orm.not_like(12 + "%") } // `col1` NOT LIKE '12%'
+{ col1: orm.not_in([1, 4, 8]) } // `col1` NOT IN (1, 4, 8)
+```
+
+#### Raw queries
+
+```js
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.lt" id="apidoc.element.orm.lt">
+        function <span class="apidocSignatureSpan">orm.</span>lt
+        <span class="apidocSignatureSpan">(v)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">lt = function (v) {
+	return createSpecialObject({ val: v }, 'lt');
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+a few examples to describe it:
+
+```js
+{ col1: orm.eq(123) } // `col1` = 123 (default)
+{ col1: orm.ne(123) } // `col1` &lt;&gt; 123
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.<span class="apidocCodeKeywordSpan">lt</span>(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
+{ col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
+{ col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
+{ col1: orm.like(12 + "%") } // `col1` LIKE '12%'
+{ col1: orm.not_like(12 + "%") } // `col1` NOT LIKE '12%'
+{ col1: orm.not_in([1, 4, 8]) } // `col1` NOT IN (1, 4, 8)
+```
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.lte" id="apidoc.element.orm.lte">
+        function <span class="apidocSignatureSpan">orm.</span>lte
+        <span class="apidocSignatureSpan">(v)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">lte = function (v) {
+	return createSpecialObject({ val: v }, 'lte');
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+```js
+{ col1: orm.eq(123) } // `col1` = 123 (default)
+{ col1: orm.ne(123) } // `col1` &lt;&gt; 123
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.<span class="apidocCodeKeywordSpan">lte</span>(123) } // `col1` &lt;= 123
+{ col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
+{ col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
+{ col1: orm.like(12 + "%") } // `col1` LIKE '12%'
+{ col1: orm.not_like(12 + "%") } // `col1` NOT LIKE '12%'
+{ col1: orm.not_in([1, 4, 8]) } // `col1` NOT IN (1, 4, 8)
+```
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.ne" id="apidoc.element.orm.ne">
+        function <span class="apidocSignatureSpan">orm.</span>ne
+        <span class="apidocSignatureSpan">(v)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">ne = function (v) {
+	return createSpecialObject({ val: v }, 'ne');
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```
+
+If you need other comparisons, you have to use a special object created by some helper functions. Here are
+a few examples to describe it:
+
+```js
+{ col1: orm.eq(123) } // `col1` = 123 (default)
+{ col1: orm.<span class="apidocCodeKeywordSpan">ne</span>(123) } // `col1` &lt;&gt; 123
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
+{ col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
+{ col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
+{ col1: orm.like(12 + "%") } // `col1` LIKE '12%'
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.not_between" id="apidoc.element.orm.not_between">
+        function <span class="apidocSignatureSpan">orm.</span>not_between
+        <span class="apidocSignatureSpan">(a, b)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">not_between = function (a, b) {
+	return createSpecialObject({ from: a, to: b }, 'not_between');
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+{ col1: orm.eq(123) } // `col1` = 123 (default)
+{ col1: orm.ne(123) } // `col1` &lt;&gt; 123
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
+{ col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
+{ col1: orm.<span class="apidocCodeKeywordSpan">not_between</span>(123, 456) } // `col1` NOT BETWEEN 123 AND 456
+{ col1: orm.like(12 + "%") } // `col1` LIKE '12%'
+{ col1: orm.not_like(12 + "%") } // `col1` NOT LIKE '12%'
+{ col1: orm.not_in([1, 4, 8]) } // `col1` NOT IN (1, 4, 8)
+```
+
+#### Raw queries
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.not_in" id="apidoc.element.orm.not_in">
+        function <span class="apidocSignatureSpan">orm.</span>not_in
+        <span class="apidocSignatureSpan">(v)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">not_in = function (v) {
+	return createSpecialObject({ val: v }, 'not_in');
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
+{ col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
+{ col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
+{ col1: orm.like(12 + "%") } // `col1` LIKE '12%'
+{ col1: orm.not_like(12 + "%") } // `col1` NOT LIKE '12%'
+{ col1: orm.<span class="apidocCodeKeywordSpan">not_in</span>([1, 4, 8]) } // `col1` NOT IN (1, 4, 8)
+```
+
+#### Raw queries
+
+```js
+db.driver.execQuery("SELECT id, email FROM user", function (err, data) { ... })
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.not_like" id="apidoc.element.orm.not_like">
+        function <span class="apidocSignatureSpan">orm.</span>not_like
+        <span class="apidocSignatureSpan">(expr)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">not_like = function (expr) {
+	return createSpecialObject({ expr: expr }, 'not_like');
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
+{ col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
+{ col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
+{ col1: orm.like(12 + "%") } // `col1` LIKE '12%'
+{ col1: orm.<span class="apidocCodeKeywordSpan">not_like</span>(12 + "%") } // `col1` NOT LIKE '12%'
+{ col1: orm.not_in([1, 4, 8]) } // `col1` NOT IN (1, 4, 8)
+```
+
+#### Raw queries
+
+```js
+db.driver.execQuery("SELECT id, email FROM user", function (err, data) { ... })
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.use" id="apidoc.element.orm.use">
+        function <span class="apidocSignatureSpan">orm.</span>use
+        <span class="apidocSignatureSpan">(connection, proto, opts, cb)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">use = function (connection, proto, opts, cb) {
+	if (DriverAliases[proto]) {
+		proto = DriverAliases[proto];
+	}
+	if (typeof opts === "function") {
+		cb = opts;
+		opts = {};
+	}
+
+	try {
+		var Driver   = adapters.get(proto);
+		var settings = new Settings.Container(exports.settings.get('*'));
+		var driver   = new Driver(null, connection, {
+			debug    : (opts.query &amp;&amp; opts.query.debug === 'true'),
+			settings : settings
+		});
+
+		return cb(null, new ORM(proto, driver, settings));
+	} catch (ex) {
+		return cb(ex);
+	}
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+If you're using Express, you might want to use the simple middleware to integrate more easily.
+
+```js
+var express = require('express');
+var orm = require('orm');
+var app = express();
+
+app.<span class="apidocCodeKeywordSpan">use</span>(orm.express("mysql://username:password@host/database", {
+	define: function (db, models, next) {
+		models.person = db.define("person", { ... });
+		next();
+	}
+}));
+app.listen(80);
+...</pre></li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.orm.Adapters" id="apidoc.module.orm.Adapters">module orm.Adapters</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Adapters.add" id="apidoc.element.orm.Adapters.add">
+        function <span class="apidocSignatureSpan">orm.Adapters.</span>add
+        <span class="apidocSignatureSpan">(name, constructor)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function addAdapter(name, constructor) {
+  adapters[name] = constructor;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+						}
+					}
+				}
+				if (!alwaysValidate &amp;&amp; !required &amp;&amp; instance[k] == null) {
+					continue; // avoid validating if property is not required and is "empty"
+				}
+				for (i = 0; i &lt; opts.validations[k].length; i++) {
+					checks.<span class="apidocCodeKeywordSpan">add</span>(k, opts.validations[k][i]);
+				}
+			}
+
+			checks.context("instance", instance);
+			checks.context("model", Model);
+			checks.context("driver", opts.driver);
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Adapters.get" id="apidoc.element.orm.Adapters.get">
+        function <span class="apidocSignatureSpan">orm.Adapters.</span>get
+        <span class="apidocSignatureSpan">(name)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function getAdapter(name) {
+  if (name in aliases) {
+    return getAdapter(aliases[name]);
+  } else if (!(name in adapters)) {
+    adapters[name] = require("./Drivers/DML/" + name).Driver;
+  }
+
+  return adapters[name];
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	define: function (db, models, next) {
+		models.person = db.define("person", { ... });
+		next();
+	}
+}));
+app.listen(80);
+
+app.<span class="apidocCodeKeywordSpan">get</span>("/", function (req, res) {
+	// req.models is a reference to models used above in define()
+	req.models.person.find(...);
+});
+```
+
+You can call `orm.express` more than once to have multiple database connections. Models defined across connections
+will be joined together in `req.models`. **Don't forget to use it before `app.use(app.router)`, preferably right after your
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.orm.Debug" id="apidoc.module.orm.Debug">module orm.Debug</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Debug.sql" id="apidoc.element.orm.Debug.sql">
+        function <span class="apidocSignatureSpan">orm.Debug.</span>sql
+        <span class="apidocSignatureSpan">(driver, sql)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">sql = function (driver, sql) {
+	var fmt;
+
+	if (tty.isatty(process.stdout)) {
+		fmt = "\033[32;1m(orm/%s) \033[34m%s\033[0m\n";
+		sql = sql.replace(/`(.+?)`/g, function (m) { return "\033[31m" + m + "\033[34m"; });
+	} else {
+		fmt = "[SQL/%s] %s\n";
+	}
+
+	process.stdout.write(util.format(fmt, driver, sql));
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.orm.Error" id="apidoc.module.orm.Error">module orm.Error</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Error.Error" id="apidoc.element.orm.Error.Error">
+        function <span class="apidocSignatureSpan">orm.</span>Error
+        <span class="apidocSignatureSpan">(message, code, extras)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function ORMError(message, code, extras) {
+  Error.call(this);
+  Error.captureStackTrace(this, this.constructor);
+
+  this.message = message;
+  if (code) {
+  	this.code = codes[code];
+    this.literalCode = code;
+    if (!this.code) {
+  		throw new Error("Invalid error code: " +  code);
+  	}
+  }
+  if (extras) {
+  	for(var k in extras) {
+  		this[k] = extras[k];
+  	}
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.orm.Error.prototype" id="apidoc.module.orm.Error.prototype">module orm.Error.prototype</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Error.prototype.constructor" id="apidoc.element.orm.Error.prototype.constructor">
+        function <span class="apidocSignatureSpan">orm.Error.prototype.</span>constructor
+        <span class="apidocSignatureSpan">(message, code, extras)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function ORMError(message, code, extras) {
+  Error.call(this);
+  Error.captureStackTrace(this, this.constructor);
+
+  this.message = message;
+  if (code) {
+  	this.code = codes[code];
+    this.literalCode = code;
+    if (!this.code) {
+  		throw new Error("Invalid error code: " +  code);
+  	}
+  }
+  if (extras) {
+  	for(var k in extras) {
+  		this[k] = extras[k];
+  	}
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Error.prototype.toString" id="apidoc.element.orm.Error.prototype.toString">
+        function <span class="apidocSignatureSpan">orm.Error.prototype.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">toString = function () {
+  return '[ORMError ' + this.literalCode + ': ' + this.message + ']';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.orm.Hook" id="apidoc.module.orm.Hook">module orm.Hook</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Hook.trigger" id="apidoc.element.orm.Hook.trigger">
+        function <span class="apidocSignatureSpan">orm.Hook.</span>trigger
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">trigger = function () {
+	var args = Array.prototype.slice.apply(arguments);
+	var self = args.shift();
+	var cb   = args.shift();
+
+	if (typeof cb === "function") {
+		cb.apply(self, args);
+	}
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+		});
+	};
+	var saveError = function (cb, err) {
+		instance_saving = false;
+
+		emitEvent("save", err, instance);
+
+		Hook.<span class="apidocCodeKeywordSpan">trigger</span>(instance, opts.hooks.afterSave, false);
+
+		if (typeof cb === "function") {
+			cb(err, instance);
+		}
+	};
+	var saveInstance = function (saveOptions, cb) {
+		// what this condition means:
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Hook.wait" id="apidoc.element.orm.Hook.wait">
+        function <span class="apidocSignatureSpan">orm.Hook.</span>wait
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">wait = function () {
+	var args = Array.prototype.slice.apply(arguments);
+	var self = args.shift();
+	var cb   = args.shift();
+	var next = args.shift();
+
+	args.push(next);
+
+	if (typeof cb === "function") {
+		cb.apply(self, args);
+
+		if (cb.length &lt; args.length) {
+			return next();
+		}
+	} else {
+		return next();
+	}
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+		} else {
+			return !!saveOptions.saveAssociations;
+		}
+	};
+	var handleValidations = function (cb) {
+		var pending = [], errors = [], required, alwaysValidate;
+
+		Hook.<span class="apidocCodeKeywordSpan">wait</span>(instance, opts.hooks.beforeValidation, function (err) {
+		    var k, i;
+			if (err) {
+				return saveError(cb, err);
+			}
+
+			var checks = new enforce.Enforce({
+				returnAllErrors : Model.settings.get("instance.returnAllErrors")
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.orm.Instance" id="apidoc.module.orm.Instance">module orm.Instance</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Instance.Instance" id="apidoc.element.orm.Instance.Instance">
+        function <span class="apidocSignatureSpan">orm.</span>Instance
+        <span class="apidocSignatureSpan">(Model, opts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Instance(Model, opts) {
+	opts = opts || {};
+	opts.data = opts.data || {};
+	opts.extra = opts.extra || {};
+	opts.keys = opts.keys || "id";
+	opts.changes = (opts.is_new ? Object.keys(opts.data) : []);
+	opts.extrachanges = [];
+	opts.associations = {};
+	opts.originalKeyValues = {};
+
+	var instance_saving = false;
+	var events = {};
+	var instance = {};
+	var emitEvent = function () {
+		var args = Array.prototype.slice.apply(arguments);
+		var event = args.shift();
+
+		if (!events.hasOwnProperty(event)) return;
+
+		events[event].map(function (cb) {
+			cb.apply(instance, args);
+		});
+	};
+	var rememberKeys = function () {
+		var i, prop;
+
+		for(i = 0; i &lt; opts.keyProperties.length; i++) {
+			prop = opts.keyProperties[i];
+			opts.originalKeyValues[prop.name] = opts.data[prop.name];
+		}
+	};
+	var shouldSaveAssocs = function (saveOptions) {
+		if (Model.settings.get("instance.saveAssociationsByDefault")) {
+			return saveOptions.saveAssociations !== false;
+		} else {
+			return !!saveOptions.saveAssociations;
+		}
+	};
+	var handleValidations = function (cb) {
+		var pending = [], errors = [], required, alwaysValidate;
+
+		Hook.wait(instance, opts.hooks.beforeValidation, function (err) {
+		    var k, i;
+			if (err) {
+				return saveError(cb, err);
+			}
+
+			var checks = new enforce.Enforce({
+				returnAllErrors : Model.settings.get("instance.returnAllErrors")
+			});
+
+			for (k in opts.validations) {
+				required = false;
+
+				if (Model.allProperties[k]) {
+					required = Model.allProperties[k].required;
+					alwaysValidate = Model.allProperties[k].alwaysValidate;
+				} else {
+					for (i = 0; i &lt; opts.one_associations.length; i++) {
+						if (opts.one_associations[i].field === k) {
+							required = opts.one_associations[i].required;
+							break;
+						}
+					}
+				}
+				if (!alwaysValidate &amp;&amp; !required &amp;&amp; instance[k] == null) {
+					continue; // avoid validating if property is not required and is "empty"
+				}
+				for (i = 0; i &lt; opts.validations[k].length; i++) {
+					checks.add(k, opts.validations[k][i]);
+				}
+			}
+
+			checks.context("instance", instance);
+			checks.context("model", Model);
+			checks.context("driver", opts.driver);
+
+			return checks.check(instance, cb);
+		});
+	};
+	var saveError = function (cb, err) {
+		instance_saving = false;
+
+		emitEvent("save", err, instance);
+
+		Hook.trigger(instance, opts.hooks.afterSave, false);
+
+		if (typeof cb === "function") {
+			cb(err, instance);
+		}
+	};
+	var saveInstance = function (saveOptions, cb) {
+		// what this condition means:
+		// - If the instance is in state mode
+		// - AND it's not an association that is asking it to save
+		//   -&gt; return has already saved
+		if (instance_saving &amp;&amp; saveOptions.saveAssociations !== false) {
+			return cb(null, instance);
+		}
+		instance_saving = true;
+
+		handleValidations(function (err) {
+			if (err) {
+				return saveError(cb, err);
+			}
+
+			if (opts.is_new) {
+				waitHooks([ "beforeCreate", "beforeSave" ], function (err) {
+					if (err) {
+						return saveError(cb, err);
+					}
+
+					return saveNew(saveOptions, getInstanceData(), cb);
+				});
+			} else {
+				waitHooks([ "beforeSave" ], function (err) {
+					if (err) {
+						return saveError(cb, err);
+					}
+
+					return savePersisted(saveOptions, getInstanceData(), cb);
+				});
+			}
+		});
+	};
+	var runAfterSaveActions = function (cb, create, err) {
+		instance_saving = false;
+
+		emitEvent("save", err, instance);
+
+		if (create) {
+			Hook.trigger(instance, opts.hooks.afterCreate, !err);
+		}
+		Hook.trigger(instance, opts.hooks.afterSave, !err);
+
+		cb();
+	};
+	var getInstanceData = function () {
+		var data = {}, prop;
+		for (var k in opts.data) {
+			if (!opts.data.hasOwnProperty(k)) continue;
+			prop = Model.allProperties[k];
+
+			if (prop) {
+				if (opts.data[k] == null &amp;&amp;  (prop.type == 'serial' || typeof prop.defaultValue == 'function')) {
+					continue;
+				}
+
+				if (opts.driver.propertyToValue) {
+					data[k] = opts.driver.propertyToValue(opts.data[k], prop);
+				} else {
+					data[k] = opts.data[k];
+				}
+			} else {
+				data[k] = opts.data[k];
+			}
+		}
+
+		return data;
+	};
+	var waitHooks = function ( ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.orm.LazyLoad" id="apidoc.module.orm.LazyLoad">module orm.LazyLoad</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.orm.LazyLoad.extend" id="apidoc.element.orm.LazyLoad.extend">
+        function <span class="apidocSignatureSpan">orm.LazyLoad.</span>extend
+        <span class="apidocSignatureSpan">(Instance, Model, properties)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">extend = function (Instance, Model, properties) {
+	for (var k in properties) {
+		if (properties[k].lazyload === true) {
+			addLazyLoadProperty(properties[k].lazyname || k, Instance, Model, k);
+		}
+	}
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+			opts.conditions = opts.conditions || {};
+
+			if (typeof _.last(args) === "function") {
+			    cb = args.pop();
+			}
+
+			if (typeof args[0] === "object") {
+				_.<span class="apidocCodeKeywordSpan">extend</span>(opts.conditions, args[0]);
+			} else if (typeof args[0] === "string") {
+				opts.conditions.__sql = opts.conditions.__sql || [];
+				opts.conditions.__sql.push(args);
+			}
+
+			if (cb) {
+				chainRun(cb);
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.orm.Model" id="apidoc.module.orm.Model">module orm.Model</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Model.Model" id="apidoc.element.orm.Model.Model">
+        function <span class="apidocSignatureSpan">orm.</span>Model
+        <span class="apidocSignatureSpan">(opts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Model(opts) {
+	opts = _.defaults(opts || {}, {
+		keys: []
+	});
+	opts.keys = Array.isArray(opts.keys) ? opts.keys : [opts.keys];
+
+	var one_associations       = [];
+	var many_associations      = [];
+	var extend_associations    = [];
+	var association_properties = [];
+	var model_fields           = [];
+	var fieldToPropertyMap     = {};
+	var allProperties          = {};
+	var keyProperties          = [];
+
+	var createHookHelper = function (hook) {
+		return function (cb) {
+			if (typeof cb !== "function") {
+				delete opts.hooks[hook];
+			} else {
+				opts.hooks[hook] = cb;
+			}
+			return this;
+		};
+	};
+	var createInstance = function (data, inst_opts, cb) {
+		if (!inst_opts) {
+			inst_opts = {};
+		}
+
+		var found_assoc = false, i, k;
+
+		for (k in data) {
+			if (k === "extra_field") continue;
+			if (opts.properties.hasOwnProperty(k)) continue;
+			if (inst_opts.extra &amp;&amp; inst_opts.extra.hasOwnProperty(k)) continue;
+			if (opts.keys.indexOf(k) &gt;= 0) continue;
+			if (association_properties.indexOf(k) &gt;= 0) continue;
+
+			for (i = 0; i &lt; one_associations.length; i++) {
+				if (one_associations[i].name === k) {
+					found_assoc = true;
+					break;
+				}
+			}
+			if (!found_assoc) {
+				for (i = 0; i &lt; many_associations.length; i++) {
+					if (many_associations[i].name === k) {
+						found_assoc = true;
+						break;
+					}
+				}
+			}
+			if (!found_assoc) {
+				delete data[k];
+			}
+		}
+
+		var assoc_opts = {
+			autoFetch      : inst_opts.autoFetch || false,
+			autoFetchLimit : inst_opts.autoFetchLimit,
+			cascadeRemove  : inst_opts.cascadeRemove
+		};
+
+		var setupAssociations = function (instance) {
+			OneAssociation.extend(model, instance, opts.driver, one_associations, assoc_opts);
+			ManyAssociation.extend(model, instance, opts.driver, many_associations, assoc_opts, createInstance);
+			ExtendAssociation.extend(model, instance, opts.driver, extend_associations, assoc_opts);
+		};
+
+		var pending  = 2, create_err = null;
+		var instance = new Instance(model, {
+			uid                    : inst_opts.uid, // singleton unique id
+			keys                   : opts.keys,
+			is_new                 : inst_opts.is_new || false,
+			isShell                : inst_opts.isShell || false,
+			data                   : data,
+			autoSave               : inst_opts.autoSave || false,
+			extra                  : inst_opts.extra,
+			extra_info             : inst_opts.extra_info,
+			driver                 : opts.driver,
+			table                  : opts.table,
+			hooks                  : opts.hooks,
+			methods                : opts.methods,
+			validations            : opts.validations,
+			one_associations       : one_associations,
+			many_associations      : many_associations,
+			extend_associations    : extend_associations,
+			association_properties : association_properties,
+			setupAssociations      : setupAssociations,
+			fieldToPropertyMap     : fieldToPropertyMap,
+			keyProperties          : keyProperties
+		});
+		instance.on("ready", function (err) {
+			if (--pending &gt; 0) {
+				create_err = err;
+				return;
+			}
+			if (typeof cb === "function") {
+				return cb(err || create_err, instance);
+			}
+		});
+		if (model_fields !== null) {
+			LazyLoad.extend(instance, model, opts.properties);
+		}
+
+		OneAssociation.autoFetch(instance, one_associations, assoc_opts, function () {
+			ManyAssociation.autoFetch(instance, many_associations, assoc_opts, function () {
+				ExtendAssociation.autoFetch(instance, extend_associations, assoc_opts, function () {
+					Hook.wait(instance, opts.hooks.afterAutoFetch, function (err) {
+						if (--pending &gt; 0) {
+							create_err = err;
+							return;
+						}
+						if (typeof cb === "function") {
+							return cb(err || create_err, instance);
+						}
+					});
+				});
+			});
+		});
+		return instance;
+	};
+
+	var model = function () {
+	    var instance, i;
+
+	    var data = arguments.length &gt; 1 ? arguments : arguments[0];
+
+	    if (Array.isArray(opts.keys) &amp;&amp; Array.isArray(data)) {
+	        if (data.length == opts.keys.length) {
+	            var data2 = {};
+	            for (i = 0; i &lt; opts.keys.length; i++) {
+	                data2[opts.keys[i ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.orm.Promise" id="apidoc.module.orm.Promise">module orm.Promise</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Promise.Promise" id="apidoc.element.orm.Promise.Promise">
+        function <span class="apidocSignatureSpan">orm.</span>Promise
+        <span class="apidocSignatureSpan">(opts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Promise(opts) {
+	opts = opts || {};
+
+	var success_cb = opts.success || null;
+	var fail_cb    = opts.fail    || null;
+
+	return {
+		handle: function (promise) {
+			promise(function (err) {
+				if (err) {
+					if (fail_cb) fail_cb(err);
+				} else {
+					var args = Array.prototype.slice.call(arguments, 1);
+
+					if (success_cb) success_cb.apply(null, args);
+				}
+			});
+		},
+		success: function (cb) {
+			success_cb = cb;
+			return this;
+		},
+		fail: function (cb) {
+			fail_cb = cb;
+			return this;
+		}
+	};
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.orm.Property" id="apidoc.module.orm.Property">module orm.Property</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Property.normalize" id="apidoc.element.orm.Property.normalize">
+        function <span class="apidocSignatureSpan">orm.Property.</span>normalize
+        <span class="apidocSignatureSpan">(opts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">normalize = function (opts) {
+	if (typeof opts.prop === "function") {
+		switch (opts.prop.name) {
+			case "String":
+				opts.prop = { type: "text" };
+				break;
+			case "Number":
+				opts.prop = { type: "number" };
+				break;
+			case "Boolean":
+				opts.prop = { type: "boolean" };
+				break;
+			case "Date":
+				opts.prop = { type: "date" };
+				break;
+			case "Object":
+				opts.prop = { type: "object" };
+				break;
+			case "Buffer":
+				opts.prop = { type: "binary" };
+				break;
+		}
+	} else if (typeof opts.prop === "string") {
+		var tmp = opts.prop;
+		opts.prop = {};
+		opts.prop.type = tmp;
+	} else if (Array.isArray(opts.prop)) {
+		opts.prop = { type: "enum", values: opts.prop };
+	} else {
+		opts.prop = _.cloneDeep(opts.prop);
+	}
+
+	if (KNOWN_TYPES.indexOf(opts.prop.type) === -1 &amp;&amp; !(opts.prop.type in opts.customTypes)) {
+		throw new ORMError("Unknown property type: " + opts.prop.type, 'NO_SUPPORT');
+	}
+
+	if (!opts.prop.hasOwnProperty("required") &amp;&amp; opts.settings.get("properties.required")) {
+		opts.prop.required = true;
+	}
+
+	// Defaults to true. Setting to false hides properties from JSON.stringify(modelInstance).
+	if (!opts.prop.hasOwnProperty("enumerable") || opts.prop.enumerable === true) {
+		opts.prop.enumerable = true;
+	}
+
+	// Defaults to true. Rational means floating point here.
+	if (opts.prop.type == "number" &amp;&amp; opts.prop.rational === undefined) {
+		opts.prop.rational = true;
+	}
+
+	if (!('mapsTo' in opts.prop)) {
+		opts.prop.mapsTo = opts.name
+	}
+
+	if (opts.prop.type == "number" &amp;&amp; opts.prop.rational === false) {
+		opts.prop.type = "integer";
+		delete opts.prop.rational;
+	}
+
+	opts.prop.name = opts.name;
+
+	return opts.prop;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+		}
+	};
+
+	var currFields = {};
+
+	model.addProperty = function (propIn, options) {
+		var cType;
+		var prop = Property.<span class="apidocCodeKeywordSpan">normalize</span>({
+			prop: propIn, name: (options &amp;&amp; options.name || propIn.name),
+			customTypes: opts.db.customTypes, settings: opts.settings
+		});
+
+		// Maintains backwards compatibility
+		if (opts.keys.indexOf(k) != -1) {
+			prop.key = true;
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.orm.Settings" id="apidoc.module.orm.Settings">module orm.Settings</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Settings.Container" id="apidoc.element.orm.Settings.Container">
+        function <span class="apidocSignatureSpan">orm.Settings.</span>Container
+        <span class="apidocSignatureSpan">(settings)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Settings(settings) {
+	this.settings = settings;
+
+	return {
+		set: function (key, value) {
+			set(key, value, settings);
+
+			return this;
+		},
+		get: function (key, def) {
+			var v = get(key, def, settings)
+
+			if (v instanceof Function) {
+				return v;
+			} else {
+				return _.cloneDeep(v);
+			}
+		},
+		unset: function () {
+			for (var i = 0; i &lt; arguments.length; i++) {
+				if (typeof arguments[i] === "string") {
+					unset(arguments[i], settings);
+				}
+			}
+
+			return this;
+		}
+	};
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Settings.defaults" id="apidoc.element.orm.Settings.defaults">
+        function <span class="apidocSignatureSpan">orm.Settings.</span>defaults
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">defaults = function () {
+	return default_settings;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	"afterLoad",
+	"afterAutoFetch"
+];
+
+exports.Model = Model;
+
+function Model(opts) {
+	opts = _.<span class="apidocCodeKeywordSpan">defaults</span>(opts || {}, {
+		keys: []
+	});
+	opts.keys = Array.isArray(opts.keys) ? opts.keys : [opts.keys];
+
+	var one_associations       = [];
+	var many_associations      = [];
+	var extend_associations    = [];
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.orm.Utilities" id="apidoc.module.orm.Utilities">module orm.Utilities</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Utilities.checkConditions" id="apidoc.element.orm.Utilities.checkConditions">
+        function <span class="apidocSignatureSpan">orm.Utilities.</span>checkConditions
+        <span class="apidocSignatureSpan">(conditions, one_associations)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">checkConditions = function (conditions, one_associations) {
+	var k, i, j;
+
+	// A)
+	var associations = {};
+	for (i = 0; i &lt; one_associations.length; i++) {
+		associations[one_associations[i].name] = one_associations[i];
+	}
+
+	for (k in conditions) {
+		// B)
+		if (!associations.hasOwnProperty(k)) continue;
+
+		// C)
+		var values = conditions[k];
+		if (!Array.isArray(values)) values = [values];
+
+		// D)
+		delete conditions[k];
+
+		// E)
+		var association_fields = Object.keys(associations[k].field);
+		var model = associations[k].model;
+
+		// F)
+		for (i = 0; i &lt; values.length; i++) {
+			if (values[i].isInstance &amp;&amp; values[i].model().uid === model.uid) {
+				if (association_fields.length === 1) {
+					if (typeof conditions[association_fields[0]] === 'undefined') {
+						conditions[association_fields[0]] = values[i][model.id[0]];
+					} else if(Array.isArray(conditions[association_fields[0]])) {
+						conditions[association_fields[0]].push(values[i][model.id[0]]);
+					} else {
+						conditions[association_fields[0]] = [conditions[association_fields[0]], values[i][model.id[0]]];
+					}
+				} else {
+					var _conds = {};
+					for (j = 0; j &lt; association_fields.length; i++) {
+						_conds[association_fields[j]] = values[i][model.id[j]];
+					}
+
+					conditions.or = conditions.or || [];
+					conditions.or.push(_conds);
+				}
+			}
+		}
+	}
+
+	return conditions;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+			options.cascadeRemove = opts.cascadeRemove;
+		}
+
+		if (order) {
+			order = Utilities.standardizeOrder(order);
+		}
+		if (conditions) {
+			conditions = Utilities.<span class="apidocCodeKeywordSpan">checkConditions</span>(conditions, one_associations);
+		}
+
+		var chain = new ChainFind(model, {
+			only         : options.only || model_fields,
+			keys         : opts.keys,
+			table        : opts.table,
+			driver       : opts.driver,
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Utilities.convertPropToJoinKeyProp" id="apidoc.element.orm.Utilities.convertPropToJoinKeyProp">
+        function <span class="apidocSignatureSpan">orm.Utilities.</span>convertPropToJoinKeyProp
+        <span class="apidocSignatureSpan">(props, opts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">convertPropToJoinKeyProp = function (props, opts) {
+	var prop;
+
+	for (var k in props) {
+		prop = props[k];
+
+		prop.required = opts.required;
+
+		if (prop.type == 'serial') {
+			prop.type = 'integer';
+		}
+		if (opts.makeKey) {
+			prop.key = true;
+		} else {
+			delete prop.key;
+		}
+	}
+
+	return props;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Utilities.formatField" id="apidoc.element.orm.Utilities.formatField">
+        function <span class="apidocSignatureSpan">orm.Utilities.</span>formatField
+        <span class="apidocSignatureSpan">(model, name, required, reversed)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">formatField = function (model, name, required, reversed) {
+	var fields = {}, field_opts, field_name;
+	var keys = model.id;
+	var assoc_key = model.settings.get("properties.association_key");
+
+	for (var i = 0; i &lt; keys.length; i++) {
+		if (reversed) {
+			field_name = keys[i];
+		} else if (typeof assoc_key === "function") {
+			field_name = assoc_key(name.toLowerCase(), keys[i]);
+		} else {
+			field_name = assoc_key.replace("{name}", name.toLowerCase())
+			                      .replace("{field}", keys[i]);
+		}
+
+		if (model.properties.hasOwnProperty(keys[i])) {
+			var p = model.properties[keys[i]];
+
+			field_opts = {
+				type     : p.type || "integer",
+				size     : p.size || 4,
+				unsigned : p.unsigned || true,
+				time     : p.time || false,
+				big      : p.big || false,
+				values   : p.values || null,
+				required : required,
+				name     : field_name,
+				mapsTo   : field_name
+			};
+		} else {
+			field_opts = {
+				type     : "integer",
+				unsigned : true,
+				size     : 4,
+				required : required,
+				name     : field_name,
+				mapsTo   : field_name
+			};
+		}
+
+		fields[field_name] = field_opts;
+	}
+
+	return fields;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Utilities.getConditions" id="apidoc.element.orm.Utilities.getConditions">
+        function <span class="apidocSignatureSpan">orm.Utilities.</span>getConditions
+        <span class="apidocSignatureSpan">(model, fields, from)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">getConditions = function (model, fields, from) {
+	var conditions = {};
+
+	exports.populateConditions(model, fields, from, conditions);
+
+	return conditions;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Utilities.getRealPath" id="apidoc.element.orm.Utilities.getRealPath">
+        function <span class="apidocSignatureSpan">orm.Utilities.</span>getRealPath
+        <span class="apidocSignatureSpan">(path_str, stack_index)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">getRealPath = function (path_str, stack_index) {
+	var path = require("path"); // for now, load here (only when needed)
+	var cwd = process.cwd();
+	var err = new Error();
+	var tmp = err.stack.split(/\r?\n/)[typeof stack_index !== "undefined" ? stack_index : 3], m;
+
+	if ((m = tmp.match(/^\s*at\s+(.+):\d+:\d+$/)) !== null) {
+		cwd = path.dirname(m[1]);
+	} else if ((m = tmp.match(/^\s*at\s+module\.exports\s+\((.+?)\)/)) !== null) {
+		cwd = path.dirname(m[1]);
+	} else if ((m = tmp.match(/^\s*at\s+.+\s+\((.+):\d+:\d+\)$/)) !== null) {
+		cwd = path.dirname(m[1]);
+	}
+	var pathIsAbsolute = path.isAbsolute || require('path-is-absolute');
+	if (!pathIsAbsolute(path_str)) {
+		path_str = path.join(cwd, path_str);
+	}
+	if (path_str.substr(-1) === path.sep) {
+		path_str += "index";
+	}
+
+	return path_str;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Utilities.hasValues" id="apidoc.element.orm.Utilities.hasValues">
+        function <span class="apidocSignatureSpan">orm.Utilities.</span>hasValues
+        <span class="apidocSignatureSpan">(obj, keys)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">hasValues = function (obj, keys) {
+	for (var i = 0; i &lt; keys.length; i++) {
+		if (!obj[keys[i]] &amp;&amp; obj[keys[i]] !== 0) return false;  // 0 is also a good value...
+	}
+	return true;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Utilities.populateConditions" id="apidoc.element.orm.Utilities.populateConditions">
+        function <span class="apidocSignatureSpan">orm.Utilities.</span>populateConditions
+        <span class="apidocSignatureSpan">(model, fields, source, target, overwrite)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">populateConditions = function (model, fields, source, target, overwrite) {
+	for (var i = 0; i &lt; model.id.length; i++) {
+		if (typeof target[fields[i]] === 'undefined' || overwrite !== false) {
+			target[fields[i]] = source[model.id[i]];
+		} else if (Array.isArray(target[fields[i]])) {
+			target[fields[i]].push(source[model.id[i]]);
+		} else {
+			target[fields[i]] = [target[fields[i]], source[model.id[i]]];
+		}
+	}
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+		}
+	}
+};
+
+exports.getConditions = function (model, fields, from) {
+	var conditions = {};
+
+	exports.<span class="apidocCodeKeywordSpan">populateConditions</span>(model, fields, from, conditions);
+
+	return conditions;
+};
+
+exports.wrapFieldObject = function (params) {
+	if (!params.field) {
+		var assoc_key = params.model.settings.get("properties.association_key");
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Utilities.renameDatastoreFieldsToPropertyNames" id="apidoc.element.orm.Utilities.renameDatastoreFieldsToPropertyNames">
+        function <span class="apidocSignatureSpan">orm.Utilities.</span>renameDatastoreFieldsToPropertyNames
+        <span class="apidocSignatureSpan">(data, fieldToPropertyMap)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">renameDatastoreFieldsToPropertyNames = function (data, fieldToPropertyMap) {
+	var k, prop;
+
+	for (k in data) {
+		prop = fieldToPropertyMap[k];
+		if (prop &amp;&amp; prop.name != k) {
+			data[prop.name] = data[k];
+			delete data[k];
+		}
+	}
+	return data;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+			if (err) {
+				return cb(new ORMError(err.message, 'QUERY_ERROR', { originalCode: err.code }));
+			}
+			if (data.length === 0) {
+				return cb(new ORMError("Not found", 'NOT_FOUND', { model: opts.table }));
+			}
+
+			Utilities.<span class="apidocCodeKeywordSpan">renameDatastoreFieldsToPropertyNames</span>(data[0], fieldToPropertyMap);
+
+			var uid = opts.driver.uid + "/" + opts.table + "/" + ids.join("/");
+
+			Singleton.get(uid, {
+				identityCache : (options.hasOwnProperty("identityCache") ? options.identityCache : opts.identityCache),
+				saveCheck     : opts.settings.get("instance.identityCacheSaveCheck")
+			}, function (cb) {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Utilities.standardizeOrder" id="apidoc.element.orm.Utilities.standardizeOrder">
+        function <span class="apidocSignatureSpan">orm.Utilities.</span>standardizeOrder
+        <span class="apidocSignatureSpan">(order)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">standardizeOrder = function (order) {
+	if (typeof order === "string") {
+		if (order[0] === "-") {
+			return [ [ order.substr(1), "Z" ] ];
+		}
+		return [ [ order, "A" ] ];
+	}
+
+	var new_order = [], minus;
+
+	for (var i = 0; i &lt; order.length; i++) {
+		minus = (order[i][0] === "-");
+
+		if (i &lt; order.length - 1 &amp;&amp; [ "A", "Z" ].indexOf(order[i + 1].toUpperCase()) &gt;= 0) {
+			new_order.push([
+				(minus ? order[i].substr(1) : order[i]),
+				order[i + 1]
+			]);
+			i += 1;
+		} else if (minus) {
+			new_order.push([ order[i].substr(1), "Z" ]);
+		} else {
+			new_order.push([ order[i], "A" ]);
+		}
+	}
+
+	return new_order;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+				opts.limit = [ offset, limit ];
+			} else {
+				opts.limit = [ 0, offset ]; // offset = limit
+			}
+			return this;
+		},
+		order: function () {
+			opts.order = Utilities.<span class="apidocCodeKeywordSpan">standardizeOrder</span>(Array.prototype.slice.apply(arguments));
+			return this;
+		},
+		select: function () {
+			if (arguments.length === 0) {
+				throw new ORMError('PARAM_MISMATCH', "When using append you must at least define one property");
+			}
+			if (Array.isArray(arguments[0])) {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Utilities.transformOrderPropertyNames" id="apidoc.element.orm.Utilities.transformOrderPropertyNames">
+        function <span class="apidocSignatureSpan">orm.Utilities.</span>transformOrderPropertyNames
+        <span class="apidocSignatureSpan">(order, properties)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">transformOrderPropertyNames = function (order, properties) {
+	if (!order) return order;
+
+	var i, item;
+	var newOrder = JSON.parse(JSON.stringify(order));
+
+	// Rename order properties according to mapsTo
+	for (var i = 0; i &lt; newOrder.length; i++) {
+		item = newOrder[i];
+
+		// orderRaw
+		if (Array.isArray(item[1])) continue;
+
+		if (Array.isArray(item[0])) {
+			// order on a hasMany
+			// [ ['modelName', 'propName'], 'Z']
+			item[0][1] = properties[item[0][1]].mapsTo;
+		} else {
+			// normal order
+			item[0] = properties[item[0]].mapsTo;
+		}
+	}
+	return newOrder;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	var prepareConditions = function () {
+		return Utilities.transformPropertyNames(
+			opts.conditions, opts.properties
+		);
+	};
+
+	var prepareOrder = function () {
+		return Utilities.<span class="apidocCodeKeywordSpan">transformOrderPropertyNames</span>(
+			opts.order, opts.properties
+		);
+	};
+
+	var chainRun = function (done) {
+		var order, conditions;
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Utilities.transformPropertyNames" id="apidoc.element.orm.Utilities.transformPropertyNames">
+        function <span class="apidocSignatureSpan">orm.Utilities.</span>transformPropertyNames
+        <span class="apidocSignatureSpan">(dataIn, properties)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">transformPropertyNames = function (dataIn, properties) {
+	var k, prop;
+	var dataOut = {};
+
+	for (k in dataIn) {
+		prop = properties[k];
+		if (prop) {
+			dataOut[prop.mapsTo] = dataIn[k];
+		} else {
+			dataOut[k] = dataIn[k];
+		}
+	}
+	return dataOut;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+var ChainInstance = require("./ChainInstance");
+var Promise       = require("./Promise").Promise;
+
+module.exports = ChainFind;
+
+function ChainFind(Model, opts) {
+	var prepareConditions = function () {
+		return Utilities.<span class="apidocCodeKeywordSpan">transformPropertyNames</span>(
+			opts.conditions, opts.properties
+		);
+	};
+
+	var prepareOrder = function () {
+		return Utilities.transformOrderPropertyNames(
+			opts.order, opts.properties
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Utilities.values" id="apidoc.element.orm.Utilities.values">
+        function <span class="apidocSignatureSpan">orm.Utilities.</span>values
+        <span class="apidocSignatureSpan">(obj, keys)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">values = function (obj, keys) {
+	var i, k, vals = [];
+
+	if (keys) {
+		for (i = 0; i &lt; keys.length; i++) {
+			vals.push(obj[keys[i]]);
+		}
+	} else if (Array.isArray(obj)) {
+		for (i = 0; i &lt; obj.length; i++) {
+			vals.push(obj[i]);
+		}
+	} else {
+		for (k in obj) {
+			if (!/[0-9]+/.test(k)) {
+				vals.push(obj[k]);
+			}
+		}
+	}
+	return vals;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.Utilities.wrapFieldObject" id="apidoc.element.orm.Utilities.wrapFieldObject">
+        function <span class="apidocSignatureSpan">orm.Utilities.</span>wrapFieldObject
+        <span class="apidocSignatureSpan">(params)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">wrapFieldObject = function (params) {
+	if (!params.field) {
+		var assoc_key = params.model.settings.get("properties.association_key");
+
+		if (typeof assoc_key === "function") {
+		    params.field = assoc_key(params.altName.toLowerCase(), params.model.id[0]);
+		} else {
+			params.field = assoc_key.replace("{name}", params.altName.toLowerCase())
+			               .replace("{field}", params.model.id[0]);
+		}
+	}
+
+	if (typeof params.field == 'object') {
+		for (var k in params.field) {
+			if (!/[0-9]+/.test(k) &amp;&amp; params.field.hasOwnProperty(k)) {
+				return params.field;
+			}
+		}
+	}
+
+	var newObj = {}, newProp, propPreDefined, propFromKey;
+
+	propPreDefined = params.model.properties[params.field];
+	propFromKey    = params.model.properties[params.model.id[0]];
+	newProp        = { type: 'integer' };
+
+	var prop = _.cloneDeep(propPreDefined || propFromKey || newProp);
+
+	if (!propPreDefined) {
+		_.extend(prop, {
+			name: params.field, mapsTo: params.mapsTo || params.field
+		});
+	}
+
+	newObj[params.field] = prop;
+
+	return newObj;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.orm.enforce" id="apidoc.module.orm.enforce">module orm.enforce</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.Enforce" id="apidoc.element.orm.enforce.Enforce">
+        function <span class="apidocSignatureSpan">orm.enforce.</span>Enforce
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Enforce(options) {
+    this.validations = {};
+    this.contexts = {};
+    this.options = {
+        returnAllErrors: options &amp;&amp; !!options.returnAllErrors
+    };
+
+    return this;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+		Hook.wait(instance, opts.hooks.beforeValidation, function (err) {
+		    var k, i;
+			if (err) {
+				return saveError(cb, err);
+			}
+
+			var checks = new enforce.<span class="apidocCodeKeywordSpan">Enforce</span>({
+				returnAllErrors : Model.settings.get("instance.returnAllErrors")
+			});
+
+			for (k in opts.validations) {
+				required = false;
+
+				if (Model.allProperties[k]) {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.Validator" id="apidoc.element.orm.enforce.Validator">
+        function <span class="apidocSignatureSpan">orm.enforce.</span>Validator
+        <span class="apidocSignatureSpan">(validate)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Validator(validate) {
+    this.validator = validate;
+    return this;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.equalToProperty" id="apidoc.element.orm.enforce.equalToProperty">
+        function <span class="apidocSignatureSpan">orm.enforce.</span>equalToProperty
+        <span class="apidocSignatureSpan">(name, msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">equalToProperty = function (name, msg) {
+	return function (v, next) {
+		if (v === this[name]) {
+			return next();
+		}
+		return next(msg || 'not-equal-to-property');
+	};
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.notEmptyString" id="apidoc.element.orm.enforce.notEmptyString">
+        function <span class="apidocSignatureSpan">orm.enforce.</span>notEmptyString
+        <span class="apidocSignatureSpan">(message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function notEmptyString(message) {
+    if (typeof message === "undefined") { message = 'empty-string'; }
+
+    return Ranges.length(1, undefined, message);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.required" id="apidoc.element.orm.enforce.required">
+        function <span class="apidocSignatureSpan">orm.enforce.</span>required
+        <span class="apidocSignatureSpan">(message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function required(message) {
+    if (typeof message === "undefined") { message = 'required'; }
+
+    return new Validator(function (value, next) {
+        if (value === null || value === undefined) {
+            return next(message);
+        }
+
+        return next();
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+				break;
+		}
+
+		allProperties[prop.name]        = prop;
+		fieldToPropertyMap[prop.mapsTo] = prop;
+
+		if (prop.required) {
+			model.prependValidation(prop.name, Validators.<span class="apidocCodeKeywordSpan">required</span>());
+		}
+
+		if (prop.key &amp;&amp; prop.klass == 'primary') {
+			keyProperties.push(prop);
+		}
+
+		if (prop.lazyload !== true &amp;&amp; !currFields[prop.name]) {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.sameAs" id="apidoc.element.orm.enforce.sameAs">
+        function <span class="apidocSignatureSpan">orm.enforce.</span>sameAs
+        <span class="apidocSignatureSpan">(property, message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function sameAs(property, message) {
+	if (typeof message === "undefined") { message = 'not-same-as'; }
+
+	return new Validator(function (value, next) {
+		if (value !== this[property]) {
+			return next(message);
+		}
+
+		return next();
+	});
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.unique" id="apidoc.element.orm.enforce.unique">
+        function <span class="apidocSignatureSpan">orm.enforce.</span>unique
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">unique = function () {
+	var arg, k;
+	var msg = null, opts = {};
+
+	for (k in arguments) {
+		arg = arguments[k];
+		if (typeof arg === "string") {
+			msg = arg;
+		} else if (typeof arg === "object") {
+			opts = arg;
+		}
+	}
+
+	return function (v, next, ctx) {
+		var s, scopeProp;
+
+		if (typeof v === "undefined" || v === null) {
+			return next();
+		}
+
+		//Cannot process on database engines which don't support SQL syntax
+		if (!ctx.driver.isSql) {
+			return next('not-supported');
+		}
+
+		var chain = ctx.model.find();
+
+		var chainQuery = function (prop, value) {
+			var query = null;
+
+			if (opts.ignoreCase === true &amp;&amp; ctx.model.properties[prop] &amp;&amp; ctx.model.properties[prop].type === 'text') {
+				query = util.format('LOWER(%s.%s) LIKE LOWER(?)',
+					ctx.driver.query.escapeId(ctx.model.table), ctx.driver.query.escapeId(prop)
+				);
+				chain.where(query, [value]);
+			} else {
+				query = {};
+				query[prop] = value;
+				chain.where(query);
+			}
+		};
+
+		var handler = function (err, records) {
+			if (err) {
+				return next();
+			}
+			if (!records || records.length === 0) {
+				return next();
+			}
+			if (records.length === 1 &amp;&amp; records[0][ctx.model.id] === this[ctx.model.id]) {
+				return next();
+			}
+			return next(msg || 'not-unique');
+		}.bind(this);
+
+		chainQuery(ctx.property, v);
+
+		if (opts.scope) {
+			for (s in opts.scope) {
+				scopeProp = opts.scope[s];
+
+				// In SQL unique index land, NULL values are not considered equal.
+				if (typeof ctx.instance[scopeProp] == 'undefined' || ctx.instance[scopeProp] === null) {
+					return next();
+				}
+
+				chainQuery(scopeProp, ctx.instance[scopeProp]);
+			}
+		}
+
+		chain.all(handler);
+	};
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.orm.enforce.Enforce" id="apidoc.module.orm.enforce.Enforce">module orm.enforce.Enforce</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.Enforce.Enforce" id="apidoc.element.orm.enforce.Enforce.Enforce">
+        function <span class="apidocSignatureSpan">orm.enforce.</span>Enforce
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Enforce(options) {
+    this.validations = {};
+    this.contexts = {};
+    this.options = {
+        returnAllErrors: options &amp;&amp; !!options.returnAllErrors
+    };
+
+    return this;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+		Hook.wait(instance, opts.hooks.beforeValidation, function (err) {
+		    var k, i;
+			if (err) {
+				return saveError(cb, err);
+			}
+
+			var checks = new enforce.<span class="apidocCodeKeywordSpan">Enforce</span>({
+				returnAllErrors : Model.settings.get("instance.returnAllErrors")
+			});
+
+			for (k in opts.validations) {
+				required = false;
+
+				if (Model.allProperties[k]) {
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.orm.enforce.Enforce.prototype" id="apidoc.module.orm.enforce.Enforce.prototype">module orm.enforce.Enforce.prototype</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.Enforce.prototype.add" id="apidoc.element.orm.enforce.Enforce.prototype.add">
+        function <span class="apidocSignatureSpan">orm.enforce.Enforce.prototype.</span>add
+        <span class="apidocSignatureSpan">(property, validator)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">add = function (property, validator) {
+    if (typeof validator === 'function' &amp;&amp; validator.length &gt;= 2) {
+        validator = new Validator(validator);
+    }
+
+    if (validator.validate === undefined) {
+        throw new Error('Missing validator (function) in Enforce.add(property, validator)');
+    }
+
+    if (!this.validations.hasOwnProperty(property))
+        this.validations[property] = [];
+
+    this.validations[property].push(validator);
+    return this;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+						}
+					}
+				}
+				if (!alwaysValidate &amp;&amp; !required &amp;&amp; instance[k] == null) {
+					continue; // avoid validating if property is not required and is "empty"
+				}
+				for (i = 0; i &lt; opts.validations[k].length; i++) {
+					checks.<span class="apidocCodeKeywordSpan">add</span>(k, opts.validations[k][i]);
+				}
+			}
+
+			checks.context("instance", instance);
+			checks.context("model", Model);
+			checks.context("driver", opts.driver);
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.Enforce.prototype.check" id="apidoc.element.orm.enforce.Enforce.prototype.check">
+        function <span class="apidocSignatureSpan">orm.enforce.Enforce.prototype.</span>check
+        <span class="apidocSignatureSpan">(data, cb)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">check = function (data, cb) {
+    var _this = this;
+    var validations = [];
+
+    var errors = [];
+    var next = function () {
+        if (validations.length === 0) {
+            if (errors.length &gt; 0)
+                return cb(errors);
+else
+                return cb(null);
+        }
+
+        var validation = validations.shift();
+        _this.contexts.property = validation.property;
+
+        validation.validator.validate(data[validation.property], function (message) {
+            if (message) {
+                var err = new Error(message);
+                err.property = validation.property;
+                err.value = data[validation.property];
+                err.msg = message;
+                err.type = "validation";
+
+                if (!this.options.returnAllErrors)
+                    return cb(err);
+                errors.push(err);
+            }
+
+            return next();
+        }.bind(_this), data, _this.contexts);
+    };
+
+    for (var k in this.validations) {
+        for (var i = 0; i &lt; this.validations[k].length; i++) {
+            validations.push({
+                property: k,
+                validator: this.validations[k][i]
+            });
+        }
+    }
+
+    return next();
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+				}
+			}
+
+			checks.context("instance", instance);
+			checks.context("model", Model);
+			checks.context("driver", opts.driver);
+
+			return checks.<span class="apidocCodeKeywordSpan">check</span>(instance, cb);
+		});
+	};
+	var saveError = function (cb, err) {
+		instance_saving = false;
+
+		emitEvent("save", err, instance);
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.Enforce.prototype.clear" id="apidoc.element.orm.enforce.Enforce.prototype.clear">
+        function <span class="apidocSignatureSpan">orm.enforce.Enforce.prototype.</span>clear
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">clear = function () {
+    this.validations = {};
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+			done(null, single ? items[0] : items);
+		});
+
+		return this;
+	};
+
+	model.clear = function (cb) {
+		opts.driver.<span class="apidocCodeKeywordSpan">clear</span>(opts.table, function (err) {
+			if (typeof cb === "function") cb(err);
+		});
+
+		return this;
+	};
+
+	model.prependValidation = function (key, validation) {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.Enforce.prototype.context" id="apidoc.element.orm.enforce.Enforce.prototype.context">
+        function <span class="apidocSignatureSpan">orm.enforce.Enforce.prototype.</span>context
+        <span class="apidocSignatureSpan">(name, value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">context = function (name, value) {
+    if (name &amp;&amp; value) {
+        this.contexts[name] = value;
+        return this;
+    } else if (name)
+        return this.contexts[name];
+else
+        return this.contexts;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+					continue; // avoid validating if property is not required and is "empty"
+				}
+				for (i = 0; i &lt; opts.validations[k].length; i++) {
+					checks.add(k, opts.validations[k][i]);
+				}
+			}
+
+			checks.<span class="apidocCodeKeywordSpan">context</span>("instance", instance);
+			checks.context("model", Model);
+			checks.context("driver", opts.driver);
+
+			return checks.check(instance, cb);
+		});
+	};
+	var saveError = function (cb, err) {
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.orm.enforce.Validator" id="apidoc.module.orm.enforce.Validator">module orm.enforce.Validator</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.Validator.Validator" id="apidoc.element.orm.enforce.Validator.Validator">
+        function <span class="apidocSignatureSpan">orm.enforce.</span>Validator
+        <span class="apidocSignatureSpan">(validate)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Validator(validate) {
+    this.validator = validate;
+    return this;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.orm.enforce.Validator.prototype" id="apidoc.module.orm.enforce.Validator.prototype">module orm.enforce.Validator.prototype</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.Validator.prototype.ifDefined" id="apidoc.element.orm.enforce.Validator.prototype.ifDefined">
+        function <span class="apidocSignatureSpan">orm.enforce.Validator.prototype.</span>ifDefined
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">ifDefined = function () {
+    var _this = this;
+    return new Validator(function (value, next, contexts) {
+        if (value === undefined || value === null)
+            return next();
+        return _this.validator(value, next, contexts);
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.Validator.prototype.ifNotEmptyString" id="apidoc.element.orm.enforce.Validator.prototype.ifNotEmptyString">
+        function <span class="apidocSignatureSpan">orm.enforce.Validator.prototype.</span>ifNotEmptyString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">ifNotEmptyString = function () {
+    var _this = this;
+    return new Validator(function (value, next, contexts) {
+        if (value === undefined || value === null)
+            return next();
+        if (typeof value !== 'string')
+            return next();
+        if (value.length === 0)
+            return next();
+        return _this.validator(value, next, contexts);
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.Validator.prototype.ifNotType" id="apidoc.element.orm.enforce.Validator.prototype.ifNotType">
+        function <span class="apidocSignatureSpan">orm.enforce.Validator.prototype.</span>ifNotType
+        <span class="apidocSignatureSpan">(type)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">ifNotType = function (type) {
+    var _this = this;
+    return new Validator(function (value, next, contexts) {
+        if (typeof value != type)
+            return _this.validator(value, next, contexts);
+        return next();
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.Validator.prototype.ifType" id="apidoc.element.orm.enforce.Validator.prototype.ifType">
+        function <span class="apidocSignatureSpan">orm.enforce.Validator.prototype.</span>ifType
+        <span class="apidocSignatureSpan">(type)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">ifType = function (type) {
+    var _this = this;
+    return new Validator(function (value, next, contexts) {
+        if (typeof value != type)
+            return next();
+        return _this.validator(value, next, contexts);
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.Validator.prototype.validate" id="apidoc.element.orm.enforce.Validator.prototype.validate">
+        function <span class="apidocSignatureSpan">orm.enforce.Validator.prototype.</span>validate
+        <span class="apidocSignatureSpan">(data, next, thisArg, contexts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">validate = function (data, next, thisArg, contexts) {
+    if (typeof contexts === "undefined") { contexts = {}; }
+    this.validator.apply(thisArg, [data, next, contexts]);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.orm.enforce.lists" id="apidoc.module.orm.enforce.lists">module orm.enforce.lists</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.lists.inside" id="apidoc.element.orm.enforce.lists.inside">
+        function <span class="apidocSignatureSpan">orm.enforce.lists.</span>inside
+        <span class="apidocSignatureSpan">(list, message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function inside(list, message) {
+    if (typeof message === "undefined") { message = 'outside-list'; }
+    return new Validator(function (value, next) {
+        if (list.indexOf(value) &gt;= 0)
+            return next();
+        return next(message);
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.lists.outside" id="apidoc.element.orm.enforce.lists.outside">
+        function <span class="apidocSignatureSpan">orm.enforce.lists.</span>outside
+        <span class="apidocSignatureSpan">(list, message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function outside(list, message) {
+    if (typeof message === "undefined") { message = 'inside-list'; }
+    return new Validator(function (value, next) {
+        if (list.indexOf(value) === -1)
+            return next();
+        return next(message);
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.orm.enforce.patterns" id="apidoc.module.orm.enforce.patterns">module orm.enforce.patterns</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.patterns.email" id="apidoc.element.orm.enforce.patterns.email">
+        function <span class="apidocSignatureSpan">orm.enforce.patterns.</span>email
+        <span class="apidocSignatureSpan">(message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function email(message) {
+    if (typeof message === "undefined") { message = 'not-valid-email'; }
+    return exports.match("^[a-z0-9\\._%\\+\\-]+@[a-z0-9\\.\\-]+\\.[a-z]{2,63}$", "i", message);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.patterns.hexString" id="apidoc.element.orm.enforce.patterns.hexString">
+        function <span class="apidocSignatureSpan">orm.enforce.patterns.</span>hexString
+        <span class="apidocSignatureSpan">(message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function hexString(message) {
+    if (typeof message === "undefined") { message = 'not-hex-string'; }
+    return exports.match("^[a-f0-9]+$", "i", message);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.patterns.ipv4" id="apidoc.element.orm.enforce.patterns.ipv4">
+        function <span class="apidocSignatureSpan">orm.enforce.patterns.</span>ipv4
+        <span class="apidocSignatureSpan">(message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function ipv4(message) {
+    if (typeof message === "undefined") { message = 'not-valid-ipv4'; }
+    var p1 = "([1-9]|1[0-9][0-9]?|2[0-4][0-9]|25[0-4])";
+    var p2 = "([0-9]|1[0-9][0-9]?|2[0-4][0-9]|25[0-4])";
+    return exports.match("^" + [p1, p2, p2, p1].join("\\.") + "$", "", message);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.patterns.ipv6" id="apidoc.element.orm.enforce.patterns.ipv6">
+        function <span class="apidocSignatureSpan">orm.enforce.patterns.</span>ipv6
+        <span class="apidocSignatureSpan">(message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function ipv6(message) {
+    if (typeof message === "undefined") { message = 'not-valid-ipv6'; }
+
+    var p1 = new RegExp("^([a-f0-9]{1,4}:){7}[a-f0-9]{1,4}$", "i");
+    var p2 = new RegExp("^([a-f0-9]{1,4}:)*[a-f0-9]{1,4}$", "i");
+
+    return new Validator(function (value, next) {
+        if (typeof value != "string") {
+            return next(message);
+        }
+        // unspecified / loopback
+        if ([ "::", "::1" ].indexOf(value) &gt;= 0) {
+            return next();
+        }
+        // normal address (with possible leading zeroes omitted)
+        if (value.match(p1)) {
+            return next();
+        }
+        if (value.indexOf("::") == -1) {
+            return next(message);
+        }
+        // grouping zeroes
+        var g = value.split("::");
+
+        if (g.length != 2) {
+            return next(message);
+        }
+        if (!g[0].match(p2) || !g[1].match(p2)) {
+            return next(message);
+        }
+        return next();
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.patterns.mac" id="apidoc.element.orm.enforce.patterns.mac">
+        function <span class="apidocSignatureSpan">orm.enforce.patterns.</span>mac
+        <span class="apidocSignatureSpan">(message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function mac(message) {
+    if (typeof message === "undefined") { message = 'not-valid-mac'; }
+    var p = "[0-9a-f]{1,2}";
+    var s = "[\\.:]";
+    return exports.match("^" + [p,p,p,p,p,p].join(s) + "$", "i", message);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.patterns.match" id="apidoc.element.orm.enforce.patterns.match">
+        function <span class="apidocSignatureSpan">orm.enforce.patterns.</span>match
+        <span class="apidocSignatureSpan">(pattern, modifiers, message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function match(pattern, modifiers, message) {
+    if (typeof modifiers === "undefined") { modifiers = 'i'; }
+    if (typeof message === "undefined") { message = 'no-pattern-match'; }
+    if (arguments.length == 2) {
+        message = modifiers;
+        modifiers = 'i';
+    }
+
+    if (typeof pattern === 'string') {
+        pattern = new RegExp(pattern, modifiers);
+    }
+
+    return new Validator(function (value, next) {
+        if (typeof value === 'string' &amp;&amp; value.match(pattern))
+            return next();
+        return next(message);
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+exports.getRealPath = function (path_str, stack_index) {
+	var path = require("path"); // for now, load here (only when needed)
+	var cwd = process.cwd();
+	var err = new Error();
+	var tmp = err.stack.split(/\r?\n/)[typeof stack_index !== "undefined" ? stack_index : 3], m;
+
+	if ((m = tmp.<span class="apidocCodeKeywordSpan">match</span>(/^\s*at\s+(.+):\d+:\d+$/)) !== null) {
+		cwd = path.dirname(m[1]);
+	} else if ((m = tmp.match(/^\s*at\s+module\.exports\s+\((.+?)\)/)) !== null) {
+		cwd = path.dirname(m[1]);
+	} else if ((m = tmp.match(/^\s*at\s+.+\s+\((.+):\d+:\d+\)$/)) !== null) {
+		cwd = path.dirname(m[1]);
+	}
+	var pathIsAbsolute = path.isAbsolute || require('path-is-absolute');
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.patterns.uuid3" id="apidoc.element.orm.enforce.patterns.uuid3">
+        function <span class="apidocSignatureSpan">orm.enforce.patterns.</span>uuid3
+        <span class="apidocSignatureSpan">(message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function uuid3(message) {
+    if (typeof message === "undefined") { message = 'not-valid-uuid3'; }
+    return exports.match("^[a-f0-9]{8}\-[a-f0-9]{4}\-3[a-f0-9]{3}\-[89ab][a-f0-9]{3}\-[a-f0-9]{12}$", "i", message);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.patterns.uuid4" id="apidoc.element.orm.enforce.patterns.uuid4">
+        function <span class="apidocSignatureSpan">orm.enforce.patterns.</span>uuid4
+        <span class="apidocSignatureSpan">(message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function uuid4(message) {
+    if (typeof message === "undefined") { message = 'not-valid-uuid4'; }
+    return exports.match("^[a-f0-9]{8}\-[a-f0-9]{4}\-4[a-f0-9]{3}\-[89ab][a-f0-9]{3}\-[a-f0-9]{12}$", "i", message);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.orm.enforce.ranges" id="apidoc.module.orm.enforce.ranges">module orm.enforce.ranges</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.ranges.length" id="apidoc.element.orm.enforce.ranges.length">
+        function <span class="apidocSignatureSpan">orm.enforce.ranges.</span>length
+        <span class="apidocSignatureSpan">(min, max, message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function length(min, max, message) {
+    if (typeof message === "undefined") { message = 'out-of-range-length'; }
+    return new Validator(function (value, next) {
+        if (value === undefined || value === null)
+            return next('undefined');
+        if (min === undefined &amp;&amp; value.length &lt;= max)
+            return next();
+        if (max === undefined &amp;&amp; value.length &gt;= min)
+            return next();
+        if (value.length &gt;= min &amp;&amp; value.length &lt;= max)
+            return next();
+        return next(message);
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.ranges.number" id="apidoc.element.orm.enforce.ranges.number">
+        function <span class="apidocSignatureSpan">orm.enforce.ranges.</span>number
+        <span class="apidocSignatureSpan">(min, max, message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function number(min, max, message) {
+    if (typeof message === "undefined") { message = 'out-of-range-number'; }
+    return new Validator(function (value, next) {
+        if (value === undefined || value === null)
+            return next('undefined');
+        if (min === undefined &amp;&amp; value &lt;= max)
+            return next();
+        if (max === undefined &amp;&amp; value &gt;= min)
+            return next();
+        if (value &gt;= min &amp;&amp; value &lt;= max)
+            return next();
+        return next(message);
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	}, {
+		methods: {
+			fullName: function () {
+				return this.name + ' ' + this.surname;
+			}
+		},
+		validations: {
+			age: orm.enforce.ranges.<span class="apidocCodeKeywordSpan">number</span>(18, undefined, "under-age")
+		}
+	});
+
+    // add the table to the database
+	db.sync(function(err) {
+		if (err) throw err;
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.orm.enforce.security" id="apidoc.module.orm.enforce.security">module orm.enforce.security</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.security.creditcard" id="apidoc.element.orm.enforce.security.creditcard">
+        function <span class="apidocSignatureSpan">orm.enforce.security.</span>creditcard
+        <span class="apidocSignatureSpan">(types, message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function creditcard(types, message) {
+    if (typeof types === "undefined") { types = ["amex", "visa", "maestro", "discover", "mastercard"]; }
+    if (typeof message === "undefined") { message = 'not-valid-creditcard'; }
+    return new Validator(function (v, next) {
+        if (!v)
+            return next(message);
+
+        v = "" + v;
+
+        var ok = false;
+
+        for (var i = 0; i &lt; types.length; i++) {
+            switch (types[i]) {
+                case "amex":
+                    if (v.length != 15)
+                        break;
+
+                    ok = (creditcard_prefixes["amex"].indexOf(v.substr(0, 2)) &gt;= 0);
+                    break;
+                case "visa":
+                    if (v.length &lt; 13)
+                        break;
+                    if (v.length &gt; 16)
+                        break;
+
+                    ok = (v[0] == "4");
+                    break;
+                case "maestro":
+                    if (v.length &lt; 16)
+                        break;
+                    if (v.length &gt; 19)
+                        break;
+
+                    ok = (creditcard_prefixes["maestro"].indexOf(v.substr(0, 4)) &gt;= 0);
+                    break;
+                case "mastercard":
+                    if (v.length &lt; 16)
+                        break;
+                    if (v.length &gt; 19)
+                        break;
+
+                    ok = (creditcard_prefixes["mastercard"].indexOf(v.substr(0, 2)) &gt;= 0);
+                    break;
+                case "discover":
+                    if (v.length != 16)
+                        break;
+
+                    ok = (creditcard_prefixes["discover4"].indexOf(v.substr(0, 4)) &gt;= 0) || (creditcard_prefixes["discover3"].indexOf
+(v.substr(0, 3)) &gt;= 0) || (creditcard_prefixes["discover2"].indexOf(v.substr(0, 2)) &gt;= 0);
+
+                    if (!ok) {
+                        var prefix = +v.substr(0, 6);
+
+                        ok = (!isNaN(prefix) &amp;&amp; prefix &gt;= 622126 &amp;&amp; prefix &lt;= 622925);
+                    }
+                    break;
+                case "luhn":
+                    // fallback
+                    ok = true;
+                    break;
+            }
+            if (ok)
+                break;
+        }
+
+        if (!ok) {
+            return next(message);
+        }
+
+        // it's in one of possible types, let's check Luhn
+        var check = +v[v.length - 1];
+
+        if (isNaN(check)) {
+            return next(message);
+        }
+
+        var digits = v.slice(0, v.length - 1).split('');
+        digits.reverse();
+
+        for (var i = 0; i &lt; digits.length; i++) {
+            digits[i] = +digits[i];
+            if (isNaN(digits[i])) {
+                return next(message);
+            }
+
+            if (i % 2 === 0) {
+                digits[i] *= 2;
+                if (digits[i] &gt; 9) {
+                    digits[i] -= 9;
+                }
+            }
+        }
+
+        check += digits.reduce(function (a, b) {
+            return a + b;
+        });
+
+        return next(check % 10 !== 0 ? message : null);
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.security.password" id="apidoc.element.orm.enforce.security.password">
+        function <span class="apidocSignatureSpan">orm.enforce.security.</span>password
+        <span class="apidocSignatureSpan">(checks, message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function password(checks, message) {
+    if (!message) {
+        message = checks;
+        checks = "luns6";
+    }
+
+    if (!message) {
+        message = "weak-password";
+    }
+
+    var m = checks.match(/([0-9]+)/);
+    var min_len = (m ? parseInt(m[1], 10) : null);
+
+    return new Validator(function (value, next) {
+        if (!value)
+            return next(message);
+
+        if (checks.indexOf("l") &gt;= 0 &amp;&amp; !value.match(/[a-z]/))
+            return next(message);
+        if (checks.indexOf("u") &gt;= 0 &amp;&amp; !value.match(/[A-Z]/))
+            return next(message);
+        if (checks.indexOf("n") &gt;= 0 &amp;&amp; !value.match(/[0-9]/))
+            return next(message);
+        if (checks.indexOf("s") &gt;= 0 &amp;&amp; !value.match(/[^a-zA-Z0-9]/))
+            return next(message);
+        if (min_len !== null &amp;&amp; min_len &gt; value.length)
+            return next(message);
+
+        return next();
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.enforce.security.username" id="apidoc.element.orm.enforce.security.username">
+        function <span class="apidocSignatureSpan">orm.enforce.security.</span>username
+        <span class="apidocSignatureSpan">(options, message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function username(options, message) {
+    if (typeof options === "undefined") { options = { length: 2, expr: null }; }
+    if (typeof message === "undefined") { message = 'invalid-username'; }
+    if (typeof options === 'string') {
+        message = options.toString();
+        options = { length: 2, expr: null };
+    }
+
+    if (!options.expr) {
+        options.expr = new RegExp("^[a-z_][a-z0-9_\\-]{" + (options.length - 1) + ",}$", "i");
+    }
+
+    return patterns.match(options.expr, message);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.orm.settings" id="apidoc.module.orm.settings">module orm.settings</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.orm.settings.get" id="apidoc.element.orm.settings.get">
+        function <span class="apidocSignatureSpan">orm.settings.</span>get
+        <span class="apidocSignatureSpan">(key, def)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">get = function (key, def) {
+			var v = get(key, def, settings)
+
+			if (v instanceof Function) {
+				return v;
+			} else {
+				return _.cloneDeep(v);
+			}
+		}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	define: function (db, models, next) {
+		models.person = db.define("person", { ... });
+		next();
+	}
+}));
+app.listen(80);
+
+app.<span class="apidocCodeKeywordSpan">get</span>("/", function (req, res) {
+	// req.models is a reference to models used above in define()
+	req.models.person.find(...);
+});
+```
+
+You can call `orm.express` more than once to have multiple database connections. Models defined across connections
+will be joined together in `req.models`. **Don't forget to use it before `app.use(app.router)`, preferably right after your
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.settings.set" id="apidoc.element.orm.settings.set">
+        function <span class="apidocSignatureSpan">orm.settings.</span>set
+        <span class="apidocSignatureSpan">(key, value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">set = function (key, value) {
+			set(key, value, settings);
+
+			return this;
+		}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```js
+var Person = db.define("person", {
+	personId : { type: 'serial', key: true },
+	name     : String
+});
+
+// You can also change the default "id" property name globally:
+db.settings.<span class="apidocCodeKeywordSpan">set</span>("properties.primary_key", "UID");
+
+// ..and then define your Models
+var Pet = db.define("pet", {
+	name : String
+});
+```
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.settings.unset" id="apidoc.element.orm.settings.unset">
+        function <span class="apidocSignatureSpan">orm.settings.</span>unset
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">unset = function () {
+			for (var i = 0; i &lt; arguments.length; i++) {
+				if (typeof arguments[i] === "string") {
+					unset(arguments[i], settings);
+				}
+			}
+
+			return this;
+		}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.orm.singleton" id="apidoc.module.orm.singleton">module orm.singleton</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.orm.singleton.clear" id="apidoc.element.orm.singleton.clear">
+        function <span class="apidocSignatureSpan">orm.singleton.</span>clear
+        <span class="apidocSignatureSpan">(key)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">clear = function (key) {
+	if (typeof key === "string") {
+		delete map[key];
+	} else {
+		map = {};
+	}
+	return this;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+			done(null, single ? items[0] : items);
+		});
+
+		return this;
+	};
+
+	model.clear = function (cb) {
+		opts.driver.<span class="apidocCodeKeywordSpan">clear</span>(opts.table, function (err) {
+			if (typeof cb === "function") cb(err);
+		});
+
+		return this;
+	};
+
+	model.prependValidation = function (key, validation) {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.singleton.get" id="apidoc.element.orm.singleton.get">
+        function <span class="apidocSignatureSpan">orm.singleton.</span>get
+        <span class="apidocSignatureSpan">(key, opts, createCb, returnCb)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">get = function (key, opts, createCb, returnCb) {
+	if (opts &amp;&amp; opts.identityCache === false) {
+		return createCb(returnCb);
+	}
+	if (map.hasOwnProperty(key)) {
+		if (opts &amp;&amp; opts.saveCheck &amp;&amp; typeof map[key].o.saved === "function" &amp;&amp; !map[key].o.saved()) {
+			// if not saved, don't return it, fetch original from db
+			return createCb(returnCb);
+		} else if (map[key].t !== null &amp;&amp; map[key].t &lt;= Date.now()) {
+			delete map[key];
+		} else  {
+			return returnCb(null, map[key].o);
+		}
+	}
+
+	createCb(function (err, value) {
+		if (err) return returnCb(err);
+
+		map[key] = { // object , timeout
+			o : value,
+			t : (opts &amp;&amp; typeof opts.identityCache === "number" ? Date.now() + (opts.identityCache * 1000) : null)
+		};
+		return returnCb(null, map[key].o);
+	});
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	define: function (db, models, next) {
+		models.person = db.define("person", { ... });
+		next();
+	}
+}));
+app.listen(80);
+
+app.<span class="apidocCodeKeywordSpan">get</span>("/", function (req, res) {
+	// req.models is a reference to models used above in define()
+	req.models.person.find(...);
+});
+```
+
+You can call `orm.express` more than once to have multiple database connections. Models defined across connections
+will be joined together in `req.models`. **Don't forget to use it before `app.use(app.router)`, preferably right after your
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.orm.validators" id="apidoc.module.orm.validators">module orm.validators</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.orm.validators.equalToProperty" id="apidoc.element.orm.validators.equalToProperty">
+        function <span class="apidocSignatureSpan">orm.validators.</span>equalToProperty
+        <span class="apidocSignatureSpan">(name, msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">equalToProperty = function (name, msg) {
+	return function (v, next) {
+		if (v === this[name]) {
+			return next();
+		}
+		return next(msg || 'not-equal-to-property');
+	};
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.validators.insideList" id="apidoc.element.orm.validators.insideList">
+        function <span class="apidocSignatureSpan">orm.validators.</span>insideList
+        <span class="apidocSignatureSpan">(list, message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function inside(list, message) {
+    if (typeof message === "undefined") { message = 'outside-list'; }
+    return new Validator(function (value, next) {
+        if (list.indexOf(value) &gt;= 0)
+            return next();
+        return next(message);
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.validators.notEmptyString" id="apidoc.element.orm.validators.notEmptyString">
+        function <span class="apidocSignatureSpan">orm.validators.</span>notEmptyString
+        <span class="apidocSignatureSpan">(message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function notEmptyString(message) {
+    if (typeof message === "undefined") { message = 'empty-string'; }
+
+    return Ranges.length(1, undefined, message);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.validators.outsideList" id="apidoc.element.orm.validators.outsideList">
+        function <span class="apidocSignatureSpan">orm.validators.</span>outsideList
+        <span class="apidocSignatureSpan">(list, message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function outside(list, message) {
+    if (typeof message === "undefined") { message = 'inside-list'; }
+    return new Validator(function (value, next) {
+        if (list.indexOf(value) === -1)
+            return next();
+        return next(message);
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.validators.password" id="apidoc.element.orm.validators.password">
+        function <span class="apidocSignatureSpan">orm.validators.</span>password
+        <span class="apidocSignatureSpan">(checks, message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function password(checks, message) {
+    if (!message) {
+        message = checks;
+        checks = "luns6";
+    }
+
+    if (!message) {
+        message = "weak-password";
+    }
+
+    var m = checks.match(/([0-9]+)/);
+    var min_len = (m ? parseInt(m[1], 10) : null);
+
+    return new Validator(function (value, next) {
+        if (!value)
+            return next(message);
+
+        if (checks.indexOf("l") &gt;= 0 &amp;&amp; !value.match(/[a-z]/))
+            return next(message);
+        if (checks.indexOf("u") &gt;= 0 &amp;&amp; !value.match(/[A-Z]/))
+            return next(message);
+        if (checks.indexOf("n") &gt;= 0 &amp;&amp; !value.match(/[0-9]/))
+            return next(message);
+        if (checks.indexOf("s") &gt;= 0 &amp;&amp; !value.match(/[^a-zA-Z0-9]/))
+            return next(message);
+        if (min_len !== null &amp;&amp; min_len &gt; value.length)
+            return next(message);
+
+        return next();
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.validators.rangeLength" id="apidoc.element.orm.validators.rangeLength">
+        function <span class="apidocSignatureSpan">orm.validators.</span>rangeLength
+        <span class="apidocSignatureSpan">(min, max, message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function length(min, max, message) {
+    if (typeof message === "undefined") { message = 'out-of-range-length'; }
+    return new Validator(function (value, next) {
+        if (value === undefined || value === null)
+            return next('undefined');
+        if (min === undefined &amp;&amp; value.length &lt;= max)
+            return next();
+        if (max === undefined &amp;&amp; value.length &gt;= min)
+            return next();
+        if (value.length &gt;= min &amp;&amp; value.length &lt;= max)
+            return next();
+        return next(message);
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.validators.rangeNumber" id="apidoc.element.orm.validators.rangeNumber">
+        function <span class="apidocSignatureSpan">orm.validators.</span>rangeNumber
+        <span class="apidocSignatureSpan">(min, max, message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function number(min, max, message) {
+    if (typeof message === "undefined") { message = 'out-of-range-number'; }
+    return new Validator(function (value, next) {
+        if (value === undefined || value === null)
+            return next('undefined');
+        if (min === undefined &amp;&amp; value &lt;= max)
+            return next();
+        if (max === undefined &amp;&amp; value &gt;= min)
+            return next();
+        if (value &gt;= min &amp;&amp; value &lt;= max)
+            return next();
+        return next(message);
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.validators.required" id="apidoc.element.orm.validators.required">
+        function <span class="apidocSignatureSpan">orm.validators.</span>required
+        <span class="apidocSignatureSpan">(message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function required(message) {
+    if (typeof message === "undefined") { message = 'required'; }
+
+    return new Validator(function (value, next) {
+        if (value === null || value === undefined) {
+            return next(message);
+        }
+
+        return next();
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+				break;
+		}
+
+		allProperties[prop.name]        = prop;
+		fieldToPropertyMap[prop.mapsTo] = prop;
+
+		if (prop.required) {
+			model.prependValidation(prop.name, Validators.<span class="apidocCodeKeywordSpan">required</span>());
+		}
+
+		if (prop.key &amp;&amp; prop.klass == 'primary') {
+			keyProperties.push(prop);
+		}
+
+		if (prop.lazyload !== true &amp;&amp; !currFields[prop.name]) {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.orm.validators.unique" id="apidoc.element.orm.validators.unique">
+        function <span class="apidocSignatureSpan">orm.validators.</span>unique
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">unique = function () {
+	var arg, k;
+	var msg = null, opts = {};
+
+	for (k in arguments) {
+		arg = arguments[k];
+		if (typeof arg === "string") {
+			msg = arg;
+		} else if (typeof arg === "object") {
+			opts = arg;
+		}
+	}
+
+	return function (v, next, ctx) {
+		var s, scopeProp;
+
+		if (typeof v === "undefined" || v === null) {
+			return next();
+		}
+
+		//Cannot process on database engines which don't support SQL syntax
+		if (!ctx.driver.isSql) {
+			return next('not-supported');
+		}
+
+		var chain = ctx.model.find();
+
+		var chainQuery = function (prop, value) {
+			var query = null;
+
+			if (opts.ignoreCase === true &amp;&amp; ctx.model.properties[prop] &amp;&amp; ctx.model.properties[prop].type === 'text') {
+				query = util.format('LOWER(%s.%s) LIKE LOWER(?)',
+					ctx.driver.query.escapeId(ctx.model.table), ctx.driver.query.escapeId(prop)
+				);
+				chain.where(query, [value]);
+			} else {
+				query = {};
+				query[prop] = value;
+				chain.where(query);
+			}
+		};
+
+		var handler = function (err, records) {
+			if (err) {
+				return next();
+			}
+			if (!records || records.length === 0) {
+				return next();
+			}
+			if (records.length === 1 &amp;&amp; records[0][ctx.model.id] === this[ctx.model.id]) {
+				return next();
+			}
+			return next(msg || 'not-unique');
+		}.bind(this);
+
+		chainQuery(ctx.property, v);
+
+		if (opts.scope) {
+			for (s in opts.scope) {
+				scopeProp = opts.scope[s];
+
+				// In SQL unique index land, NULL values are not considered equal.
+				if (typeof ctx.instance[scopeProp] == 'undefined' || ctx.instance[scopeProp] === null) {
+					return next();
+				}
+
+				chainQuery(scopeProp, ctx.instance[scopeProp]);
+			}
+		}
+
+		chain.all(handler);
+	};
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
+</body></html>
