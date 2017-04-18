@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,17 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-        href="http://dresende.github.io/node-orm2"
-
-    >orm (v3.2.3)</a>
+    <a href="http://dresende.github.io/node-orm2">orm (v3.2.3)</a>
 </h1>
 <h4>NodeJS Object-relational mapping</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.orm">module orm</a><ol>
 
@@ -2083,11 +2076,11 @@
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function AggregateFunctions(opts) {
-	if (typeof opts.driver.getQuery !== &#x22;function&#x22;) {
-		throw new ORMError(&#x27;NO_SUPPORT&#x27;, &#x22;This driver does not support aggregate functions&#x22;);
+	if (typeof opts.driver.getQuery !== "function") {
+		throw new ORMError('NO_SUPPORT', "This driver does not support aggregate functions");
 	}
 	if (!Array.isArray(opts.driver.aggregate_functions)) {
-		throw new ORMError(&#x27;NO_SUPPORT&#x27;, &#x22;This driver does not support aggregate functions&#x22;);
+		throw new ORMError('NO_SUPPORT', "This driver does not support aggregate functions");
 	}
 
 	var aggregates    = [ [] ];
@@ -2096,16 +2089,16 @@
 
 	var appendFunction = function (fun) {
 		return function () {
-			var args = (arguments.length &#x26;&#x26; Array.isArray(arguments[0]) ? arguments[0] : Array.prototype.slice.apply(arguments));
+			var args = (arguments.length &amp;&amp; Array.isArray(arguments[0]) ? arguments[0] : Array.prototype.slice.apply(arguments));
 
-			if (args.length &#x3e; 0) {
+			if (args.length &gt; 0) {
 				aggregates[aggregates.length - 1].push({ f: fun, a: args, alias: aggregateAlias(fun, args) });
 				aggregates.push([]);
 			} else {
 				aggregates[aggregates.length - 1].push({ f: fun, alias: aggregateAlias(fun, args) });
 			}
 
-			if (fun === &#x22;distinct&#x22;) {
+			if (fun === "distinct") {
 				used_distinct = true;
 			}
 
@@ -2118,7 +2111,7 @@
 			return this;
 		},
 		limit: function (offset, limit) {
-			if (typeof limit === &#x22;number&#x22;) {
+			if (typeof limit === "number") {
 				opts.limit = [ offset, limit ];
 			} else {
 				opts.limit = [ 0, offset ]; // offset = limit
@@ -2131,7 +2124,7 @@
 		},
 		select: function () {
 			if (arguments.length === 0) {
-				throw new ORMError(&#x27;PARAM_MISMATCH&#x27;, &#x22;When using append you must at least define one property&#x22;);
+				throw new ORMError('PARAM_MISMATCH', "When using append you must at least define one property");
 			}
 			if (Array.isArray(arguments[0])) {
 				opts.propertyList = opts.propertyList.concat(arguments[0]);
@@ -2141,8 +2134,8 @@
 			return this;
 		},
 		as: function (alias) {
-			if (aggregates.length === 0 || (aggregates.length === 1 &#x26;&#x26; aggregates[0].length === 0)) {
-				throw new ORMError(&#x27;PARAM_MISMATCH&#x27;, &#x22;No aggregate functions defined yet&#x22;);
+			if (aggregates.length === 0 || (aggregates.length === 1 &amp;&amp; aggregates[0].length === 0)) {
+				throw new ORMError('PARAM_MISMATCH', "No aggregate functions defined yet");
 			}
 
 			var len = aggregates.length;
@@ -2152,35 +2145,35 @@
 			return this;
 		},
 		call: function (fun, args) {
-			if (args &#x26;&#x26; args.length &#x3e; 0) {
+			if (args &amp;&amp; args.length &gt; 0) {
 				aggregates[aggregates.length - 1].push({ f: fun, a: args, alias: aggregateAlias(fun, args) });
 				// aggregates.push([]);
 			} else {
 				aggregates[aggregates.length - 1].push({ f: fun, alias: aggregateAlias(fun, args) });
 			}
 
-			if (fun.toLowerCase() === &#x22;distinct&#x22;) {
+			if (fun.toLowerCase() === "distinct") {
 				used_distinct = true;
 			}
 
 			return this;
 		},
 		get: function (cb) {
-			if (typeof cb !== &#x22;function&#x22;) {
-				throw new ORMError(&#x27;MISSING_CALLBACK&#x27;, &#x22;You must pass a callback to Model.aggregate().get()&#x22;);
+			if (typeof cb !== "function") {
+				throw new ORMError('MISSING_CALLBACK', "You must pass a callback to Model.aggregate().get()");
 			}
 			if (aggregates[aggregates.length - 1].length === 0) {
 				aggregates.length -= 1;
 			}
 			if (aggregates.length === 0) {
-				throw new ORMError(&#x27;PARAM_MISMATCH&#x27;, &#x22;Missing aggregate functions&#x22;);
+				throw new ORMError('PARAM_MISMATCH', "Missing aggregate functions");
 			}
 
 			var query = opts.driver.getQuery().select().from(opts.table).select(opts.propertyList);
 			var i, j;
 
-			for (i = 0; i &#x3c; aggregates.length; i++) {
-				for (j = 0; j &#x3c; aggregates[i].length; j++) {
+			for (i = 0; i &lt; aggregates.length; i++) {
+				for (j = 0; j &lt; aggregates[i].length; j++) {
 					query.fun(aggregates[i][j].f, aggregates[i][j].a, aggregates[i][j].alias);
 				}
 			}
@@ -2192,7 +2185,7 @@
 			}
 
 			if (opts.order) {
-				for (i = 0; i &#x3c; opts.order.length; i++) {
+				for (i = 0; i &lt; opts.order.length; i++) {
 					query.order(opts.order[i][0], opts.order[i][1]);
 				}
 			}
@@ -2213,16 +2206,16 @@
 
 				var items = [], i;
 
-				if (used_distinct &#x26;&#x26; aggregates.length === 1) {
-					for (i = 0; i &#x3c; data.length; i++) {
+				if (used_distinct &amp;&amp; aggregates.length === 1) {
+					for (i = 0; i &lt; data.length; i++) {
 						items.push(data[i][Object.keys(data[i]).pop()]);
 					}
 
 					return cb(null, items);
 				}
 
-				for (i = 0; i &#x3c; aggregates.length; i++) {
-					for (var j = 0; j &#x3c; aggregates[i].length; j++) {
+				for (i = 0; i &lt; aggregates.length; i++) {
+					for (var j = 0; j &lt; aggregates[i].length; j++) {
 						items.push(data[0][aggregates[i][j].alias] || null);
 					}
 				}
@@ -2317,7 +2310,7 @@
 			async.map(dataItems, opts.newInstance, function (err, items) {
 				if (err) return done(err);
 
-				var shouldEagerLoad = opts.__eager &#x26;&#x26; opts.__eager.length;
+				var shouldEagerLoad = opts.__eager &amp;&amp; opts.__eager.length;
 				var completeFn = shouldEagerLoad ? eagerLoad : done;
 
 				return completeFn(null, items);
@@ -2333,13 +2326,13 @@
 			var args = Array.prototype.slice.call(arguments);
 			opts.conditions = opts.conditions || {};
 
-			if (typeof _.last(args) === &#x22;function&#x22;) {
+			if (typeof _.last(args) === "function") {
 			    cb = args.pop();
 			}
 
-			if (typeof args[0] === &#x22;object&#x22;) {
+			if (typeof args[0] === "object") {
 				_.extend(opts.conditions, args[0]);
-			} else if (typeof args[0] === &#x22;string&#x22;) {
+			} else if (typeof args[0] === "string") {
 				opts.conditions.__sql = opts.conditions.__sql || [];
 				opts.conditions.__sql.push(args);
 			}
@@ -2350,7 +2343,7 @@
 			return this;
 		},
 		only: function () {
-			if (arguments.length &#x26;&#x26; Array.isArray(arguments[0])) {
+			if (arguments.length &amp;&amp; Array.isArray(arguments[0])) {
 				opts.only = arguments[0];
 			} else {
 				opts.only = Array.prototype.slice.apply(arguments);
@@ -2360,7 +2353,7 @@
 		omit: function () {
 			var omit = null;
 
-			if (arguments.length &#x26;&#x26; Array.isArray(arguments[0])) {
+			if (arguments.length &amp;&amp; Array.isArray(arguments[0])) {
 				omit = arguments[0];
 			} else {
 				omit = Array.prototype.slice.apply(arguments);
@@ -2383,10 +2376,10 @@
 			if (!Array.isArray(opts.order)) {
 				opts.order = [];
 			}
-			if (property[0] === &#x22;-&#x22;) {
-				opts.order.push([ property.substr(1), &#x22;Z&#x22; ]);
+			if (property[0] === "-") {
+				opts.order.push([ property.substr(1), "Z" ]);
 			} else {
-				opts.order.push([ property, (order &#x26;&#x26; order.toUpperCase() === &#x22;Z&#x22; ? &#x22;Z&#x22; : &#x22;A&#x22;) ]);
+				opts.order.push([ property, (order &amp;&amp; order.toUpperCase() === "Z" ? "Z" : "A") ]);
 			}
 			return this;
 		},
@@ -2481,8 +2474,8 @@
 		}),
 		save: promise(function (cb) {
 			var saveNext = function (i) {
-				if (i &#x3e;= instances.length) {
-					if (typeof cb === &#x22;function&#x22;) {
+				if (i &gt;= instances.length) {
+					if (typeof cb === "function") {
 						cb();
 					}
 					return next();
@@ -2490,7 +2483,7 @@
 
 				return instances[i].save(function (err) {
 					if (err) {
-						if (typeof cb === &#x22;function&#x22;) {
+						if (typeof cb === "function") {
 							cb(err);
 						}
 						return next();
@@ -2504,7 +2497,7 @@
 		})
 	};
 
-	if (typeof cb === &#x22;function&#x22;) {
+	if (typeof cb === "function") {
 		return calls.forEach(cb);
 	}
 	return calls;
@@ -2530,7 +2523,7 @@
   	this.code = codes[code];
     this.literalCode = code;
     if (!this.code) {
-  		throw new Error(&#x22;Invalid error code: &#x22; +  code);
+  		throw new Error("Invalid error code: " +  code);
   	}
   }
   if (extras) {
@@ -2558,7 +2551,7 @@
 
 	orm.connect(uri, function (err, db) {
 		if (err) {
-			if (typeof opts.error === &#x22;function&#x22;) {
+			if (typeof opts.error === "function") {
 				opts.error(err);
 			} else {
 				throw err;
@@ -2575,8 +2568,8 @@
 			_db = db;
 		}
 
-		if (typeof opts.define === &#x22;function&#x22;) {
-			if (opts.define.length &#x3e; 2) {
+		if (typeof opts.define === "function") {
+			if (opts.define.length &gt; 2) {
 				return opts.define(db, _models, function () {
 					return checkRequestQueue();
 				});
@@ -2589,17 +2582,17 @@
 	});
 
 	return function ORM_ExpressMiddleware(req, res, next) {
-		if (!req.hasOwnProperty(&#x22;models&#x22;)) {
+		if (!req.hasOwnProperty("models")) {
 			req.models = _models;
 			req.db     = _db;
 		}
 
-		if (next === undefined &#x26;&#x26; typeof res === &#x27;function&#x27;)
+		if (next === undefined &amp;&amp; typeof res === 'function')
 		{
 			next = res;
 		}
 
-		if (_pending &#x3e; 0) {
+		if (_pending &gt; 0) {
 			_queue.push(next);
 			return;
 		}
@@ -2620,61 +2613,61 @@
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">Property.normalize = function (opts) {
-	if (typeof opts.prop === &#x22;function&#x22;) {
+	if (typeof opts.prop === "function") {
 		switch (opts.prop.name) {
-			case &#x22;String&#x22;:
-				opts.prop = { type: &#x22;text&#x22; };
+			case "String":
+				opts.prop = { type: "text" };
 				break;
-			case &#x22;Number&#x22;:
-				opts.prop = { type: &#x22;number&#x22; };
+			case "Number":
+				opts.prop = { type: "number" };
 				break;
-			case &#x22;Boolean&#x22;:
-				opts.prop = { type: &#x22;boolean&#x22; };
+			case "Boolean":
+				opts.prop = { type: "boolean" };
 				break;
-			case &#x22;Date&#x22;:
-				opts.prop = { type: &#x22;date&#x22; };
+			case "Date":
+				opts.prop = { type: "date" };
 				break;
-			case &#x22;Object&#x22;:
-				opts.prop = { type: &#x22;object&#x22; };
+			case "Object":
+				opts.prop = { type: "object" };
 				break;
-			case &#x22;Buffer&#x22;:
-				opts.prop = { type: &#x22;binary&#x22; };
+			case "Buffer":
+				opts.prop = { type: "binary" };
 				break;
 		}
-	} else if (typeof opts.prop === &#x22;string&#x22;) {
+	} else if (typeof opts.prop === "string") {
 		var tmp = opts.prop;
 		opts.prop = {};
 		opts.prop.type = tmp;
 	} else if (Array.isArray(opts.prop)) {
-		opts.prop = { type: &#x22;enum&#x22;, values: opts.prop };
+		opts.prop = { type: "enum", values: opts.prop };
 	} else {
 		opts.prop = _.cloneDeep(opts.prop);
 	}
 
-	if (KNOWN_TYPES.indexOf(opts.prop.type) === -1 &#x26;&#x26; !(opts.prop.type in opts.customTypes)) {
-		throw new ORMError(&#x22;Unknown property type: &#x22; + opts.prop.type, &#x27;NO_SUPPORT&#x27;);
+	if (KNOWN_TYPES.indexOf(opts.prop.type) === -1 &amp;&amp; !(opts.prop.type in opts.customTypes)) {
+		throw new ORMError("Unknown property type: " + opts.prop.type, 'NO_SUPPORT');
 	}
 
-	if (!opts.prop.hasOwnProperty(&#x22;required&#x22;) &#x26;&#x26; opts.settings.get(&#x22;properties.required&#x22;)) {
+	if (!opts.prop.hasOwnProperty("required") &amp;&amp; opts.settings.get("properties.required")) {
 		opts.prop.required = true;
 	}
 
 	// Defaults to true. Setting to false hides properties from JSON.stringify(modelInstance).
-	if (!opts.prop.hasOwnProperty(&#x22;enumerable&#x22;) || opts.prop.enumerable === true) {
+	if (!opts.prop.hasOwnProperty("enumerable") || opts.prop.enumerable === true) {
 		opts.prop.enumerable = true;
 	}
 
 	// Defaults to true. Rational means floating point here.
-	if (opts.prop.type == &#x22;number&#x22; &#x26;&#x26; opts.prop.rational === undefined) {
+	if (opts.prop.type == "number" &amp;&amp; opts.prop.rational === undefined) {
 		opts.prop.rational = true;
 	}
 
-	if (!(&#x27;mapsTo&#x27; in opts.prop)) {
+	if (!('mapsTo' in opts.prop)) {
 		opts.prop.mapsTo = opts.name
 	}
 
-	if (opts.prop.type == &#x22;number&#x22; &#x26;&#x26; opts.prop.rational === false) {
-		opts.prop.type = &#x22;integer&#x22;;
+	if (opts.prop.type == "number" &amp;&amp; opts.prop.rational === false) {
+		opts.prop.type = "integer";
 		delete opts.prop.rational;
 	}
 
@@ -2713,8 +2706,8 @@
 			}
 		},
 		unset: function () {
-			for (var i = 0; i &#x3c; arguments.length; i++) {
-				if (typeof arguments[i] === &#x22;string&#x22;) {
+			for (var i = 0; i &lt; arguments.length; i++) {
+				if (typeof arguments[i] === "string") {
 					unset(arguments[i], settings);
 				}
 			}
@@ -2753,7 +2746,7 @@
     <li>description and source-code<pre class="apidocCodePre">Text = function (data) {
 		var o = { data: data };
 
-		Object.defineProperty(o, &#x22;type&#x22;, {
+		Object.defineProperty(o, "type", {
 			value: function () {
 				return type;
 			},
@@ -2785,7 +2778,7 @@ To add an external database adapter to `orm`, call the `addAdapter` method, pass
 with this adapter, along with the constructor for the adapter:
 
 ```js
-require(&#x27;orm&#x27;).<span class="apidocCodeKeywordSpan">addAdapter</span>(&#x27;cassandra&#x27;, CassandraAdapter);
+require('orm').<span class="apidocCodeKeywordSpan">addAdapter</span>('cassandra', CassandraAdapter);
 ```
 
 See [the documentation for creating adapters](./Adapters.md) for more details.
@@ -2802,20 +2795,20 @@ See [the documentation for creating adapters](./Adapters.md) for more details.
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">between = function (a, b) {
-	return createSpecialObject({ from: a, to: b }, &#x27;between&#x27;);
+	return createSpecialObject({ from: a, to: b }, 'between');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 ```js
 { col1: orm.eq(123) } // `col1` = 123 (default)
-{ col1: orm.ne(123) } // `col1` &#x3c;&#x3e; 123
-{ col1: orm.gt(123) } // `col1` &#x3e; 123
-{ col1: orm.gte(123) } // `col1` &#x3e;= 123
-{ col1: orm.lt(123) } // `col1` &#x3c; 123
-{ col1: orm.lte(123) } // `col1` &#x3c;= 123
+{ col1: orm.ne(123) } // `col1` &lt;&gt; 123
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
 { col1: orm.<span class="apidocCodeKeywordSpan">between</span>(123, 456) } // `col1` BETWEEN 123 AND 456
 { col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
-{ col1: orm.like(12 + &#x22;%&#x22;) } // `col1` LIKE &#x27;12%&#x27;
-{ col1: orm.not_like(12 + &#x22;%&#x22;) } // `col1` NOT LIKE &#x27;12%&#x27;
+{ col1: orm.like(12 + "%") } // `col1` LIKE '12%'
+{ col1: orm.not_like(12 + "%") } // `col1` NOT LIKE '12%'
 { col1: orm.not_in([1, 4, 8]) } // `col1` NOT IN (1, 4, 8)
 ```
 
@@ -2834,14 +2827,14 @@ See [the documentation for creating adapters](./Adapters.md) for more details.
     <ul>
     <li>description and source-code<pre class="apidocCodePre">connect = function (opts, cb) {
 	if (arguments.length === 0 || !opts) {
-		return ORM_Error(new ORMError(&#x22;CONNECTION_URL_EMPTY&#x22;, &#x27;PARAM_MISMATCH&#x27;), cb);
+		return ORM_Error(new ORMError("CONNECTION_URL_EMPTY", 'PARAM_MISMATCH'), cb);
 	}
-	if (typeof opts == &#x27;string&#x27;) {
+	if (typeof opts == 'string') {
 		if (opts.trim().length === 0) {
-			return ORM_Error(new ORMError(&#x22;CONNECTION_URL_EMPTY&#x22;, &#x27;PARAM_MISMATCH&#x27;), cb);
+			return ORM_Error(new ORMError("CONNECTION_URL_EMPTY", 'PARAM_MISMATCH'), cb);
 		}
 		opts = url.parse(opts, true);
-	} else if (typeof opts == &#x27;object&#x27;) {
+	} else if (typeof opts == 'object') {
 		opts = _.cloneDeep(opts);
 	}
 
@@ -2854,31 +2847,31 @@ See [the documentation for creating adapters](./Adapters.md) for more details.
 
 	if (!opts.database) {
 		// if (!opts.pathname) {
-		// 	return cb(new Error(&#x22;CONNECTION_URL_NO_DATABASE&#x22;));
+		// 	return cb(new Error("CONNECTION_URL_NO_DATABASE"));
 		// }
-		opts.database = (opts.pathname ? opts.pathname.substr(1) : &#x22;&#x22;);
+		opts.database = (opts.pathname ? opts.pathname.substr(1) : "");
 	}
 	if (!opts.protocol) {
-		return ORM_Error(new ORMError(&#x22;CONNECTION_URL_NO_PROTOCOL&#x22;, &#x27;PARAM_MISMATCH&#x27;), cb);
+		return ORM_Error(new ORMError("CONNECTION_URL_NO_PROTOCOL", 'PARAM_MISMATCH'), cb);
 	}
 	// if (!opts.host) {
-	// 	opts.host = opts.hostname = &#x22;localhost&#x22;;
+	// 	opts.host = opts.hostname = "localhost";
 	// }
 	if (opts.auth) {
-		opts.user = opts.auth.split(&#x22;:&#x22;)[0];
-		opts.password = opts.auth.split(&#x22;:&#x22;)[1];
+		opts.user = opts.auth.split(":")[0];
+		opts.password = opts.auth.split(":")[1];
 	}
-	if (!opts.hasOwnProperty(&#x22;user&#x22;)) {
-		opts.user = &#x22;root&#x22;;
+	if (!opts.hasOwnProperty("user")) {
+		opts.user = "root";
 	}
-	if (!opts.hasOwnProperty(&#x22;password&#x22;)) {
-		opts.password = &#x22;&#x22;;
+	if (!opts.hasOwnProperty("password")) {
+		opts.password = "";
 	}
-	if (opts.hasOwnProperty(&#x22;hostname&#x22;)) {
+	if (opts.hasOwnProperty("hostname")) {
 		opts.host = opts.hostname;
 	}
 
-	var proto  = opts.protocol.replace(/:$/, &#x27;&#x27;);
+	var proto  = opts.protocol.replace(/:$/, '');
 	var db;
 	if (DriverAliases[proto]) {
 		proto = DriverAliases[proto];
@@ -2886,17 +2879,17 @@ See [the documentation for creating adapters](./Adapters.md) for more details.
 
 	try {
 		var Driver   = adapters.get(proto);
-		var settings = new Settings.Container(exports.settings.get(&#x27;*&#x27;));
+		var settings = new Settings.Container(exports.settings.get('*'));
 		var driver   = new Driver(opts, null, {
-			debug    : &#x27;debug&#x27; in opts.query ? opts.query.debug : settings.get(&#x22;connection.debug&#x22;),
-			pool     : &#x27;pool&#x27;  in opts.query ? opts.query.pool  : settings.get(&#x22;connection.pool&#x22;),
+			debug    : 'debug' in opts.query ? opts.query.debug : settings.get("connection.debug"),
+			pool     : 'pool'  in opts.query ? opts.query.pool  : settings.get("connection.pool"),
 			settings : settings
 		});
 
 		db = new ORM(proto, driver, settings);
 
 		driver.connect(function (err) {
-			if (typeof cb === &#x22;function&#x22;) {
+			if (typeof cb === "function") {
 				if (err) {
 					return cb(err);
 				} else {
@@ -2904,12 +2897,12 @@ See [the documentation for creating adapters](./Adapters.md) for more details.
 				}
 			}
 
-			db.emit(&#x22;connect&#x22;, err, !err ? db : null);
+			db.emit("connect", err, !err ? db : null);
 		});
 	} catch (ex) {
-		if (ex.code === &#x22;MODULE_NOT_FOUND&#x22; || ex.message.indexOf(&#x27;find module&#x27;) &#x3e; -1) {
-			return ORM_Error(new ORMError(&#x22;Connection protocol not supported - have you installed the database driver for &#x22; + proto + &#x22;?&#x22;, &#x27;
-NO_SUPPORT&#x27;), cb);
+		if (ex.code === "MODULE_NOT_FOUND" || ex.message.indexOf('find module') &gt; -1) {
+			return ORM_Error(new ORMError("Connection protocol not supported - have you installed the database driver for " + proto + "?", '
+NO_SUPPORT'), cb);
 		}
 		return ORM_Error(ex, cb);
 	}
@@ -2922,12 +2915,12 @@ This is a node.js object relational mapping module.
 An example:
 
 ```js
-var orm = require(&#x22;orm&#x22;);
+var orm = require("orm");
 
-orm.<span class="apidocCodeKeywordSpan">connect</span>(&#x22;mysql://username:password@host/database&#x22;, function (err, db) {
+orm.<span class="apidocCodeKeywordSpan">connect</span>("mysql://username:password@host/database", function (err, db) {
   if (err) throw err;
 
-	var Person = db.define(&#x22;person&#x22;, {
+	var Person = db.define("person", {
 		name      : String,
 		surname   : String,
 		age       : Number, // FLOAT
@@ -2948,7 +2941,7 @@ orm.<span class="apidocCodeKeywordSpan">connect</span>(&#x22;mysql://username:pa
     this.validations = {};
     this.contexts = {};
     this.options = {
-        returnAllErrors: options &#x26;&#x26; !!options.returnAllErrors
+        returnAllErrors: options &amp;&amp; !!options.returnAllErrors
     };
 
     return this;
@@ -2966,12 +2959,12 @@ orm.<span class="apidocCodeKeywordSpan">connect</span>(&#x22;mysql://username:pa
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">enforce.Enforce.prototype.add = function (property, validator) {
-    if (typeof validator === &#x27;function&#x27; &#x26;&#x26; validator.length &#x3e;= 2) {
+    if (typeof validator === 'function' &amp;&amp; validator.length &gt;= 2) {
         validator = new Validator(validator);
     }
 
     if (validator.validate === undefined) {
-        throw new Error(&#x27;Missing validator (function) in Enforce.add(property, validator)&#x27;);
+        throw new Error('Missing validator (function) in Enforce.add(property, validator)');
     }
 
     if (!this.validations.hasOwnProperty(property))
@@ -2999,7 +2992,7 @@ orm.<span class="apidocCodeKeywordSpan">connect</span>(&#x22;mysql://username:pa
     var errors = [];
     var next = function () {
         if (validations.length === 0) {
-            if (errors.length &#x3e; 0)
+            if (errors.length &gt; 0)
                 return cb(errors);
 else
                 return cb(null);
@@ -3014,7 +3007,7 @@ else
                 err.property = validation.property;
                 err.value = data[validation.property];
                 err.msg = message;
-                err.type = &#x22;validation&#x22;;
+                err.type = "validation";
 
                 if (!this.options.returnAllErrors)
                     return cb(err);
@@ -3026,7 +3019,7 @@ else
     };
 
     for (var k in this.validations) {
-        for (var i = 0; i &#x3c; this.validations[k].length; i++) {
+        for (var i = 0; i &lt; this.validations[k].length; i++) {
             validations.push({
                 property: k,
                 validator: this.validations[k][i]
@@ -3064,7 +3057,7 @@ else
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">enforce.Enforce.prototype.context = function (name, value) {
-    if (name &#x26;&#x26; value) {
+    if (name &amp;&amp; value) {
         this.contexts[name] = value;
         return this;
     } else if (name)
@@ -3125,7 +3118,7 @@ else
     return new Validator(function (value, next, contexts) {
         if (value === undefined || value === null)
             return next();
-        if (typeof value !== &#x27;string&#x27;)
+        if (typeof value !== 'string')
             return next();
         if (value.length === 0)
             return next();
@@ -3185,7 +3178,7 @@ else
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">enforce.Validator.prototype.validate = function (data, next, thisArg, contexts) {
-    if (typeof contexts === &#x22;undefined&#x22;) { contexts = {}; }
+    if (typeof contexts === "undefined") { contexts = {}; }
     this.validator.apply(thisArg, [data, next, contexts]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -3205,7 +3198,7 @@ else
 		if (v === this[name]) {
 			return next();
 		}
-		return next(msg || &#x27;not-equal-to-property&#x27;);
+		return next(msg || 'not-equal-to-property');
 	};
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -3221,7 +3214,7 @@ else
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function notEmptyString(message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;empty-string&#x27;; }
+    if (typeof message === "undefined") { message = 'empty-string'; }
 
     return Ranges.length(1, undefined, message);
 }</pre></li>
@@ -3238,7 +3231,7 @@ else
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function required(message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;required&#x27;; }
+    if (typeof message === "undefined") { message = 'required'; }
 
     return new Validator(function (value, next) {
         if (value === null || value === undefined) {
@@ -3261,7 +3254,7 @@ else
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function sameAs(property, message) {
-	if (typeof message === &#x22;undefined&#x22;) { message = &#x27;not-same-as&#x27;; }
+	if (typeof message === "undefined") { message = 'not-same-as'; }
 
 	return new Validator(function (value, next) {
 		if (value !== this[property]) {
@@ -3289,9 +3282,9 @@ else
 
 	for (k in arguments) {
 		arg = arguments[k];
-		if (typeof arg === &#x22;string&#x22;) {
+		if (typeof arg === "string") {
 			msg = arg;
-		} else if (typeof arg === &#x22;object&#x22;) {
+		} else if (typeof arg === "object") {
 			opts = arg;
 		}
 	}
@@ -3299,13 +3292,13 @@ else
 	return function (v, next, ctx) {
 		var s, scopeProp;
 
-		if (typeof v === &#x22;undefined&#x22; || v === null) {
+		if (typeof v === "undefined" || v === null) {
 			return next();
 		}
 
-		//Cannot process on database engines which don&#x27;t support SQL syntax
+		//Cannot process on database engines which don't support SQL syntax
 		if (!ctx.driver.isSql) {
-			return next(&#x27;not-supported&#x27;);
+			return next('not-supported');
 		}
 
 		var chain = ctx.model.find();
@@ -3313,8 +3306,8 @@ else
 		var chainQuery = function (prop, value) {
 			var query = null;
 
-			if (opts.ignoreCase === true &#x26;&#x26; ctx.model.properties[prop] &#x26;&#x26; ctx.model.properties[prop].type === &#x27;text&#x27;) {
-				query = util.format(&#x27;LOWER(%s.%s) LIKE LOWER(?)&#x27;,
+			if (opts.ignoreCase === true &amp;&amp; ctx.model.properties[prop] &amp;&amp; ctx.model.properties[prop].type === 'text') {
+				query = util.format('LOWER(%s.%s) LIKE LOWER(?)',
 					ctx.driver.query.escapeId(ctx.model.table), ctx.driver.query.escapeId(prop)
 				);
 				chain.where(query, [value]);
@@ -3332,10 +3325,10 @@ else
 			if (!records || records.length === 0) {
 				return next();
 			}
-			if (records.length === 1 &#x26;&#x26; records[0][ctx.model.id] === this[ctx.model.id]) {
+			if (records.length === 1 &amp;&amp; records[0][ctx.model.id] === this[ctx.model.id]) {
 				return next();
 			}
-			return next(msg || &#x27;not-unique&#x27;);
+			return next(msg || 'not-unique');
 		}.bind(this);
 
 		chainQuery(ctx.property, v);
@@ -3345,7 +3338,7 @@ else
 				scopeProp = opts.scope[s];
 
 				// In SQL unique index land, NULL values are not considered equal.
-				if (typeof ctx.instance[scopeProp] == &#x27;undefined&#x27; || ctx.instance[scopeProp] === null) {
+				if (typeof ctx.instance[scopeProp] == 'undefined' || ctx.instance[scopeProp] === null) {
 					return next();
 				}
 
@@ -3369,7 +3362,7 @@ else
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">eq = function (v) {
-	return createSpecialObject({ val: v }, &#x27;eq&#x27;);
+	return createSpecialObject({ val: v }, 'eq');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 { col1: [ 1, 3, 5 ] } // `col1` IN (1, 3, 5)
@@ -3380,11 +3373,11 @@ a few examples to describe it:
 
 ```js
 { col1: orm.<span class="apidocCodeKeywordSpan">eq</span>(123) } // `col1` = 123 (default)
-{ col1: orm.ne(123) } // `col1` &#x3c;&#x3e; 123
-{ col1: orm.gt(123) } // `col1` &#x3e; 123
-{ col1: orm.gte(123) } // `col1` &#x3e;= 123
-{ col1: orm.lt(123) } // `col1` &#x3c; 123
-{ col1: orm.lte(123) } // `col1` &#x3c;= 123
+{ col1: orm.ne(123) } // `col1` &lt;&gt; 123
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
 { col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
 { col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
 ...</pre></li>
@@ -3400,19 +3393,19 @@ a few examples to describe it:
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">express = function () {
-	return require(&#x22;./Express&#x22;).apply(this, arguments);
+	return require("./Express").apply(this, arguments);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-If you&#x27;re using Express, you might want to use the simple middleware to integrate more easily.
+If you're using Express, you might want to use the simple middleware to integrate more easily.
 
 ```js
-var express = require(&#x27;express&#x27;);
-var orm = require(&#x27;orm&#x27;);
+var express = require('express');
+var orm = require('orm');
 var app = express();
 
-app.use(orm.<span class="apidocCodeKeywordSpan">express</span>(&#x22;mysql://username:password@host/database&#x22;, {
+app.use(orm.<span class="apidocCodeKeywordSpan">express</span>("mysql://username:password@host/database", {
 	define: function (db, models, next) {
-		models.person = db.define(&#x22;person&#x22;, { ... });
+		models.person = db.define("person", { ... });
 		next();
 	}
 }));
@@ -3430,14 +3423,14 @@ app.listen(80);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">gt = function (v) {
-	return createSpecialObject({ val: v }, &#x27;gt&#x27;);
+	return createSpecialObject({ val: v }, 'gt');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 
 ```js
-var Person = db.define(&#x27;person&#x27;, {
+var Person = db.define('person', {
     name    : String,
-    height  : { type: &#x27;integer&#x27; }
+    height  : { type: 'integer' }
 });
 Person.tallerThan = function(height, callback) {
     this.find({ height: orm.<span class="apidocCodeKeywordSpan">gt</span>(height) }, callback);
@@ -3461,7 +3454,7 @@ Person.tallerThan( 192, function(err, tallPeople) { ... } );
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">gte = function (v) {
-	return createSpecialObject({ val: v }, &#x27;gte&#x27;);
+	return createSpecialObject({ val: v }, 'gte');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 If you need other comparisons, you have to use a special object created by some helper functions. Here are
@@ -3469,15 +3462,15 @@ a few examples to describe it:
 
 ```js
 { col1: orm.eq(123) } // `col1` = 123 (default)
-{ col1: orm.ne(123) } // `col1` &#x3c;&#x3e; 123
-{ col1: orm.gt(123) } // `col1` &#x3e; 123
-{ col1: orm.<span class="apidocCodeKeywordSpan">gte</span>(123) } // `col1` &#x3e;= 123
-{ col1: orm.lt(123) } // `col1` &#x3c; 123
-{ col1: orm.lte(123) } // `col1` &#x3c;= 123
+{ col1: orm.ne(123) } // `col1` &lt;&gt; 123
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.<span class="apidocCodeKeywordSpan">gte</span>(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
 { col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
 { col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
-{ col1: orm.like(12 + &#x22;%&#x22;) } // `col1` LIKE &#x27;12%&#x27;
-{ col1: orm.not_like(12 + &#x22;%&#x22;) } // `col1` NOT LIKE &#x27;12%&#x27;
+{ col1: orm.like(12 + "%") } // `col1` LIKE '12%'
+{ col1: orm.not_like(12 + "%") } // `col1` NOT LIKE '12%'
 { col1: orm.not_in([1, 4, 8]) } // `col1` NOT IN (1, 4, 8)
 ...</pre></li>
     </ul>
@@ -3492,18 +3485,18 @@ a few examples to describe it:
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">like = function (expr) {
-	return createSpecialObject({ expr: expr }, &#x27;like&#x27;);
+	return createSpecialObject({ expr: expr }, 'like');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-{ col1: orm.ne(123) } // `col1` &#x3c;&#x3e; 123
-{ col1: orm.gt(123) } // `col1` &#x3e; 123
-{ col1: orm.gte(123) } // `col1` &#x3e;= 123
-{ col1: orm.lt(123) } // `col1` &#x3c; 123
-{ col1: orm.lte(123) } // `col1` &#x3c;= 123
+{ col1: orm.ne(123) } // `col1` &lt;&gt; 123
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
 { col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
 { col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
-{ col1: orm.<span class="apidocCodeKeywordSpan">like</span>(12 + &#x22;%&#x22;) } // `col1` LIKE &#x27;12%&#x27;
-{ col1: orm.not_like(12 + &#x22;%&#x22;) } // `col1` NOT LIKE &#x27;12%&#x27;
+{ col1: orm.<span class="apidocCodeKeywordSpan">like</span>(12 + "%") } // `col1` LIKE '12%'
+{ col1: orm.not_like(12 + "%") } // `col1` NOT LIKE '12%'
 { col1: orm.not_in([1, 4, 8]) } // `col1` NOT IN (1, 4, 8)
 ```
 
@@ -3523,22 +3516,22 @@ a few examples to describe it:
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">lt = function (v) {
-	return createSpecialObject({ val: v }, &#x27;lt&#x27;);
+	return createSpecialObject({ val: v }, 'lt');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 a few examples to describe it:
 
 ```js
 { col1: orm.eq(123) } // `col1` = 123 (default)
-{ col1: orm.ne(123) } // `col1` &#x3c;&#x3e; 123
-{ col1: orm.gt(123) } // `col1` &#x3e; 123
-{ col1: orm.gte(123) } // `col1` &#x3e;= 123
-{ col1: orm.<span class="apidocCodeKeywordSpan">lt</span>(123) } // `col1` &#x3c; 123
-{ col1: orm.lte(123) } // `col1` &#x3c;= 123
+{ col1: orm.ne(123) } // `col1` &lt;&gt; 123
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.<span class="apidocCodeKeywordSpan">lt</span>(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
 { col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
 { col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
-{ col1: orm.like(12 + &#x22;%&#x22;) } // `col1` LIKE &#x27;12%&#x27;
-{ col1: orm.not_like(12 + &#x22;%&#x22;) } // `col1` NOT LIKE &#x27;12%&#x27;
+{ col1: orm.like(12 + "%") } // `col1` LIKE '12%'
+{ col1: orm.not_like(12 + "%") } // `col1` NOT LIKE '12%'
 { col1: orm.not_in([1, 4, 8]) } // `col1` NOT IN (1, 4, 8)
 ```
 ...</pre></li>
@@ -3554,21 +3547,21 @@ a few examples to describe it:
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">lte = function (v) {
-	return createSpecialObject({ val: v }, &#x27;lte&#x27;);
+	return createSpecialObject({ val: v }, 'lte');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 
 ```js
 { col1: orm.eq(123) } // `col1` = 123 (default)
-{ col1: orm.ne(123) } // `col1` &#x3c;&#x3e; 123
-{ col1: orm.gt(123) } // `col1` &#x3e; 123
-{ col1: orm.gte(123) } // `col1` &#x3e;= 123
-{ col1: orm.lt(123) } // `col1` &#x3c; 123
-{ col1: orm.<span class="apidocCodeKeywordSpan">lte</span>(123) } // `col1` &#x3c;= 123
+{ col1: orm.ne(123) } // `col1` &lt;&gt; 123
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.<span class="apidocCodeKeywordSpan">lte</span>(123) } // `col1` &lt;= 123
 { col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
 { col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
-{ col1: orm.like(12 + &#x22;%&#x22;) } // `col1` LIKE &#x27;12%&#x27;
-{ col1: orm.not_like(12 + &#x22;%&#x22;) } // `col1` NOT LIKE &#x27;12%&#x27;
+{ col1: orm.like(12 + "%") } // `col1` LIKE '12%'
+{ col1: orm.not_like(12 + "%") } // `col1` NOT LIKE '12%'
 { col1: orm.not_in([1, 4, 8]) } // `col1` NOT IN (1, 4, 8)
 ```
 ...</pre></li>
@@ -3584,7 +3577,7 @@ a few examples to describe it:
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">ne = function (v) {
-	return createSpecialObject({ val: v }, &#x27;ne&#x27;);
+	return createSpecialObject({ val: v }, 'ne');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 ```
@@ -3594,14 +3587,14 @@ a few examples to describe it:
 
 ```js
 { col1: orm.eq(123) } // `col1` = 123 (default)
-{ col1: orm.<span class="apidocCodeKeywordSpan">ne</span>(123) } // `col1` &#x3c;&#x3e; 123
-{ col1: orm.gt(123) } // `col1` &#x3e; 123
-{ col1: orm.gte(123) } // `col1` &#x3e;= 123
-{ col1: orm.lt(123) } // `col1` &#x3c; 123
-{ col1: orm.lte(123) } // `col1` &#x3c;= 123
+{ col1: orm.<span class="apidocCodeKeywordSpan">ne</span>(123) } // `col1` &lt;&gt; 123
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
 { col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
 { col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
-{ col1: orm.like(12 + &#x22;%&#x22;) } // `col1` LIKE &#x27;12%&#x27;
+{ col1: orm.like(12 + "%") } // `col1` LIKE '12%'
 ...</pre></li>
     </ul>
 
@@ -3615,19 +3608,19 @@ a few examples to describe it:
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">not_between = function (a, b) {
-	return createSpecialObject({ from: a, to: b }, &#x27;not_between&#x27;);
+	return createSpecialObject({ from: a, to: b }, 'not_between');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 { col1: orm.eq(123) } // `col1` = 123 (default)
-{ col1: orm.ne(123) } // `col1` &#x3c;&#x3e; 123
-{ col1: orm.gt(123) } // `col1` &#x3e; 123
-{ col1: orm.gte(123) } // `col1` &#x3e;= 123
-{ col1: orm.lt(123) } // `col1` &#x3c; 123
-{ col1: orm.lte(123) } // `col1` &#x3c;= 123
+{ col1: orm.ne(123) } // `col1` &lt;&gt; 123
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
 { col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
 { col1: orm.<span class="apidocCodeKeywordSpan">not_between</span>(123, 456) } // `col1` NOT BETWEEN 123 AND 456
-{ col1: orm.like(12 + &#x22;%&#x22;) } // `col1` LIKE &#x27;12%&#x27;
-{ col1: orm.not_like(12 + &#x22;%&#x22;) } // `col1` NOT LIKE &#x27;12%&#x27;
+{ col1: orm.like(12 + "%") } // `col1` LIKE '12%'
+{ col1: orm.not_like(12 + "%") } // `col1` NOT LIKE '12%'
 { col1: orm.not_in([1, 4, 8]) } // `col1` NOT IN (1, 4, 8)
 ```
 
@@ -3645,23 +3638,23 @@ a few examples to describe it:
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">not_in = function (v) {
-	return createSpecialObject({ val: v }, &#x27;not_in&#x27;);
+	return createSpecialObject({ val: v }, 'not_in');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-{ col1: orm.gte(123) } // `col1` &#x3e;= 123
-{ col1: orm.lt(123) } // `col1` &#x3c; 123
-{ col1: orm.lte(123) } // `col1` &#x3c;= 123
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
 { col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
 { col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
-{ col1: orm.like(12 + &#x22;%&#x22;) } // `col1` LIKE &#x27;12%&#x27;
-{ col1: orm.not_like(12 + &#x22;%&#x22;) } // `col1` NOT LIKE &#x27;12%&#x27;
+{ col1: orm.like(12 + "%") } // `col1` LIKE '12%'
+{ col1: orm.not_like(12 + "%") } // `col1` NOT LIKE '12%'
 { col1: orm.<span class="apidocCodeKeywordSpan">not_in</span>([1, 4, 8]) } // `col1` NOT IN (1, 4, 8)
 ```
 
 #### Raw queries
 
 ```js
-db.driver.execQuery(&#x22;SELECT id, email FROM user&#x22;, function (err, data) { ... })
+db.driver.execQuery("SELECT id, email FROM user", function (err, data) { ... })
 ...</pre></li>
     </ul>
 
@@ -3675,24 +3668,24 @@ db.driver.execQuery(&#x22;SELECT id, email FROM user&#x22;, function (err, data)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">not_like = function (expr) {
-	return createSpecialObject({ expr: expr }, &#x27;not_like&#x27;);
+	return createSpecialObject({ expr: expr }, 'not_like');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-{ col1: orm.gt(123) } // `col1` &#x3e; 123
-{ col1: orm.gte(123) } // `col1` &#x3e;= 123
-{ col1: orm.lt(123) } // `col1` &#x3c; 123
-{ col1: orm.lte(123) } // `col1` &#x3c;= 123
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
 { col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
 { col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
-{ col1: orm.like(12 + &#x22;%&#x22;) } // `col1` LIKE &#x27;12%&#x27;
-{ col1: orm.<span class="apidocCodeKeywordSpan">not_like</span>(12 + &#x22;%&#x22;) } // `col1` NOT LIKE &#x27;12%&#x27;
+{ col1: orm.like(12 + "%") } // `col1` LIKE '12%'
+{ col1: orm.<span class="apidocCodeKeywordSpan">not_like</span>(12 + "%") } // `col1` NOT LIKE '12%'
 { col1: orm.not_in([1, 4, 8]) } // `col1` NOT IN (1, 4, 8)
 ```
 
 #### Raw queries
 
 ```js
-db.driver.execQuery(&#x22;SELECT id, email FROM user&#x22;, function (err, data) { ... })
+db.driver.execQuery("SELECT id, email FROM user", function (err, data) { ... })
 ...</pre></li>
     </ul>
 
@@ -3716,13 +3709,13 @@ db.driver.execQuery(&#x22;SELECT id, email FROM user&#x22;, function (err, data)
 		}</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 
-		for(i = 0; i &#x3c; opts.keyProperties.length; i++) {
+		for(i = 0; i &lt; opts.keyProperties.length; i++) {
 			prop = opts.keyProperties[i];
 			opts.originalKeyValues[prop.name] = opts.data[prop.name];
 		}
 	};
 	var shouldSaveAssocs = function (saveOptions) {
-		if (Model.<span class="apidocCodeKeywordSpan">settings.get</span>(&#x22;instance.saveAssociationsByDefault&#x22;)) {
+		if (Model.<span class="apidocCodeKeywordSpan">settings.get</span>("instance.saveAssociationsByDefault")) {
 			return saveOptions.saveAssociations !== false;
 		} else {
 			return !!saveOptions.saveAssociations;
@@ -3749,16 +3742,16 @@ db.driver.execQuery(&#x22;SELECT id, email FROM user&#x22;, function (err, data)
 		}</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 ```js
-var Person = db.define(&#x22;person&#x22;, {
-	personId : { type: &#x27;serial&#x27;, key: true },
+var Person = db.define("person", {
+	personId : { type: 'serial', key: true },
 	name     : String
 });
 
-// You can also change the default &#x22;id&#x22; property name globally:
-db.<span class="apidocCodeKeywordSpan">settings.set</span>(&#x22;properties.primary_key&#x22;, &#x22;UID&#x22;);
+// You can also change the default "id" property name globally:
+db.<span class="apidocCodeKeywordSpan">settings.set</span>("properties.primary_key", "UID");
 
 // ..and then define your Models
-var Pet = db.define(&#x22;pet&#x22;, {
+var Pet = db.define("pet", {
 	name : String
 });
 ```
@@ -3775,8 +3768,8 @@ var Pet = db.define(&#x22;pet&#x22;, {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">settings.unset = function () {
-			for (var i = 0; i &#x3c; arguments.length; i++) {
-				if (typeof arguments[i] === &#x22;string&#x22;) {
+			for (var i = 0; i &lt; arguments.length; i++) {
+				if (typeof arguments[i] === "string") {
 					unset(arguments[i], settings);
 				}
 			}
@@ -3796,7 +3789,7 @@ var Pet = db.define(&#x22;pet&#x22;, {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">singleton.clear = function (key) {
-	if (typeof key === &#x22;string&#x22;) {
+	if (typeof key === "string") {
 		delete map[key];
 	} else {
 		map = {};
@@ -3816,14 +3809,14 @@ var Pet = db.define(&#x22;pet&#x22;, {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">singleton.get = function (key, opts, createCb, returnCb) {
-	if (opts &#x26;&#x26; opts.identityCache === false) {
+	if (opts &amp;&amp; opts.identityCache === false) {
 		return createCb(returnCb);
 	}
 	if (map.hasOwnProperty(key)) {
-		if (opts &#x26;&#x26; opts.saveCheck &#x26;&#x26; typeof map[key].o.saved === &#x22;function&#x22; &#x26;&#x26; !map[key].o.saved()) {
-			// if not saved, don&#x27;t return it, fetch original from db
+		if (opts &amp;&amp; opts.saveCheck &amp;&amp; typeof map[key].o.saved === "function" &amp;&amp; !map[key].o.saved()) {
+			// if not saved, don't return it, fetch original from db
 			return createCb(returnCb);
-		} else if (map[key].t !== null &#x26;&#x26; map[key].t &#x3c;= Date.now()) {
+		} else if (map[key].t !== null &amp;&amp; map[key].t &lt;= Date.now()) {
 			delete map[key];
 		} else  {
 			return returnCb(null, map[key].o);
@@ -3835,7 +3828,7 @@ var Pet = db.define(&#x22;pet&#x22;, {
 
 		map[key] = { // object , timeout
 			o : value,
-			t : (opts &#x26;&#x26; typeof opts.identityCache === &#x22;number&#x22; ? Date.now() + (opts.identityCache * 1000) : null)
+			t : (opts &amp;&amp; typeof opts.identityCache === "number" ? Date.now() + (opts.identityCache * 1000) : null)
 		};
 		return returnCb(null, map[key].o);
 	});
@@ -3856,16 +3849,16 @@ var Pet = db.define(&#x22;pet&#x22;, {
 	if (DriverAliases[proto]) {
 		proto = DriverAliases[proto];
 	}
-	if (typeof opts === &#x22;function&#x22;) {
+	if (typeof opts === "function") {
 		cb = opts;
 		opts = {};
 	}
 
 	try {
 		var Driver   = adapters.get(proto);
-		var settings = new Settings.Container(exports.settings.get(&#x27;*&#x27;));
+		var settings = new Settings.Container(exports.settings.get('*'));
 		var driver   = new Driver(null, connection, {
-			debug    : (opts.query &#x26;&#x26; opts.query.debug === &#x27;true&#x27;),
+			debug    : (opts.query &amp;&amp; opts.query.debug === 'true'),
 			settings : settings
 		});
 
@@ -3875,16 +3868,16 @@ var Pet = db.define(&#x22;pet&#x22;, {
 	}
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-If you&#x27;re using Express, you might want to use the simple middleware to integrate more easily.
+If you're using Express, you might want to use the simple middleware to integrate more easily.
 
 ```js
-var express = require(&#x27;express&#x27;);
-var orm = require(&#x27;orm&#x27;);
+var express = require('express');
+var orm = require('orm');
 var app = express();
 
-app.<span class="apidocCodeKeywordSpan">use</span>(orm.express(&#x22;mysql://username:password@host/database&#x22;, {
+app.<span class="apidocCodeKeywordSpan">use</span>(orm.express("mysql://username:password@host/database", {
 	define: function (db, models, next) {
-		models.person = db.define(&#x22;person&#x22;, { ... });
+		models.person = db.define("person", { ... });
 		next();
 	}
 }));
@@ -3902,9 +3895,9 @@ app.listen(80);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function inside(list, message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;outside-list&#x27;; }
+    if (typeof message === "undefined") { message = 'outside-list'; }
     return new Validator(function (value, next) {
-        if (list.indexOf(value) &#x3e;= 0)
+        if (list.indexOf(value) &gt;= 0)
             return next();
         return next(message);
     });
@@ -3922,7 +3915,7 @@ app.listen(80);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function outside(list, message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;inside-list&#x27;; }
+    if (typeof message === "undefined") { message = 'inside-list'; }
     return new Validator(function (value, next) {
         if (list.indexOf(value) === -1)
             return next();
@@ -3944,11 +3937,11 @@ app.listen(80);
     <li>description and source-code<pre class="apidocCodePre">function password(checks, message) {
     if (!message) {
         message = checks;
-        checks = &#x22;luns6&#x22;;
+        checks = "luns6";
     }
 
     if (!message) {
-        message = &#x22;weak-password&#x22;;
+        message = "weak-password";
     }
 
     var m = checks.match(/([0-9]+)/);
@@ -3958,15 +3951,15 @@ app.listen(80);
         if (!value)
             return next(message);
 
-        if (checks.indexOf(&#x22;l&#x22;) &#x3e;= 0 &#x26;&#x26; !value.match(/[a-z]/))
+        if (checks.indexOf("l") &gt;= 0 &amp;&amp; !value.match(/[a-z]/))
             return next(message);
-        if (checks.indexOf(&#x22;u&#x22;) &#x3e;= 0 &#x26;&#x26; !value.match(/[A-Z]/))
+        if (checks.indexOf("u") &gt;= 0 &amp;&amp; !value.match(/[A-Z]/))
             return next(message);
-        if (checks.indexOf(&#x22;n&#x22;) &#x3e;= 0 &#x26;&#x26; !value.match(/[0-9]/))
+        if (checks.indexOf("n") &gt;= 0 &amp;&amp; !value.match(/[0-9]/))
             return next(message);
-        if (checks.indexOf(&#x22;s&#x22;) &#x3e;= 0 &#x26;&#x26; !value.match(/[^a-zA-Z0-9]/))
+        if (checks.indexOf("s") &gt;= 0 &amp;&amp; !value.match(/[^a-zA-Z0-9]/))
             return next(message);
-        if (min_len !== null &#x26;&#x26; min_len &#x3e; value.length)
+        if (min_len !== null &amp;&amp; min_len &gt; value.length)
             return next(message);
 
         return next();
@@ -3985,15 +3978,15 @@ app.listen(80);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function length(min, max, message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;out-of-range-length&#x27;; }
+    if (typeof message === "undefined") { message = 'out-of-range-length'; }
     return new Validator(function (value, next) {
         if (value === undefined || value === null)
-            return next(&#x27;undefined&#x27;);
-        if (min === undefined &#x26;&#x26; value.length &#x3c;= max)
+            return next('undefined');
+        if (min === undefined &amp;&amp; value.length &lt;= max)
             return next();
-        if (max === undefined &#x26;&#x26; value.length &#x3e;= min)
+        if (max === undefined &amp;&amp; value.length &gt;= min)
             return next();
-        if (value.length &#x3e;= min &#x26;&#x26; value.length &#x3c;= max)
+        if (value.length &gt;= min &amp;&amp; value.length &lt;= max)
             return next();
         return next(message);
     });
@@ -4011,15 +4004,15 @@ app.listen(80);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function number(min, max, message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;out-of-range-number&#x27;; }
+    if (typeof message === "undefined") { message = 'out-of-range-number'; }
     return new Validator(function (value, next) {
         if (value === undefined || value === null)
-            return next(&#x27;undefined&#x27;);
-        if (min === undefined &#x26;&#x26; value &#x3c;= max)
+            return next('undefined');
+        if (min === undefined &amp;&amp; value &lt;= max)
             return next();
-        if (max === undefined &#x26;&#x26; value &#x3e;= min)
+        if (max === undefined &amp;&amp; value &gt;= min)
             return next();
-        if (value &#x3e;= min &#x26;&#x26; value &#x3c;= max)
+        if (value &gt;= min &amp;&amp; value &lt;= max)
             return next();
         return next(message);
     });
@@ -4092,17 +4085,17 @@ app.listen(80);
 						}
 					}
 				}
-				if (!alwaysValidate &#x26;&#x26; !required &#x26;&#x26; instance[k] == null) {
-					continue; // avoid validating if property is not required and is &#x22;empty&#x22;
+				if (!alwaysValidate &amp;&amp; !required &amp;&amp; instance[k] == null) {
+					continue; // avoid validating if property is not required and is "empty"
 				}
-				for (i = 0; i &#x3c; opts.validations[k].length; i++) {
+				for (i = 0; i &lt; opts.validations[k].length; i++) {
 					checks.<span class="apidocCodeKeywordSpan">add</span>(k, opts.validations[k][i]);
 				}
 			}
 
-			checks.context(&#x22;instance&#x22;, instance);
-			checks.context(&#x22;model&#x22;, Model);
-			checks.context(&#x22;driver&#x22;, opts.driver);
+			checks.context("instance", instance);
+			checks.context("model", Model);
+			checks.context("driver", opts.driver);
 ...</pre></li>
     </ul>
 
@@ -4119,27 +4112,27 @@ app.listen(80);
   if (name in aliases) {
     return getAdapter(aliases[name]);
   } else if (!(name in adapters)) {
-    adapters[name] = require(&#x22;./Drivers/DML/&#x22; + name).Driver;
+    adapters[name] = require("./Drivers/DML/" + name).Driver;
   }
 
   return adapters[name];
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 	define: function (db, models, next) {
-		models.person = db.define(&#x22;person&#x22;, { ... });
+		models.person = db.define("person", { ... });
 		next();
 	}
 }));
 app.listen(80);
 
-app.<span class="apidocCodeKeywordSpan">get</span>(&#x22;/&#x22;, function (req, res) {
+app.<span class="apidocCodeKeywordSpan">get</span>("/", function (req, res) {
 	// req.models is a reference to models used above in define()
 	req.models.person.find(...);
 });
 ```
 
 You can call `orm.express` more than once to have multiple database connections. Models defined across connections
-will be joined together in `req.models`. **Don&#x27;t forget to use it before `app.use(app.router)`, preferably right after your
+will be joined together in `req.models`. **Don't forget to use it before `app.use(app.router)`, preferably right after your
 ...</pre></li>
     </ul>
 
@@ -4158,11 +4151,11 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function AggregateFunctions(opts) {
-	if (typeof opts.driver.getQuery !== &#x22;function&#x22;) {
-		throw new ORMError(&#x27;NO_SUPPORT&#x27;, &#x22;This driver does not support aggregate functions&#x22;);
+	if (typeof opts.driver.getQuery !== "function") {
+		throw new ORMError('NO_SUPPORT', "This driver does not support aggregate functions");
 	}
 	if (!Array.isArray(opts.driver.aggregate_functions)) {
-		throw new ORMError(&#x27;NO_SUPPORT&#x27;, &#x22;This driver does not support aggregate functions&#x22;);
+		throw new ORMError('NO_SUPPORT', "This driver does not support aggregate functions");
 	}
 
 	var aggregates    = [ [] ];
@@ -4171,16 +4164,16 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 
 	var appendFunction = function (fun) {
 		return function () {
-			var args = (arguments.length &#x26;&#x26; Array.isArray(arguments[0]) ? arguments[0] : Array.prototype.slice.apply(arguments));
+			var args = (arguments.length &amp;&amp; Array.isArray(arguments[0]) ? arguments[0] : Array.prototype.slice.apply(arguments));
 
-			if (args.length &#x3e; 0) {
+			if (args.length &gt; 0) {
 				aggregates[aggregates.length - 1].push({ f: fun, a: args, alias: aggregateAlias(fun, args) });
 				aggregates.push([]);
 			} else {
 				aggregates[aggregates.length - 1].push({ f: fun, alias: aggregateAlias(fun, args) });
 			}
 
-			if (fun === &#x22;distinct&#x22;) {
+			if (fun === "distinct") {
 				used_distinct = true;
 			}
 
@@ -4193,7 +4186,7 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 			return this;
 		},
 		limit: function (offset, limit) {
-			if (typeof limit === &#x22;number&#x22;) {
+			if (typeof limit === "number") {
 				opts.limit = [ offset, limit ];
 			} else {
 				opts.limit = [ 0, offset ]; // offset = limit
@@ -4206,7 +4199,7 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 		},
 		select: function () {
 			if (arguments.length === 0) {
-				throw new ORMError(&#x27;PARAM_MISMATCH&#x27;, &#x22;When using append you must at least define one property&#x22;);
+				throw new ORMError('PARAM_MISMATCH', "When using append you must at least define one property");
 			}
 			if (Array.isArray(arguments[0])) {
 				opts.propertyList = opts.propertyList.concat(arguments[0]);
@@ -4216,8 +4209,8 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 			return this;
 		},
 		as: function (alias) {
-			if (aggregates.length === 0 || (aggregates.length === 1 &#x26;&#x26; aggregates[0].length === 0)) {
-				throw new ORMError(&#x27;PARAM_MISMATCH&#x27;, &#x22;No aggregate functions defined yet&#x22;);
+			if (aggregates.length === 0 || (aggregates.length === 1 &amp;&amp; aggregates[0].length === 0)) {
+				throw new ORMError('PARAM_MISMATCH', "No aggregate functions defined yet");
 			}
 
 			var len = aggregates.length;
@@ -4227,35 +4220,35 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 			return this;
 		},
 		call: function (fun, args) {
-			if (args &#x26;&#x26; args.length &#x3e; 0) {
+			if (args &amp;&amp; args.length &gt; 0) {
 				aggregates[aggregates.length - 1].push({ f: fun, a: args, alias: aggregateAlias(fun, args) });
 				// aggregates.push([]);
 			} else {
 				aggregates[aggregates.length - 1].push({ f: fun, alias: aggregateAlias(fun, args) });
 			}
 
-			if (fun.toLowerCase() === &#x22;distinct&#x22;) {
+			if (fun.toLowerCase() === "distinct") {
 				used_distinct = true;
 			}
 
 			return this;
 		},
 		get: function (cb) {
-			if (typeof cb !== &#x22;function&#x22;) {
-				throw new ORMError(&#x27;MISSING_CALLBACK&#x27;, &#x22;You must pass a callback to Model.aggregate().get()&#x22;);
+			if (typeof cb !== "function") {
+				throw new ORMError('MISSING_CALLBACK', "You must pass a callback to Model.aggregate().get()");
 			}
 			if (aggregates[aggregates.length - 1].length === 0) {
 				aggregates.length -= 1;
 			}
 			if (aggregates.length === 0) {
-				throw new ORMError(&#x27;PARAM_MISMATCH&#x27;, &#x22;Missing aggregate functions&#x22;);
+				throw new ORMError('PARAM_MISMATCH', "Missing aggregate functions");
 			}
 
 			var query = opts.driver.getQuery().select().from(opts.table).select(opts.propertyList);
 			var i, j;
 
-			for (i = 0; i &#x3c; aggregates.length; i++) {
-				for (j = 0; j &#x3c; aggregates[i].length; j++) {
+			for (i = 0; i &lt; aggregates.length; i++) {
+				for (j = 0; j &lt; aggregates[i].length; j++) {
 					query.fun(aggregates[i][j].f, aggregates[i][j].a, aggregates[i][j].alias);
 				}
 			}
@@ -4267,7 +4260,7 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 			}
 
 			if (opts.order) {
-				for (i = 0; i &#x3c; opts.order.length; i++) {
+				for (i = 0; i &lt; opts.order.length; i++) {
 					query.order(opts.order[i][0], opts.order[i][1]);
 				}
 			}
@@ -4288,16 +4281,16 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 
 				var items = [], i;
 
-				if (used_distinct &#x26;&#x26; aggregates.length === 1) {
-					for (i = 0; i &#x3c; data.length; i++) {
+				if (used_distinct &amp;&amp; aggregates.length === 1) {
+					for (i = 0; i &lt; data.length; i++) {
 						items.push(data[i][Object.keys(data[i]).pop()]);
 					}
 
 					return cb(null, items);
 				}
 
-				for (i = 0; i &#x3c; aggregates.length; i++) {
-					for (var j = 0; j &#x3c; aggregates[i].length; j++) {
+				for (i = 0; i &lt; aggregates.length; i++) {
+					for (var j = 0; j &lt; aggregates[i].length; j++) {
 						items.push(data[0][aggregates[i][j].alias] || null);
 					}
 				}
@@ -4397,7 +4390,7 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 			async.map(dataItems, opts.newInstance, function (err, items) {
 				if (err) return done(err);
 
-				var shouldEagerLoad = opts.__eager &#x26;&#x26; opts.__eager.length;
+				var shouldEagerLoad = opts.__eager &amp;&amp; opts.__eager.length;
 				var completeFn = shouldEagerLoad ? eagerLoad : done;
 
 				return completeFn(null, items);
@@ -4413,13 +4406,13 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 			var args = Array.prototype.slice.call(arguments);
 			opts.conditions = opts.conditions || {};
 
-			if (typeof _.last(args) === &#x22;function&#x22;) {
+			if (typeof _.last(args) === "function") {
 			    cb = args.pop();
 			}
 
-			if (typeof args[0] === &#x22;object&#x22;) {
+			if (typeof args[0] === "object") {
 				_.extend(opts.conditions, args[0]);
-			} else if (typeof args[0] === &#x22;string&#x22;) {
+			} else if (typeof args[0] === "string") {
 				opts.conditions.__sql = opts.conditions.__sql || [];
 				opts.conditions.__sql.push(args);
 			}
@@ -4430,7 +4423,7 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 			return this;
 		},
 		only: function () {
-			if (arguments.length &#x26;&#x26; Array.isArray(arguments[0])) {
+			if (arguments.length &amp;&amp; Array.isArray(arguments[0])) {
 				opts.only = arguments[0];
 			} else {
 				opts.only = Array.prototype.slice.apply(arguments);
@@ -4440,7 +4433,7 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 		omit: function () {
 			var omit = null;
 
-			if (arguments.length &#x26;&#x26; Array.isArray(arguments[0])) {
+			if (arguments.length &amp;&amp; Array.isArray(arguments[0])) {
 				omit = arguments[0];
 			} else {
 				omit = Array.prototype.slice.apply(arguments);
@@ -4463,10 +4456,10 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 			if (!Array.isArray(opts.order)) {
 				opts.order = [];
 			}
-			if (property[0] === &#x22;-&#x22;) {
-				opts.order.push([ property.substr(1), &#x22;Z&#x22; ]);
+			if (property[0] === "-") {
+				opts.order.push([ property.substr(1), "Z" ]);
 			} else {
-				opts.order.push([ property, (order &#x26;&#x26; order.toUpperCase() === &#x22;Z&#x22; ? &#x22;Z&#x22; : &#x22;A&#x22;) ]);
+				opts.order.push([ property, (order &amp;&amp; order.toUpperCase() === "Z" ? "Z" : "A") ]);
 			}
 			return this;
 		},
@@ -4566,8 +4559,8 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 		}),
 		save: promise(function (cb) {
 			var saveNext = function (i) {
-				if (i &#x3e;= instances.length) {
-					if (typeof cb === &#x22;function&#x22;) {
+				if (i &gt;= instances.length) {
+					if (typeof cb === "function") {
 						cb();
 					}
 					return next();
@@ -4575,7 +4568,7 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 
 				return instances[i].save(function (err) {
 					if (err) {
-						if (typeof cb === &#x22;function&#x22;) {
+						if (typeof cb === "function") {
 							cb(err);
 						}
 						return next();
@@ -4589,7 +4582,7 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 		})
 	};
 
-	if (typeof cb === &#x22;function&#x22;) {
+	if (typeof cb === "function") {
 		return calls.forEach(cb);
 	}
 	return calls;
@@ -4615,10 +4608,10 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 	var fmt;
 
 	if (tty.isatty(process.stdout)) {
-		fmt = &#x22;\033[32;1m(orm/%s) \033[34m%s\033[0m\n&#x22;;
-		sql = sql.replace(/`(.+?)`/g, function (m) { return &#x22;\033[31m&#x22; + m + &#x22;\033[34m&#x22;; });
+		fmt = "\033[32;1m(orm/%s) \033[34m%s\033[0m\n";
+		sql = sql.replace(/`(.+?)`/g, function (m) { return "\033[31m" + m + "\033[34m"; });
 	} else {
-		fmt = &#x22;[SQL/%s] %s\n&#x22;;
+		fmt = "[SQL/%s] %s\n";
 	}
 
 	process.stdout.write(util.format(fmt, driver, sql));
@@ -4649,7 +4642,7 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
   	this.code = codes[code];
     this.literalCode = code;
     if (!this.code) {
-  		throw new Error(&#x22;Invalid error code: &#x22; +  code);
+  		throw new Error("Invalid error code: " +  code);
   	}
   }
   if (extras) {
@@ -4686,7 +4679,7 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
   	this.code = codes[code];
     this.literalCode = code;
     if (!this.code) {
-  		throw new Error(&#x22;Invalid error code: &#x22; +  code);
+  		throw new Error("Invalid error code: " +  code);
   	}
   }
   if (extras) {
@@ -4708,7 +4701,7 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">toString = function () {
-  return &#x27;[ORMError &#x27; + this.literalCode + &#x27;: &#x27; + this.message + &#x27;]&#x27;;
+  return '[ORMError ' + this.literalCode + ': ' + this.message + ']';
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -4736,7 +4729,7 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 
 	orm.connect(uri, function (err, db) {
 		if (err) {
-			if (typeof opts.error === &#x22;function&#x22;) {
+			if (typeof opts.error === "function") {
 				opts.error(err);
 			} else {
 				throw err;
@@ -4753,8 +4746,8 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 			_db = db;
 		}
 
-		if (typeof opts.define === &#x22;function&#x22;) {
-			if (opts.define.length &#x3e; 2) {
+		if (typeof opts.define === "function") {
+			if (opts.define.length &gt; 2) {
 				return opts.define(db, _models, function () {
 					return checkRequestQueue();
 				});
@@ -4767,17 +4760,17 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 	});
 
 	return function ORM_ExpressMiddleware(req, res, next) {
-		if (!req.hasOwnProperty(&#x22;models&#x22;)) {
+		if (!req.hasOwnProperty("models")) {
 			req.models = _models;
 			req.db     = _db;
 		}
 
-		if (next === undefined &#x26;&#x26; typeof res === &#x27;function&#x27;)
+		if (next === undefined &amp;&amp; typeof res === 'function')
 		{
 			next = res;
 		}
 
-		if (_pending &#x3e; 0) {
+		if (_pending &gt; 0) {
 			_queue.push(next);
 			return;
 		}
@@ -4807,7 +4800,7 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 	var self = args.shift();
 	var cb   = args.shift();
 
-	if (typeof cb === &#x22;function&#x22;) {
+	if (typeof cb === "function") {
 		cb.apply(self, args);
 	}
 }</pre></li>
@@ -4817,11 +4810,11 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 	var saveError = function (cb, err) {
 		instance_saving = false;
 
-		emitEvent(&#x22;save&#x22;, err, instance);
+		emitEvent("save", err, instance);
 
 		Hook.<span class="apidocCodeKeywordSpan">trigger</span>(instance, opts.hooks.afterSave, false);
 
-		if (typeof cb === &#x22;function&#x22;) {
+		if (typeof cb === "function") {
 			cb(err, instance);
 		}
 	};
@@ -4847,10 +4840,10 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 
 	args.push(next);
 
-	if (typeof cb === &#x22;function&#x22;) {
+	if (typeof cb === "function") {
 		cb.apply(self, args);
 
-		if (cb.length &#x3c; args.length) {
+		if (cb.length &lt; args.length) {
 			return next();
 		}
 	} else {
@@ -4872,7 +4865,7 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 			}
 
 			var checks = new enforce.Enforce({
-				returnAllErrors : Model.settings.get(&#x22;instance.returnAllErrors&#x22;)
+				returnAllErrors : Model.settings.get("instance.returnAllErrors")
 ...</pre></li>
     </ul>
 
@@ -4894,7 +4887,7 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 	opts = opts || {};
 	opts.data = opts.data || {};
 	opts.extra = opts.extra || {};
-	opts.keys = opts.keys || &#x22;id&#x22;;
+	opts.keys = opts.keys || "id";
 	opts.changes = (opts.is_new ? Object.keys(opts.data) : []);
 	opts.extrachanges = [];
 	opts.associations = {};
@@ -4916,13 +4909,13 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 	var rememberKeys = function () {
 		var i, prop;
 
-		for(i = 0; i &#x3c; opts.keyProperties.length; i++) {
+		for(i = 0; i &lt; opts.keyProperties.length; i++) {
 			prop = opts.keyProperties[i];
 			opts.originalKeyValues[prop.name] = opts.data[prop.name];
 		}
 	};
 	var shouldSaveAssocs = function (saveOptions) {
-		if (Model.settings.get(&#x22;instance.saveAssociationsByDefault&#x22;)) {
+		if (Model.settings.get("instance.saveAssociationsByDefault")) {
 			return saveOptions.saveAssociations !== false;
 		} else {
 			return !!saveOptions.saveAssociations;
@@ -4938,7 +4931,7 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 			}
 
 			var checks = new enforce.Enforce({
-				returnAllErrors : Model.settings.get(&#x22;instance.returnAllErrors&#x22;)
+				returnAllErrors : Model.settings.get("instance.returnAllErrors")
 			});
 
 			for (k in opts.validations) {
@@ -4948,24 +4941,24 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 					required = Model.allProperties[k].required;
 					alwaysValidate = Model.allProperties[k].alwaysValidate;
 				} else {
-					for (i = 0; i &#x3c; opts.one_associations.length; i++) {
+					for (i = 0; i &lt; opts.one_associations.length; i++) {
 						if (opts.one_associations[i].field === k) {
 							required = opts.one_associations[i].required;
 							break;
 						}
 					}
 				}
-				if (!alwaysValidate &#x26;&#x26; !required &#x26;&#x26; instance[k] == null) {
-					continue; // avoid validating if property is not required and is &#x22;empty&#x22;
+				if (!alwaysValidate &amp;&amp; !required &amp;&amp; instance[k] == null) {
+					continue; // avoid validating if property is not required and is "empty"
 				}
-				for (i = 0; i &#x3c; opts.validations[k].length; i++) {
+				for (i = 0; i &lt; opts.validations[k].length; i++) {
 					checks.add(k, opts.validations[k][i]);
 				}
 			}
 
-			checks.context(&#x22;instance&#x22;, instance);
-			checks.context(&#x22;model&#x22;, Model);
-			checks.context(&#x22;driver&#x22;, opts.driver);
+			checks.context("instance", instance);
+			checks.context("model", Model);
+			checks.context("driver", opts.driver);
 
 			return checks.check(instance, cb);
 		});
@@ -4973,20 +4966,20 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 	var saveError = function (cb, err) {
 		instance_saving = false;
 
-		emitEvent(&#x22;save&#x22;, err, instance);
+		emitEvent("save", err, instance);
 
 		Hook.trigger(instance, opts.hooks.afterSave, false);
 
-		if (typeof cb === &#x22;function&#x22;) {
+		if (typeof cb === "function") {
 			cb(err, instance);
 		}
 	};
 	var saveInstance = function (saveOptions, cb) {
 		// what this condition means:
 		// - If the instance is in state mode
-		// - AND it&#x27;s not an association that is asking it to save
-		//   -&#x3e; return has already saved
-		if (instance_saving &#x26;&#x26; saveOptions.saveAssociations !== false) {
+		// - AND it's not an association that is asking it to save
+		//   -&gt; return has already saved
+		if (instance_saving &amp;&amp; saveOptions.saveAssociations !== false) {
 			return cb(null, instance);
 		}
 		instance_saving = true;
@@ -4997,7 +4990,7 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 			}
 
 			if (opts.is_new) {
-				waitHooks([ &#x22;beforeCreate&#x22;, &#x22;beforeSave&#x22; ], function (err) {
+				waitHooks([ "beforeCreate", "beforeSave" ], function (err) {
 					if (err) {
 						return saveError(cb, err);
 					}
@@ -5005,7 +4998,7 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 					return saveNew(saveOptions, getInstanceData(), cb);
 				});
 			} else {
-				waitHooks([ &#x22;beforeSave&#x22; ], function (err) {
+				waitHooks([ "beforeSave" ], function (err) {
 					if (err) {
 						return saveError(cb, err);
 					}
@@ -5018,7 +5011,7 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 	var runAfterSaveActions = function (cb, create, err) {
 		instance_saving = false;
 
-		emitEvent(&#x22;save&#x22;, err, instance);
+		emitEvent("save", err, instance);
 
 		if (create) {
 			Hook.trigger(instance, opts.hooks.afterCreate, !err);
@@ -5034,7 +5027,7 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 			prop = Model.allProperties[k];
 
 			if (prop) {
-				if (opts.data[k] == null &#x26;&#x26;  (prop.type == &#x27;serial&#x27; || typeof prop.defaultValue == &#x27;function&#x27;)) {
+				if (opts.data[k] == null &amp;&amp;  (prop.type == 'serial' || typeof prop.defaultValue == 'function')) {
 					continue;
 				}
 
@@ -5078,13 +5071,13 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
     <li>example usage<pre class="apidocCodePre">...
 			opts.conditions = opts.conditions || {};
 
-			if (typeof _.last(args) === &#x22;function&#x22;) {
+			if (typeof _.last(args) === "function") {
 			    cb = args.pop();
 			}
 
-			if (typeof args[0] === &#x22;object&#x22;) {
+			if (typeof args[0] === "object") {
 				_.<span class="apidocCodeKeywordSpan">extend</span>(opts.conditions, args[0]);
-			} else if (typeof args[0] === &#x22;string&#x22;) {
+			} else if (typeof args[0] === "string") {
 				opts.conditions.__sql = opts.conditions.__sql || [];
 				opts.conditions.__sql.push(args);
 			}
@@ -5125,7 +5118,7 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 
 	var createHookHelper = function (hook) {
 		return function (cb) {
-			if (typeof cb !== &#x22;function&#x22;) {
+			if (typeof cb !== "function") {
 				delete opts.hooks[hook];
 			} else {
 				opts.hooks[hook] = cb;
@@ -5141,20 +5134,20 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 		var found_assoc = false, i, k;
 
 		for (k in data) {
-			if (k === &#x22;extra_field&#x22;) continue;
+			if (k === "extra_field") continue;
 			if (opts.properties.hasOwnProperty(k)) continue;
-			if (inst_opts.extra &#x26;&#x26; inst_opts.extra.hasOwnProperty(k)) continue;
-			if (opts.keys.indexOf(k) &#x3e;= 0) continue;
-			if (association_properties.indexOf(k) &#x3e;= 0) continue;
+			if (inst_opts.extra &amp;&amp; inst_opts.extra.hasOwnProperty(k)) continue;
+			if (opts.keys.indexOf(k) &gt;= 0) continue;
+			if (association_properties.indexOf(k) &gt;= 0) continue;
 
-			for (i = 0; i &#x3c; one_associations.length; i++) {
+			for (i = 0; i &lt; one_associations.length; i++) {
 				if (one_associations[i].name === k) {
 					found_assoc = true;
 					break;
 				}
 			}
 			if (!found_assoc) {
-				for (i = 0; i &#x3c; many_associations.length; i++) {
+				for (i = 0; i &lt; many_associations.length; i++) {
 					if (many_associations[i].name === k) {
 						found_assoc = true;
 						break;
@@ -5201,12 +5194,12 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 			fieldToPropertyMap     : fieldToPropertyMap,
 			keyProperties          : keyProperties
 		});
-		instance.on(&#x22;ready&#x22;, function (err) {
-			if (--pending &#x3e; 0) {
+		instance.on("ready", function (err) {
+			if (--pending &gt; 0) {
 				create_err = err;
 				return;
 			}
-			if (typeof cb === &#x22;function&#x22;) {
+			if (typeof cb === "function") {
 				return cb(err || create_err, instance);
 			}
 		});
@@ -5218,11 +5211,11 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 			ManyAssociation.autoFetch(instance, many_associations, assoc_opts, function () {
 				ExtendAssociation.autoFetch(instance, extend_associations, assoc_opts, function () {
 					Hook.wait(instance, opts.hooks.afterAutoFetch, function (err) {
-						if (--pending &#x3e; 0) {
+						if (--pending &gt; 0) {
 							create_err = err;
 							return;
 						}
-						if (typeof cb === &#x22;function&#x22;) {
+						if (typeof cb === "function") {
 							return cb(err || create_err, instance);
 						}
 					});
@@ -5235,12 +5228,12 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 	var model = function () {
 	    var instance, i;
 
-	    var data = arguments.length &#x3e; 1 ? arguments : arguments[0];
+	    var data = arguments.length &gt; 1 ? arguments : arguments[0];
 
-	    if (Array.isArray(opts.keys) &#x26;&#x26; Array.isArray(data)) {
+	    if (Array.isArray(opts.keys) &amp;&amp; Array.isArray(data)) {
 	        if (data.length == opts.keys.length) {
 	            var data2 = {};
-	            for (i = 0; i &#x3c; opts.keys.length; i++) {
+	            for (i = 0; i &lt; opts.keys.length; i++) {
 	                data2[opts.keys[i ...</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -5305,61 +5298,61 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">normalize = function (opts) {
-	if (typeof opts.prop === &#x22;function&#x22;) {
+	if (typeof opts.prop === "function") {
 		switch (opts.prop.name) {
-			case &#x22;String&#x22;:
-				opts.prop = { type: &#x22;text&#x22; };
+			case "String":
+				opts.prop = { type: "text" };
 				break;
-			case &#x22;Number&#x22;:
-				opts.prop = { type: &#x22;number&#x22; };
+			case "Number":
+				opts.prop = { type: "number" };
 				break;
-			case &#x22;Boolean&#x22;:
-				opts.prop = { type: &#x22;boolean&#x22; };
+			case "Boolean":
+				opts.prop = { type: "boolean" };
 				break;
-			case &#x22;Date&#x22;:
-				opts.prop = { type: &#x22;date&#x22; };
+			case "Date":
+				opts.prop = { type: "date" };
 				break;
-			case &#x22;Object&#x22;:
-				opts.prop = { type: &#x22;object&#x22; };
+			case "Object":
+				opts.prop = { type: "object" };
 				break;
-			case &#x22;Buffer&#x22;:
-				opts.prop = { type: &#x22;binary&#x22; };
+			case "Buffer":
+				opts.prop = { type: "binary" };
 				break;
 		}
-	} else if (typeof opts.prop === &#x22;string&#x22;) {
+	} else if (typeof opts.prop === "string") {
 		var tmp = opts.prop;
 		opts.prop = {};
 		opts.prop.type = tmp;
 	} else if (Array.isArray(opts.prop)) {
-		opts.prop = { type: &#x22;enum&#x22;, values: opts.prop };
+		opts.prop = { type: "enum", values: opts.prop };
 	} else {
 		opts.prop = _.cloneDeep(opts.prop);
 	}
 
-	if (KNOWN_TYPES.indexOf(opts.prop.type) === -1 &#x26;&#x26; !(opts.prop.type in opts.customTypes)) {
-		throw new ORMError(&#x22;Unknown property type: &#x22; + opts.prop.type, &#x27;NO_SUPPORT&#x27;);
+	if (KNOWN_TYPES.indexOf(opts.prop.type) === -1 &amp;&amp; !(opts.prop.type in opts.customTypes)) {
+		throw new ORMError("Unknown property type: " + opts.prop.type, 'NO_SUPPORT');
 	}
 
-	if (!opts.prop.hasOwnProperty(&#x22;required&#x22;) &#x26;&#x26; opts.settings.get(&#x22;properties.required&#x22;)) {
+	if (!opts.prop.hasOwnProperty("required") &amp;&amp; opts.settings.get("properties.required")) {
 		opts.prop.required = true;
 	}
 
 	// Defaults to true. Setting to false hides properties from JSON.stringify(modelInstance).
-	if (!opts.prop.hasOwnProperty(&#x22;enumerable&#x22;) || opts.prop.enumerable === true) {
+	if (!opts.prop.hasOwnProperty("enumerable") || opts.prop.enumerable === true) {
 		opts.prop.enumerable = true;
 	}
 
 	// Defaults to true. Rational means floating point here.
-	if (opts.prop.type == &#x22;number&#x22; &#x26;&#x26; opts.prop.rational === undefined) {
+	if (opts.prop.type == "number" &amp;&amp; opts.prop.rational === undefined) {
 		opts.prop.rational = true;
 	}
 
-	if (!(&#x27;mapsTo&#x27; in opts.prop)) {
+	if (!('mapsTo' in opts.prop)) {
 		opts.prop.mapsTo = opts.name
 	}
 
-	if (opts.prop.type == &#x22;number&#x22; &#x26;&#x26; opts.prop.rational === false) {
-		opts.prop.type = &#x22;integer&#x22;;
+	if (opts.prop.type == "number" &amp;&amp; opts.prop.rational === false) {
+		opts.prop.type = "integer";
 		delete opts.prop.rational;
 	}
 
@@ -5376,7 +5369,7 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 	model.addProperty = function (propIn, options) {
 		var cType;
 		var prop = Property.<span class="apidocCodeKeywordSpan">normalize</span>({
-			prop: propIn, name: (options &#x26;&#x26; options.name || propIn.name),
+			prop: propIn, name: (options &amp;&amp; options.name || propIn.name),
 			customTypes: opts.db.customTypes, settings: opts.settings
 		});
 
@@ -5401,61 +5394,61 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">normalize = function (opts) {
-	if (typeof opts.prop === &#x22;function&#x22;) {
+	if (typeof opts.prop === "function") {
 		switch (opts.prop.name) {
-			case &#x22;String&#x22;:
-				opts.prop = { type: &#x22;text&#x22; };
+			case "String":
+				opts.prop = { type: "text" };
 				break;
-			case &#x22;Number&#x22;:
-				opts.prop = { type: &#x22;number&#x22; };
+			case "Number":
+				opts.prop = { type: "number" };
 				break;
-			case &#x22;Boolean&#x22;:
-				opts.prop = { type: &#x22;boolean&#x22; };
+			case "Boolean":
+				opts.prop = { type: "boolean" };
 				break;
-			case &#x22;Date&#x22;:
-				opts.prop = { type: &#x22;date&#x22; };
+			case "Date":
+				opts.prop = { type: "date" };
 				break;
-			case &#x22;Object&#x22;:
-				opts.prop = { type: &#x22;object&#x22; };
+			case "Object":
+				opts.prop = { type: "object" };
 				break;
-			case &#x22;Buffer&#x22;:
-				opts.prop = { type: &#x22;binary&#x22; };
+			case "Buffer":
+				opts.prop = { type: "binary" };
 				break;
 		}
-	} else if (typeof opts.prop === &#x22;string&#x22;) {
+	} else if (typeof opts.prop === "string") {
 		var tmp = opts.prop;
 		opts.prop = {};
 		opts.prop.type = tmp;
 	} else if (Array.isArray(opts.prop)) {
-		opts.prop = { type: &#x22;enum&#x22;, values: opts.prop };
+		opts.prop = { type: "enum", values: opts.prop };
 	} else {
 		opts.prop = _.cloneDeep(opts.prop);
 	}
 
-	if (KNOWN_TYPES.indexOf(opts.prop.type) === -1 &#x26;&#x26; !(opts.prop.type in opts.customTypes)) {
-		throw new ORMError(&#x22;Unknown property type: &#x22; + opts.prop.type, &#x27;NO_SUPPORT&#x27;);
+	if (KNOWN_TYPES.indexOf(opts.prop.type) === -1 &amp;&amp; !(opts.prop.type in opts.customTypes)) {
+		throw new ORMError("Unknown property type: " + opts.prop.type, 'NO_SUPPORT');
 	}
 
-	if (!opts.prop.hasOwnProperty(&#x22;required&#x22;) &#x26;&#x26; opts.settings.get(&#x22;properties.required&#x22;)) {
+	if (!opts.prop.hasOwnProperty("required") &amp;&amp; opts.settings.get("properties.required")) {
 		opts.prop.required = true;
 	}
 
 	// Defaults to true. Setting to false hides properties from JSON.stringify(modelInstance).
-	if (!opts.prop.hasOwnProperty(&#x22;enumerable&#x22;) || opts.prop.enumerable === true) {
+	if (!opts.prop.hasOwnProperty("enumerable") || opts.prop.enumerable === true) {
 		opts.prop.enumerable = true;
 	}
 
 	// Defaults to true. Rational means floating point here.
-	if (opts.prop.type == &#x22;number&#x22; &#x26;&#x26; opts.prop.rational === undefined) {
+	if (opts.prop.type == "number" &amp;&amp; opts.prop.rational === undefined) {
 		opts.prop.rational = true;
 	}
 
-	if (!(&#x27;mapsTo&#x27; in opts.prop)) {
+	if (!('mapsTo' in opts.prop)) {
 		opts.prop.mapsTo = opts.name
 	}
 
-	if (opts.prop.type == &#x22;number&#x22; &#x26;&#x26; opts.prop.rational === false) {
-		opts.prop.type = &#x22;integer&#x22;;
+	if (opts.prop.type == "number" &amp;&amp; opts.prop.rational === false) {
+		opts.prop.type = "integer";
 		delete opts.prop.rational;
 	}
 
@@ -5472,7 +5465,7 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 	model.addProperty = function (propIn, options) {
 		var cType;
 		var prop = Property.<span class="apidocCodeKeywordSpan">normalize</span>({
-			prop: propIn, name: (options &#x26;&#x26; options.name || propIn.name),
+			prop: propIn, name: (options &amp;&amp; options.name || propIn.name),
 			customTypes: opts.db.customTypes, settings: opts.settings
 		});
 
@@ -5515,8 +5508,8 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 			}
 		},
 		unset: function () {
-			for (var i = 0; i &#x3c; arguments.length; i++) {
-				if (typeof arguments[i] === &#x22;string&#x22;) {
+			for (var i = 0; i &lt; arguments.length; i++) {
+				if (typeof arguments[i] === "string") {
 					unset(arguments[i], settings);
 				}
 			}
@@ -5541,8 +5534,8 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 	return default_settings;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-	&#x22;afterLoad&#x22;,
-	&#x22;afterAutoFetch&#x22;
+	"afterLoad",
+	"afterAutoFetch"
 ];
 
 exports.Model = Model;
@@ -5592,8 +5585,8 @@ function Model(opts) {
 			}
 		},
 		unset: function () {
-			for (var i = 0; i &#x3c; arguments.length; i++) {
-				if (typeof arguments[i] === &#x22;string&#x22;) {
+			for (var i = 0; i &lt; arguments.length; i++) {
+				if (typeof arguments[i] === "string") {
 					unset(arguments[i], settings);
 				}
 			}
@@ -5623,8 +5616,8 @@ function Model(opts) {
 	return default_settings;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-	&#x22;afterLoad&#x22;,
-	&#x22;afterAutoFetch&#x22;
+	"afterLoad",
+	"afterAutoFetch"
 ];
 
 exports.Model = Model;
@@ -5658,7 +5651,7 @@ function Model(opts) {
     <li>description and source-code<pre class="apidocCodePre">Text = function (data) {
 		var o = { data: data };
 
-		Object.defineProperty(o, &#x22;type&#x22;, {
+		Object.defineProperty(o, "type", {
 			value: function () {
 				return type;
 			},
@@ -5689,7 +5682,7 @@ function Model(opts) {
 
 	// A)
 	var associations = {};
-	for (i = 0; i &#x3c; one_associations.length; i++) {
+	for (i = 0; i &lt; one_associations.length; i++) {
 		associations[one_associations[i].name] = one_associations[i];
 	}
 
@@ -5709,10 +5702,10 @@ function Model(opts) {
 		var model = associations[k].model;
 
 		// F)
-		for (i = 0; i &#x3c; values.length; i++) {
-			if (values[i].isInstance &#x26;&#x26; values[i].model().uid === model.uid) {
+		for (i = 0; i &lt; values.length; i++) {
+			if (values[i].isInstance &amp;&amp; values[i].model().uid === model.uid) {
 				if (association_fields.length === 1) {
-					if (typeof conditions[association_fields[0]] === &#x27;undefined&#x27;) {
+					if (typeof conditions[association_fields[0]] === 'undefined') {
 						conditions[association_fields[0]] = values[i][model.id[0]];
 					} else if(Array.isArray(conditions[association_fields[0]])) {
 						conditions[association_fields[0]].push(values[i][model.id[0]]);
@@ -5721,7 +5714,7 @@ function Model(opts) {
 					}
 				} else {
 					var _conds = {};
-					for (j = 0; j &#x3c; association_fields.length; i++) {
+					for (j = 0; j &lt; association_fields.length; i++) {
 						_conds[association_fields[j]] = values[i][model.id[j]];
 					}
 
@@ -5770,8 +5763,8 @@ function Model(opts) {
 
 		prop.required = opts.required;
 
-		if (prop.type == &#x27;serial&#x27;) {
-			prop.type = &#x27;integer&#x27;;
+		if (prop.type == 'serial') {
+			prop.type = 'integer';
 		}
 		if (opts.makeKey) {
 			prop.key = true;
@@ -5797,23 +5790,23 @@ function Model(opts) {
     <li>description and source-code<pre class="apidocCodePre">formatField = function (model, name, required, reversed) {
 	var fields = {}, field_opts, field_name;
 	var keys = model.id;
-	var assoc_key = model.settings.get(&#x22;properties.association_key&#x22;);
+	var assoc_key = model.settings.get("properties.association_key");
 
-	for (var i = 0; i &#x3c; keys.length; i++) {
+	for (var i = 0; i &lt; keys.length; i++) {
 		if (reversed) {
 			field_name = keys[i];
-		} else if (typeof assoc_key === &#x22;function&#x22;) {
+		} else if (typeof assoc_key === "function") {
 			field_name = assoc_key(name.toLowerCase(), keys[i]);
 		} else {
-			field_name = assoc_key.replace(&#x22;{name}&#x22;, name.toLowerCase())
-			                      .replace(&#x22;{field}&#x22;, keys[i]);
+			field_name = assoc_key.replace("{name}", name.toLowerCase())
+			                      .replace("{field}", keys[i]);
 		}
 
 		if (model.properties.hasOwnProperty(keys[i])) {
 			var p = model.properties[keys[i]];
 
 			field_opts = {
-				type     : p.type || &#x22;integer&#x22;,
+				type     : p.type || "integer",
 				size     : p.size || 4,
 				unsigned : p.unsigned || true,
 				time     : p.time || false,
@@ -5825,7 +5818,7 @@ function Model(opts) {
 			};
 		} else {
 			field_opts = {
-				type     : &#x22;integer&#x22;,
+				type     : "integer",
 				unsigned : true,
 				size     : 4,
 				required : required,
@@ -5871,10 +5864,10 @@ function Model(opts) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">getRealPath = function (path_str, stack_index) {
-	var path = require(&#x22;path&#x22;); // for now, load here (only when needed)
+	var path = require("path"); // for now, load here (only when needed)
 	var cwd = process.cwd();
 	var err = new Error();
-	var tmp = err.stack.split(/\r?\n/)[typeof stack_index !== &#x22;undefined&#x22; ? stack_index : 3], m;
+	var tmp = err.stack.split(/\r?\n/)[typeof stack_index !== "undefined" ? stack_index : 3], m;
 
 	if ((m = tmp.match(/^\s*at\s+(.+):\d+:\d+$/)) !== null) {
 		cwd = path.dirname(m[1]);
@@ -5883,12 +5876,12 @@ function Model(opts) {
 	} else if ((m = tmp.match(/^\s*at\s+.+\s+\((.+):\d+:\d+\)$/)) !== null) {
 		cwd = path.dirname(m[1]);
 	}
-	var pathIsAbsolute = path.isAbsolute || require(&#x27;path-is-absolute&#x27;);
+	var pathIsAbsolute = path.isAbsolute || require('path-is-absolute');
 	if (!pathIsAbsolute(path_str)) {
 		path_str = path.join(cwd, path_str);
 	}
 	if (path_str.substr(-1) === path.sep) {
-		path_str += &#x22;index&#x22;;
+		path_str += "index";
 	}
 
 	return path_str;
@@ -5906,8 +5899,8 @@ function Model(opts) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">hasValues = function (obj, keys) {
-	for (var i = 0; i &#x3c; keys.length; i++) {
-		if (!obj[keys[i]] &#x26;&#x26; obj[keys[i]] !== 0) return false;  // 0 is also a good value...
+	for (var i = 0; i &lt; keys.length; i++) {
+		if (!obj[keys[i]] &amp;&amp; obj[keys[i]] !== 0) return false;  // 0 is also a good value...
 	}
 	return true;
 }</pre></li>
@@ -5924,8 +5917,8 @@ function Model(opts) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">populateConditions = function (model, fields, source, target, overwrite) {
-	for (var i = 0; i &#x3c; model.id.length; i++) {
-		if (typeof target[fields[i]] === &#x27;undefined&#x27; || overwrite !== false) {
+	for (var i = 0; i &lt; model.id.length; i++) {
+		if (typeof target[fields[i]] === 'undefined' || overwrite !== false) {
 			target[fields[i]] = source[model.id[i]];
 		} else if (Array.isArray(target[fields[i]])) {
 			target[fields[i]].push(source[model.id[i]]);
@@ -5949,7 +5942,7 @@ exports.getConditions = function (model, fields, from) {
 
 exports.wrapFieldObject = function (params) {
 	if (!params.field) {
-		var assoc_key = params.model.settings.get(&#x22;properties.association_key&#x22;);
+		var assoc_key = params.model.settings.get("properties.association_key");
 ...</pre></li>
     </ul>
 
@@ -5967,7 +5960,7 @@ exports.wrapFieldObject = function (params) {
 
 	for (k in data) {
 		prop = fieldToPropertyMap[k];
-		if (prop &#x26;&#x26; prop.name != k) {
+		if (prop &amp;&amp; prop.name != k) {
 			data[prop.name] = data[k];
 			delete data[k];
 		}
@@ -5976,19 +5969,19 @@ exports.wrapFieldObject = function (params) {
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 			if (err) {
-				return cb(new ORMError(err.message, &#x27;QUERY_ERROR&#x27;, { originalCode: err.code }));
+				return cb(new ORMError(err.message, 'QUERY_ERROR', { originalCode: err.code }));
 			}
 			if (data.length === 0) {
-				return cb(new ORMError(&#x22;Not found&#x22;, &#x27;NOT_FOUND&#x27;, { model: opts.table }));
+				return cb(new ORMError("Not found", 'NOT_FOUND', { model: opts.table }));
 			}
 
 			Utilities.<span class="apidocCodeKeywordSpan">renameDatastoreFieldsToPropertyNames</span>(data[0], fieldToPropertyMap);
 
-			var uid = opts.driver.uid + &#x22;/&#x22; + opts.table + &#x22;/&#x22; + ids.join(&#x22;/&#x22;);
+			var uid = opts.driver.uid + "/" + opts.table + "/" + ids.join("/");
 
 			Singleton.get(uid, {
-				identityCache : (options.hasOwnProperty(&#x22;identityCache&#x22;) ? options.identityCache : opts.identityCache),
-				saveCheck     : opts.settings.get(&#x22;instance.identityCacheSaveCheck&#x22;)
+				identityCache : (options.hasOwnProperty("identityCache") ? options.identityCache : opts.identityCache),
+				saveCheck     : opts.settings.get("instance.identityCacheSaveCheck")
 			}, function (cb) {
 ...</pre></li>
     </ul>
@@ -6003,28 +5996,28 @@ exports.wrapFieldObject = function (params) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">standardizeOrder = function (order) {
-	if (typeof order === &#x22;string&#x22;) {
-		if (order[0] === &#x22;-&#x22;) {
-			return [ [ order.substr(1), &#x22;Z&#x22; ] ];
+	if (typeof order === "string") {
+		if (order[0] === "-") {
+			return [ [ order.substr(1), "Z" ] ];
 		}
-		return [ [ order, &#x22;A&#x22; ] ];
+		return [ [ order, "A" ] ];
 	}
 
 	var new_order = [], minus;
 
-	for (var i = 0; i &#x3c; order.length; i++) {
-		minus = (order[i][0] === &#x22;-&#x22;);
+	for (var i = 0; i &lt; order.length; i++) {
+		minus = (order[i][0] === "-");
 
-		if (i &#x3c; order.length - 1 &#x26;&#x26; [ &#x22;A&#x22;, &#x22;Z&#x22; ].indexOf(order[i + 1].toUpperCase()) &#x3e;= 0) {
+		if (i &lt; order.length - 1 &amp;&amp; [ "A", "Z" ].indexOf(order[i + 1].toUpperCase()) &gt;= 0) {
 			new_order.push([
 				(minus ? order[i].substr(1) : order[i]),
 				order[i + 1]
 			]);
 			i += 1;
 		} else if (minus) {
-			new_order.push([ order[i].substr(1), &#x22;Z&#x22; ]);
+			new_order.push([ order[i].substr(1), "Z" ]);
 		} else {
-			new_order.push([ order[i], &#x22;A&#x22; ]);
+			new_order.push([ order[i], "A" ]);
 		}
 	}
 
@@ -6043,7 +6036,7 @@ exports.wrapFieldObject = function (params) {
 		},
 		select: function () {
 			if (arguments.length === 0) {
-				throw new ORMError(&#x27;PARAM_MISMATCH&#x27;, &#x22;When using append you must at least define one property&#x22;);
+				throw new ORMError('PARAM_MISMATCH', "When using append you must at least define one property");
 			}
 			if (Array.isArray(arguments[0])) {
 ...</pre></li>
@@ -6065,7 +6058,7 @@ exports.wrapFieldObject = function (params) {
 	var newOrder = JSON.parse(JSON.stringify(order));
 
 	// Rename order properties according to mapsTo
-	for (var i = 0; i &#x3c; newOrder.length; i++) {
+	for (var i = 0; i &lt; newOrder.length; i++) {
 		item = newOrder[i];
 
 		// orderRaw
@@ -6073,7 +6066,7 @@ exports.wrapFieldObject = function (params) {
 
 		if (Array.isArray(item[0])) {
 			// order on a hasMany
-			// [ [&#x27;modelName&#x27;, &#x27;propName&#x27;], &#x27;Z&#x27;]
+			// [ ['modelName', 'propName'], 'Z']
 			item[0][1] = properties[item[0][1]].mapsTo;
 		} else {
 			// normal order
@@ -6124,8 +6117,8 @@ exports.wrapFieldObject = function (params) {
 	return dataOut;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-var ChainInstance = require(&#x22;./ChainInstance&#x22;);
-var Promise       = require(&#x22;./Promise&#x22;).Promise;
+var ChainInstance = require("./ChainInstance");
+var Promise       = require("./Promise").Promise;
 
 module.exports = ChainFind;
 
@@ -6155,11 +6148,11 @@ function ChainFind(Model, opts) {
 	var i, k, vals = [];
 
 	if (keys) {
-		for (i = 0; i &#x3c; keys.length; i++) {
+		for (i = 0; i &lt; keys.length; i++) {
 			vals.push(obj[keys[i]]);
 		}
 	} else if (Array.isArray(obj)) {
-		for (i = 0; i &#x3c; obj.length; i++) {
+		for (i = 0; i &lt; obj.length; i++) {
 			vals.push(obj[i]);
 		}
 	} else {
@@ -6185,19 +6178,19 @@ function ChainFind(Model, opts) {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">wrapFieldObject = function (params) {
 	if (!params.field) {
-		var assoc_key = params.model.settings.get(&#x22;properties.association_key&#x22;);
+		var assoc_key = params.model.settings.get("properties.association_key");
 
-		if (typeof assoc_key === &#x22;function&#x22;) {
+		if (typeof assoc_key === "function") {
 		    params.field = assoc_key(params.altName.toLowerCase(), params.model.id[0]);
 		} else {
-			params.field = assoc_key.replace(&#x22;{name}&#x22;, params.altName.toLowerCase())
-			               .replace(&#x22;{field}&#x22;, params.model.id[0]);
+			params.field = assoc_key.replace("{name}", params.altName.toLowerCase())
+			               .replace("{field}", params.model.id[0]);
 		}
 	}
 
-	if (typeof params.field == &#x27;object&#x27;) {
+	if (typeof params.field == 'object') {
 		for (var k in params.field) {
-			if (!/[0-9]+/.test(k) &#x26;&#x26; params.field.hasOwnProperty(k)) {
+			if (!/[0-9]+/.test(k) &amp;&amp; params.field.hasOwnProperty(k)) {
 				return params.field;
 			}
 		}
@@ -6207,7 +6200,7 @@ function ChainFind(Model, opts) {
 
 	propPreDefined = params.model.properties[params.field];
 	propFromKey    = params.model.properties[params.model.id[0]];
-	newProp        = { type: &#x27;integer&#x27; };
+	newProp        = { type: 'integer' };
 
 	var prop = _.cloneDeep(propPreDefined || propFromKey || newProp);
 
@@ -6249,7 +6242,7 @@ To add an external database adapter to `orm`, call the `addAdapter` method, pass
 with this adapter, along with the constructor for the adapter:
 
 ```js
-require(&#x27;orm&#x27;).<span class="apidocCodeKeywordSpan">addAdapter</span>(&#x27;cassandra&#x27;, CassandraAdapter);
+require('orm').<span class="apidocCodeKeywordSpan">addAdapter</span>('cassandra', CassandraAdapter);
 ```
 
 See [the documentation for creating adapters](./Adapters.md) for more details.
@@ -6271,20 +6264,20 @@ See [the documentation for creating adapters](./Adapters.md) for more details.
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">between = function (a, b) {
-	return createSpecialObject({ from: a, to: b }, &#x27;between&#x27;);
+	return createSpecialObject({ from: a, to: b }, 'between');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 ```js
 { col1: orm.eq(123) } // `col1` = 123 (default)
-{ col1: orm.ne(123) } // `col1` &#x3c;&#x3e; 123
-{ col1: orm.gt(123) } // `col1` &#x3e; 123
-{ col1: orm.gte(123) } // `col1` &#x3e;= 123
-{ col1: orm.lt(123) } // `col1` &#x3c; 123
-{ col1: orm.lte(123) } // `col1` &#x3c;= 123
+{ col1: orm.ne(123) } // `col1` &lt;&gt; 123
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
 { col1: orm.<span class="apidocCodeKeywordSpan">between</span>(123, 456) } // `col1` BETWEEN 123 AND 456
 { col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
-{ col1: orm.like(12 + &#x22;%&#x22;) } // `col1` LIKE &#x27;12%&#x27;
-{ col1: orm.not_like(12 + &#x22;%&#x22;) } // `col1` NOT LIKE &#x27;12%&#x27;
+{ col1: orm.like(12 + "%") } // `col1` LIKE '12%'
+{ col1: orm.not_like(12 + "%") } // `col1` NOT LIKE '12%'
 { col1: orm.not_in([1, 4, 8]) } // `col1` NOT IN (1, 4, 8)
 ```
 
@@ -6308,14 +6301,14 @@ See [the documentation for creating adapters](./Adapters.md) for more details.
     <ul>
     <li>description and source-code<pre class="apidocCodePre">connect = function (opts, cb) {
 	if (arguments.length === 0 || !opts) {
-		return ORM_Error(new ORMError(&#x22;CONNECTION_URL_EMPTY&#x22;, &#x27;PARAM_MISMATCH&#x27;), cb);
+		return ORM_Error(new ORMError("CONNECTION_URL_EMPTY", 'PARAM_MISMATCH'), cb);
 	}
-	if (typeof opts == &#x27;string&#x27;) {
+	if (typeof opts == 'string') {
 		if (opts.trim().length === 0) {
-			return ORM_Error(new ORMError(&#x22;CONNECTION_URL_EMPTY&#x22;, &#x27;PARAM_MISMATCH&#x27;), cb);
+			return ORM_Error(new ORMError("CONNECTION_URL_EMPTY", 'PARAM_MISMATCH'), cb);
 		}
 		opts = url.parse(opts, true);
-	} else if (typeof opts == &#x27;object&#x27;) {
+	} else if (typeof opts == 'object') {
 		opts = _.cloneDeep(opts);
 	}
 
@@ -6328,31 +6321,31 @@ See [the documentation for creating adapters](./Adapters.md) for more details.
 
 	if (!opts.database) {
 		// if (!opts.pathname) {
-		// 	return cb(new Error(&#x22;CONNECTION_URL_NO_DATABASE&#x22;));
+		// 	return cb(new Error("CONNECTION_URL_NO_DATABASE"));
 		// }
-		opts.database = (opts.pathname ? opts.pathname.substr(1) : &#x22;&#x22;);
+		opts.database = (opts.pathname ? opts.pathname.substr(1) : "");
 	}
 	if (!opts.protocol) {
-		return ORM_Error(new ORMError(&#x22;CONNECTION_URL_NO_PROTOCOL&#x22;, &#x27;PARAM_MISMATCH&#x27;), cb);
+		return ORM_Error(new ORMError("CONNECTION_URL_NO_PROTOCOL", 'PARAM_MISMATCH'), cb);
 	}
 	// if (!opts.host) {
-	// 	opts.host = opts.hostname = &#x22;localhost&#x22;;
+	// 	opts.host = opts.hostname = "localhost";
 	// }
 	if (opts.auth) {
-		opts.user = opts.auth.split(&#x22;:&#x22;)[0];
-		opts.password = opts.auth.split(&#x22;:&#x22;)[1];
+		opts.user = opts.auth.split(":")[0];
+		opts.password = opts.auth.split(":")[1];
 	}
-	if (!opts.hasOwnProperty(&#x22;user&#x22;)) {
-		opts.user = &#x22;root&#x22;;
+	if (!opts.hasOwnProperty("user")) {
+		opts.user = "root";
 	}
-	if (!opts.hasOwnProperty(&#x22;password&#x22;)) {
-		opts.password = &#x22;&#x22;;
+	if (!opts.hasOwnProperty("password")) {
+		opts.password = "";
 	}
-	if (opts.hasOwnProperty(&#x22;hostname&#x22;)) {
+	if (opts.hasOwnProperty("hostname")) {
 		opts.host = opts.hostname;
 	}
 
-	var proto  = opts.protocol.replace(/:$/, &#x27;&#x27;);
+	var proto  = opts.protocol.replace(/:$/, '');
 	var db;
 	if (DriverAliases[proto]) {
 		proto = DriverAliases[proto];
@@ -6360,17 +6353,17 @@ See [the documentation for creating adapters](./Adapters.md) for more details.
 
 	try {
 		var Driver   = adapters.get(proto);
-		var settings = new Settings.Container(exports.settings.get(&#x27;*&#x27;));
+		var settings = new Settings.Container(exports.settings.get('*'));
 		var driver   = new Driver(opts, null, {
-			debug    : &#x27;debug&#x27; in opts.query ? opts.query.debug : settings.get(&#x22;connection.debug&#x22;),
-			pool     : &#x27;pool&#x27;  in opts.query ? opts.query.pool  : settings.get(&#x22;connection.pool&#x22;),
+			debug    : 'debug' in opts.query ? opts.query.debug : settings.get("connection.debug"),
+			pool     : 'pool'  in opts.query ? opts.query.pool  : settings.get("connection.pool"),
 			settings : settings
 		});
 
 		db = new ORM(proto, driver, settings);
 
 		driver.connect(function (err) {
-			if (typeof cb === &#x22;function&#x22;) {
+			if (typeof cb === "function") {
 				if (err) {
 					return cb(err);
 				} else {
@@ -6378,12 +6371,12 @@ See [the documentation for creating adapters](./Adapters.md) for more details.
 				}
 			}
 
-			db.emit(&#x22;connect&#x22;, err, !err ? db : null);
+			db.emit("connect", err, !err ? db : null);
 		});
 	} catch (ex) {
-		if (ex.code === &#x22;MODULE_NOT_FOUND&#x22; || ex.message.indexOf(&#x27;find module&#x27;) &#x3e; -1) {
-			return ORM_Error(new ORMError(&#x22;Connection protocol not supported - have you installed the database driver for &#x22; + proto + &#x22;?&#x22;, &#x27;
-NO_SUPPORT&#x27;), cb);
+		if (ex.code === "MODULE_NOT_FOUND" || ex.message.indexOf('find module') &gt; -1) {
+			return ORM_Error(new ORMError("Connection protocol not supported - have you installed the database driver for " + proto + "?", '
+NO_SUPPORT'), cb);
 		}
 		return ORM_Error(ex, cb);
 	}
@@ -6396,12 +6389,12 @@ This is a node.js object relational mapping module.
 An example:
 
 ```js
-var orm = require(&#x22;orm&#x22;);
+var orm = require("orm");
 
-orm.<span class="apidocCodeKeywordSpan">connect</span>(&#x22;mysql://username:password@host/database&#x22;, function (err, db) {
+orm.<span class="apidocCodeKeywordSpan">connect</span>("mysql://username:password@host/database", function (err, db) {
   if (err) throw err;
 
-	var Person = db.define(&#x22;person&#x22;, {
+	var Person = db.define("person", {
 		name      : String,
 		surname   : String,
 		age       : Number, // FLOAT
@@ -6427,7 +6420,7 @@ orm.<span class="apidocCodeKeywordSpan">connect</span>(&#x22;mysql://username:pa
     this.validations = {};
     this.contexts = {};
     this.options = {
-        returnAllErrors: options &#x26;&#x26; !!options.returnAllErrors
+        returnAllErrors: options &amp;&amp; !!options.returnAllErrors
     };
 
     return this;
@@ -6441,7 +6434,7 @@ orm.<span class="apidocCodeKeywordSpan">connect</span>(&#x22;mysql://username:pa
 			}
 
 			var checks = new enforce.<span class="apidocCodeKeywordSpan">Enforce</span>({
-				returnAllErrors : Model.settings.get(&#x22;instance.returnAllErrors&#x22;)
+				returnAllErrors : Model.settings.get("instance.returnAllErrors")
 			});
 
 			for (k in opts.validations) {
@@ -6481,7 +6474,7 @@ orm.<span class="apidocCodeKeywordSpan">connect</span>(&#x22;mysql://username:pa
 		if (v === this[name]) {
 			return next();
 		}
-		return next(msg || &#x27;not-equal-to-property&#x27;);
+		return next(msg || 'not-equal-to-property');
 	};
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -6497,7 +6490,7 @@ orm.<span class="apidocCodeKeywordSpan">connect</span>(&#x22;mysql://username:pa
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function notEmptyString(message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;empty-string&#x27;; }
+    if (typeof message === "undefined") { message = 'empty-string'; }
 
     return Ranges.length(1, undefined, message);
 }</pre></li>
@@ -6514,7 +6507,7 @@ orm.<span class="apidocCodeKeywordSpan">connect</span>(&#x22;mysql://username:pa
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function required(message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;required&#x27;; }
+    if (typeof message === "undefined") { message = 'required'; }
 
     return new Validator(function (value, next) {
         if (value === null || value === undefined) {
@@ -6535,11 +6528,11 @@ orm.<span class="apidocCodeKeywordSpan">connect</span>(&#x22;mysql://username:pa
 			model.prependValidation(prop.name, Validators.<span class="apidocCodeKeywordSpan">required</span>());
 		}
 
-		if (prop.key &#x26;&#x26; prop.klass == &#x27;primary&#x27;) {
+		if (prop.key &amp;&amp; prop.klass == 'primary') {
 			keyProperties.push(prop);
 		}
 
-		if (prop.lazyload !== true &#x26;&#x26; !currFields[prop.name]) {
+		if (prop.lazyload !== true &amp;&amp; !currFields[prop.name]) {
 ...</pre></li>
     </ul>
 
@@ -6553,7 +6546,7 @@ orm.<span class="apidocCodeKeywordSpan">connect</span>(&#x22;mysql://username:pa
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function sameAs(property, message) {
-	if (typeof message === &#x22;undefined&#x22;) { message = &#x27;not-same-as&#x27;; }
+	if (typeof message === "undefined") { message = 'not-same-as'; }
 
 	return new Validator(function (value, next) {
 		if (value !== this[property]) {
@@ -6581,9 +6574,9 @@ orm.<span class="apidocCodeKeywordSpan">connect</span>(&#x22;mysql://username:pa
 
 	for (k in arguments) {
 		arg = arguments[k];
-		if (typeof arg === &#x22;string&#x22;) {
+		if (typeof arg === "string") {
 			msg = arg;
-		} else if (typeof arg === &#x22;object&#x22;) {
+		} else if (typeof arg === "object") {
 			opts = arg;
 		}
 	}
@@ -6591,13 +6584,13 @@ orm.<span class="apidocCodeKeywordSpan">connect</span>(&#x22;mysql://username:pa
 	return function (v, next, ctx) {
 		var s, scopeProp;
 
-		if (typeof v === &#x22;undefined&#x22; || v === null) {
+		if (typeof v === "undefined" || v === null) {
 			return next();
 		}
 
-		//Cannot process on database engines which don&#x27;t support SQL syntax
+		//Cannot process on database engines which don't support SQL syntax
 		if (!ctx.driver.isSql) {
-			return next(&#x27;not-supported&#x27;);
+			return next('not-supported');
 		}
 
 		var chain = ctx.model.find();
@@ -6605,8 +6598,8 @@ orm.<span class="apidocCodeKeywordSpan">connect</span>(&#x22;mysql://username:pa
 		var chainQuery = function (prop, value) {
 			var query = null;
 
-			if (opts.ignoreCase === true &#x26;&#x26; ctx.model.properties[prop] &#x26;&#x26; ctx.model.properties[prop].type === &#x27;text&#x27;) {
-				query = util.format(&#x27;LOWER(%s.%s) LIKE LOWER(?)&#x27;,
+			if (opts.ignoreCase === true &amp;&amp; ctx.model.properties[prop] &amp;&amp; ctx.model.properties[prop].type === 'text') {
+				query = util.format('LOWER(%s.%s) LIKE LOWER(?)',
 					ctx.driver.query.escapeId(ctx.model.table), ctx.driver.query.escapeId(prop)
 				);
 				chain.where(query, [value]);
@@ -6624,10 +6617,10 @@ orm.<span class="apidocCodeKeywordSpan">connect</span>(&#x22;mysql://username:pa
 			if (!records || records.length === 0) {
 				return next();
 			}
-			if (records.length === 1 &#x26;&#x26; records[0][ctx.model.id] === this[ctx.model.id]) {
+			if (records.length === 1 &amp;&amp; records[0][ctx.model.id] === this[ctx.model.id]) {
 				return next();
 			}
-			return next(msg || &#x27;not-unique&#x27;);
+			return next(msg || 'not-unique');
 		}.bind(this);
 
 		chainQuery(ctx.property, v);
@@ -6637,7 +6630,7 @@ orm.<span class="apidocCodeKeywordSpan">connect</span>(&#x22;mysql://username:pa
 				scopeProp = opts.scope[s];
 
 				// In SQL unique index land, NULL values are not considered equal.
-				if (typeof ctx.instance[scopeProp] == &#x27;undefined&#x27; || ctx.instance[scopeProp] === null) {
+				if (typeof ctx.instance[scopeProp] == 'undefined' || ctx.instance[scopeProp] === null) {
 					return next();
 				}
 
@@ -6677,7 +6670,7 @@ orm.<span class="apidocCodeKeywordSpan">connect</span>(&#x22;mysql://username:pa
     this.validations = {};
     this.contexts = {};
     this.options = {
-        returnAllErrors: options &#x26;&#x26; !!options.returnAllErrors
+        returnAllErrors: options &amp;&amp; !!options.returnAllErrors
     };
 
     return this;
@@ -6691,7 +6684,7 @@ orm.<span class="apidocCodeKeywordSpan">connect</span>(&#x22;mysql://username:pa
 			}
 
 			var checks = new enforce.<span class="apidocCodeKeywordSpan">Enforce</span>({
-				returnAllErrors : Model.settings.get(&#x22;instance.returnAllErrors&#x22;)
+				returnAllErrors : Model.settings.get("instance.returnAllErrors")
 			});
 
 			for (k in opts.validations) {
@@ -6716,12 +6709,12 @@ orm.<span class="apidocCodeKeywordSpan">connect</span>(&#x22;mysql://username:pa
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">add = function (property, validator) {
-    if (typeof validator === &#x27;function&#x27; &#x26;&#x26; validator.length &#x3e;= 2) {
+    if (typeof validator === 'function' &amp;&amp; validator.length &gt;= 2) {
         validator = new Validator(validator);
     }
 
     if (validator.validate === undefined) {
-        throw new Error(&#x27;Missing validator (function) in Enforce.add(property, validator)&#x27;);
+        throw new Error('Missing validator (function) in Enforce.add(property, validator)');
     }
 
     if (!this.validations.hasOwnProperty(property))
@@ -6734,17 +6727,17 @@ orm.<span class="apidocCodeKeywordSpan">connect</span>(&#x22;mysql://username:pa
 						}
 					}
 				}
-				if (!alwaysValidate &#x26;&#x26; !required &#x26;&#x26; instance[k] == null) {
-					continue; // avoid validating if property is not required and is &#x22;empty&#x22;
+				if (!alwaysValidate &amp;&amp; !required &amp;&amp; instance[k] == null) {
+					continue; // avoid validating if property is not required and is "empty"
 				}
-				for (i = 0; i &#x3c; opts.validations[k].length; i++) {
+				for (i = 0; i &lt; opts.validations[k].length; i++) {
 					checks.<span class="apidocCodeKeywordSpan">add</span>(k, opts.validations[k][i]);
 				}
 			}
 
-			checks.context(&#x22;instance&#x22;, instance);
-			checks.context(&#x22;model&#x22;, Model);
-			checks.context(&#x22;driver&#x22;, opts.driver);
+			checks.context("instance", instance);
+			checks.context("model", Model);
+			checks.context("driver", opts.driver);
 ...</pre></li>
     </ul>
 
@@ -6764,7 +6757,7 @@ orm.<span class="apidocCodeKeywordSpan">connect</span>(&#x22;mysql://username:pa
     var errors = [];
     var next = function () {
         if (validations.length === 0) {
-            if (errors.length &#x3e; 0)
+            if (errors.length &gt; 0)
                 return cb(errors);
 else
                 return cb(null);
@@ -6779,7 +6772,7 @@ else
                 err.property = validation.property;
                 err.value = data[validation.property];
                 err.msg = message;
-                err.type = &#x22;validation&#x22;;
+                err.type = "validation";
 
                 if (!this.options.returnAllErrors)
                     return cb(err);
@@ -6791,7 +6784,7 @@ else
     };
 
     for (var k in this.validations) {
-        for (var i = 0; i &#x3c; this.validations[k].length; i++) {
+        for (var i = 0; i &lt; this.validations[k].length; i++) {
             validations.push({
                 property: k,
                 validator: this.validations[k][i]
@@ -6805,9 +6798,9 @@ else
 				}
 			}
 
-			checks.context(&#x22;instance&#x22;, instance);
-			checks.context(&#x22;model&#x22;, Model);
-			checks.context(&#x22;driver&#x22;, opts.driver);
+			checks.context("instance", instance);
+			checks.context("model", Model);
+			checks.context("driver", opts.driver);
 
 			return checks.<span class="apidocCodeKeywordSpan">check</span>(instance, cb);
 		});
@@ -6815,7 +6808,7 @@ else
 	var saveError = function (cb, err) {
 		instance_saving = false;
 
-		emitEvent(&#x22;save&#x22;, err, instance);
+		emitEvent("save", err, instance);
 ...</pre></li>
     </ul>
 
@@ -6840,7 +6833,7 @@ else
 
 	model.clear = function (cb) {
 		opts.driver.<span class="apidocCodeKeywordSpan">clear</span>(opts.table, function (err) {
-			if (typeof cb === &#x22;function&#x22;) cb(err);
+			if (typeof cb === "function") cb(err);
 		});
 
 		return this;
@@ -6860,7 +6853,7 @@ else
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">context = function (name, value) {
-    if (name &#x26;&#x26; value) {
+    if (name &amp;&amp; value) {
         this.contexts[name] = value;
         return this;
     } else if (name)
@@ -6869,16 +6862,16 @@ else
         return this.contexts;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-					continue; // avoid validating if property is not required and is &#x22;empty&#x22;
+					continue; // avoid validating if property is not required and is "empty"
 				}
-				for (i = 0; i &#x3c; opts.validations[k].length; i++) {
+				for (i = 0; i &lt; opts.validations[k].length; i++) {
 					checks.add(k, opts.validations[k][i]);
 				}
 			}
 
-			checks.<span class="apidocCodeKeywordSpan">context</span>(&#x22;instance&#x22;, instance);
-			checks.context(&#x22;model&#x22;, Model);
-			checks.context(&#x22;driver&#x22;, opts.driver);
+			checks.<span class="apidocCodeKeywordSpan">context</span>("instance", instance);
+			checks.context("model", Model);
+			checks.context("driver", opts.driver);
 
 			return checks.check(instance, cb);
 		});
@@ -6902,12 +6895,12 @@ else
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">add = function (property, validator) {
-    if (typeof validator === &#x27;function&#x27; &#x26;&#x26; validator.length &#x3e;= 2) {
+    if (typeof validator === 'function' &amp;&amp; validator.length &gt;= 2) {
         validator = new Validator(validator);
     }
 
     if (validator.validate === undefined) {
-        throw new Error(&#x27;Missing validator (function) in Enforce.add(property, validator)&#x27;);
+        throw new Error('Missing validator (function) in Enforce.add(property, validator)');
     }
 
     if (!this.validations.hasOwnProperty(property))
@@ -6920,17 +6913,17 @@ else
 						}
 					}
 				}
-				if (!alwaysValidate &#x26;&#x26; !required &#x26;&#x26; instance[k] == null) {
-					continue; // avoid validating if property is not required and is &#x22;empty&#x22;
+				if (!alwaysValidate &amp;&amp; !required &amp;&amp; instance[k] == null) {
+					continue; // avoid validating if property is not required and is "empty"
 				}
-				for (i = 0; i &#x3c; opts.validations[k].length; i++) {
+				for (i = 0; i &lt; opts.validations[k].length; i++) {
 					checks.<span class="apidocCodeKeywordSpan">add</span>(k, opts.validations[k][i]);
 				}
 			}
 
-			checks.context(&#x22;instance&#x22;, instance);
-			checks.context(&#x22;model&#x22;, Model);
-			checks.context(&#x22;driver&#x22;, opts.driver);
+			checks.context("instance", instance);
+			checks.context("model", Model);
+			checks.context("driver", opts.driver);
 ...</pre></li>
     </ul>
 
@@ -6955,7 +6948,7 @@ else
     var errors = [];
     var next = function () {
         if (validations.length === 0) {
-            if (errors.length &#x3e; 0)
+            if (errors.length &gt; 0)
                 return cb(errors);
 else
                 return cb(null);
@@ -6970,7 +6963,7 @@ else
                 err.property = validation.property;
                 err.value = data[validation.property];
                 err.msg = message;
-                err.type = &#x22;validation&#x22;;
+                err.type = "validation";
 
                 if (!this.options.returnAllErrors)
                     return cb(err);
@@ -6982,7 +6975,7 @@ else
     };
 
     for (var k in this.validations) {
-        for (var i = 0; i &#x3c; this.validations[k].length; i++) {
+        for (var i = 0; i &lt; this.validations[k].length; i++) {
             validations.push({
                 property: k,
                 validator: this.validations[k][i]
@@ -6996,9 +6989,9 @@ else
 				}
 			}
 
-			checks.context(&#x22;instance&#x22;, instance);
-			checks.context(&#x22;model&#x22;, Model);
-			checks.context(&#x22;driver&#x22;, opts.driver);
+			checks.context("instance", instance);
+			checks.context("model", Model);
+			checks.context("driver", opts.driver);
 
 			return checks.<span class="apidocCodeKeywordSpan">check</span>(instance, cb);
 		});
@@ -7006,7 +6999,7 @@ else
 	var saveError = function (cb, err) {
 		instance_saving = false;
 
-		emitEvent(&#x22;save&#x22;, err, instance);
+		emitEvent("save", err, instance);
 ...</pre></li>
     </ul>
 
@@ -7036,7 +7029,7 @@ else
 
 	model.clear = function (cb) {
 		opts.driver.<span class="apidocCodeKeywordSpan">clear</span>(opts.table, function (err) {
-			if (typeof cb === &#x22;function&#x22;) cb(err);
+			if (typeof cb === "function") cb(err);
 		});
 
 		return this;
@@ -7061,7 +7054,7 @@ else
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">context = function (name, value) {
-    if (name &#x26;&#x26; value) {
+    if (name &amp;&amp; value) {
         this.contexts[name] = value;
         return this;
     } else if (name)
@@ -7070,16 +7063,16 @@ else
         return this.contexts;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-					continue; // avoid validating if property is not required and is &#x22;empty&#x22;
+					continue; // avoid validating if property is not required and is "empty"
 				}
-				for (i = 0; i &#x3c; opts.validations[k].length; i++) {
+				for (i = 0; i &lt; opts.validations[k].length; i++) {
 					checks.add(k, opts.validations[k][i]);
 				}
 			}
 
-			checks.<span class="apidocCodeKeywordSpan">context</span>(&#x22;instance&#x22;, instance);
-			checks.context(&#x22;model&#x22;, Model);
-			checks.context(&#x22;driver&#x22;, opts.driver);
+			checks.<span class="apidocCodeKeywordSpan">context</span>("instance", instance);
+			checks.context("model", Model);
+			checks.context("driver", opts.driver);
 
 			return checks.check(instance, cb);
 		});
@@ -7148,7 +7141,7 @@ else
     return new Validator(function (value, next, contexts) {
         if (value === undefined || value === null)
             return next();
-        if (typeof value !== &#x27;string&#x27;)
+        if (typeof value !== 'string')
             return next();
         if (value.length === 0)
             return next();
@@ -7208,7 +7201,7 @@ else
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">validate = function (data, next, thisArg, contexts) {
-    if (typeof contexts === &#x22;undefined&#x22;) { contexts = {}; }
+    if (typeof contexts === "undefined") { contexts = {}; }
     this.validator.apply(thisArg, [data, next, contexts]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -7258,7 +7251,7 @@ else
     return new Validator(function (value, next, contexts) {
         if (value === undefined || value === null)
             return next();
-        if (typeof value !== &#x27;string&#x27;)
+        if (typeof value !== 'string')
             return next();
         if (value.length === 0)
             return next();
@@ -7333,7 +7326,7 @@ else
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">validate = function (data, next, thisArg, contexts) {
-    if (typeof contexts === &#x22;undefined&#x22;) { contexts = {}; }
+    if (typeof contexts === "undefined") { contexts = {}; }
     this.validator.apply(thisArg, [data, next, contexts]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -7358,7 +7351,7 @@ else
 		if (v === this[name]) {
 			return next();
 		}
-		return next(msg || &#x27;not-equal-to-property&#x27;);
+		return next(msg || 'not-equal-to-property');
 	};
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -7379,9 +7372,9 @@ else
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function inside(list, message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;outside-list&#x27;; }
+    if (typeof message === "undefined") { message = 'outside-list'; }
     return new Validator(function (value, next) {
-        if (list.indexOf(value) &#x3e;= 0)
+        if (list.indexOf(value) &gt;= 0)
             return next();
         return next(message);
     });
@@ -7399,7 +7392,7 @@ else
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function outside(list, message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;inside-list&#x27;; }
+    if (typeof message === "undefined") { message = 'inside-list'; }
     return new Validator(function (value, next) {
         if (list.indexOf(value) === -1)
             return next();
@@ -7424,7 +7417,7 @@ else
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function notEmptyString(message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;empty-string&#x27;; }
+    if (typeof message === "undefined") { message = 'empty-string'; }
 
     return Ranges.length(1, undefined, message);
 }</pre></li>
@@ -7446,8 +7439,8 @@ else
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function email(message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;not-valid-email&#x27;; }
-    return exports.match(&#x22;^[a-z0-9\\._%\\+\\-]+@[a-z0-9\\.\\-]+\\.[a-z]{2,63}$&#x22;, &#x22;i&#x22;, message);
+    if (typeof message === "undefined") { message = 'not-valid-email'; }
+    return exports.match("^[a-z0-9\\._%\\+\\-]+@[a-z0-9\\.\\-]+\\.[a-z]{2,63}$", "i", message);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -7462,8 +7455,8 @@ else
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function hexString(message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;not-hex-string&#x27;; }
-    return exports.match(&#x22;^[a-f0-9]+$&#x22;, &#x22;i&#x22;, message);
+    if (typeof message === "undefined") { message = 'not-hex-string'; }
+    return exports.match("^[a-f0-9]+$", "i", message);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -7478,10 +7471,10 @@ else
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function ipv4(message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;not-valid-ipv4&#x27;; }
-    var p1 = &#x22;([1-9]|1[0-9][0-9]?|2[0-4][0-9]|25[0-4])&#x22;;
-    var p2 = &#x22;([0-9]|1[0-9][0-9]?|2[0-4][0-9]|25[0-4])&#x22;;
-    return exports.match(&#x22;^&#x22; + [p1, p2, p2, p1].join(&#x22;\\.&#x22;) + &#x22;$&#x22;, &#x22;&#x22;, message);
+    if (typeof message === "undefined") { message = 'not-valid-ipv4'; }
+    var p1 = "([1-9]|1[0-9][0-9]?|2[0-4][0-9]|25[0-4])";
+    var p2 = "([0-9]|1[0-9][0-9]?|2[0-4][0-9]|25[0-4])";
+    return exports.match("^" + [p1, p2, p2, p1].join("\\.") + "$", "", message);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -7496,28 +7489,28 @@ else
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function ipv6(message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;not-valid-ipv6&#x27;; }
+    if (typeof message === "undefined") { message = 'not-valid-ipv6'; }
 
-    var p1 = new RegExp(&#x22;^([a-f0-9]{1,4}:){7}[a-f0-9]{1,4}$&#x22;, &#x22;i&#x22;);
-    var p2 = new RegExp(&#x22;^([a-f0-9]{1,4}:)*[a-f0-9]{1,4}$&#x22;, &#x22;i&#x22;);
+    var p1 = new RegExp("^([a-f0-9]{1,4}:){7}[a-f0-9]{1,4}$", "i");
+    var p2 = new RegExp("^([a-f0-9]{1,4}:)*[a-f0-9]{1,4}$", "i");
 
     return new Validator(function (value, next) {
-        if (typeof value != &#x22;string&#x22;) {
+        if (typeof value != "string") {
             return next(message);
         }
         // unspecified / loopback
-        if ([ &#x22;::&#x22;, &#x22;::1&#x22; ].indexOf(value) &#x3e;= 0) {
+        if ([ "::", "::1" ].indexOf(value) &gt;= 0) {
             return next();
         }
         // normal address (with possible leading zeroes omitted)
         if (value.match(p1)) {
             return next();
         }
-        if (value.indexOf(&#x22;::&#x22;) == -1) {
+        if (value.indexOf("::") == -1) {
             return next(message);
         }
         // grouping zeroes
-        var g = value.split(&#x22;::&#x22;);
+        var g = value.split("::");
 
         if (g.length != 2) {
             return next(message);
@@ -7541,10 +7534,10 @@ else
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function mac(message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;not-valid-mac&#x27;; }
-    var p = &#x22;[0-9a-f]{1,2}&#x22;;
-    var s = &#x22;[\\.:]&#x22;;
-    return exports.match(&#x22;^&#x22; + [p,p,p,p,p,p].join(s) + &#x22;$&#x22;, &#x22;i&#x22;, message);
+    if (typeof message === "undefined") { message = 'not-valid-mac'; }
+    var p = "[0-9a-f]{1,2}";
+    var s = "[\\.:]";
+    return exports.match("^" + [p,p,p,p,p,p].join(s) + "$", "i", message);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -7559,19 +7552,19 @@ else
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function match(pattern, modifiers, message) {
-    if (typeof modifiers === &#x22;undefined&#x22;) { modifiers = &#x27;i&#x27;; }
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;no-pattern-match&#x27;; }
+    if (typeof modifiers === "undefined") { modifiers = 'i'; }
+    if (typeof message === "undefined") { message = 'no-pattern-match'; }
     if (arguments.length == 2) {
         message = modifiers;
-        modifiers = &#x27;i&#x27;;
+        modifiers = 'i';
     }
 
-    if (typeof pattern === &#x27;string&#x27;) {
+    if (typeof pattern === 'string') {
         pattern = new RegExp(pattern, modifiers);
     }
 
     return new Validator(function (value, next) {
-        if (typeof value === &#x27;string&#x27; &#x26;&#x26; value.match(pattern))
+        if (typeof value === 'string' &amp;&amp; value.match(pattern))
             return next();
         return next(message);
     });
@@ -7579,10 +7572,10 @@ else
     <li>example usage<pre class="apidocCodePre">...
 
 exports.getRealPath = function (path_str, stack_index) {
-	var path = require(&#x22;path&#x22;); // for now, load here (only when needed)
+	var path = require("path"); // for now, load here (only when needed)
 	var cwd = process.cwd();
 	var err = new Error();
-	var tmp = err.stack.split(/\r?\n/)[typeof stack_index !== &#x22;undefined&#x22; ? stack_index : 3], m;
+	var tmp = err.stack.split(/\r?\n/)[typeof stack_index !== "undefined" ? stack_index : 3], m;
 
 	if ((m = tmp.<span class="apidocCodeKeywordSpan">match</span>(/^\s*at\s+(.+):\d+:\d+$/)) !== null) {
 		cwd = path.dirname(m[1]);
@@ -7591,7 +7584,7 @@ exports.getRealPath = function (path_str, stack_index) {
 	} else if ((m = tmp.match(/^\s*at\s+.+\s+\((.+):\d+:\d+\)$/)) !== null) {
 		cwd = path.dirname(m[1]);
 	}
-	var pathIsAbsolute = path.isAbsolute || require(&#x27;path-is-absolute&#x27;);
+	var pathIsAbsolute = path.isAbsolute || require('path-is-absolute');
 ...</pre></li>
     </ul>
 
@@ -7605,8 +7598,8 @@ exports.getRealPath = function (path_str, stack_index) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function uuid3(message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;not-valid-uuid3&#x27;; }
-    return exports.match(&#x22;^[a-f0-9]{8}\-[a-f0-9]{4}\-3[a-f0-9]{3}\-[89ab][a-f0-9]{3}\-[a-f0-9]{12}$&#x22;, &#x22;i&#x22;, message);
+    if (typeof message === "undefined") { message = 'not-valid-uuid3'; }
+    return exports.match("^[a-f0-9]{8}\-[a-f0-9]{4}\-3[a-f0-9]{3}\-[89ab][a-f0-9]{3}\-[a-f0-9]{12}$", "i", message);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -7621,8 +7614,8 @@ exports.getRealPath = function (path_str, stack_index) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function uuid4(message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;not-valid-uuid4&#x27;; }
-    return exports.match(&#x22;^[a-f0-9]{8}\-[a-f0-9]{4}\-4[a-f0-9]{3}\-[89ab][a-f0-9]{3}\-[a-f0-9]{12}$&#x22;, &#x22;i&#x22;, message);
+    if (typeof message === "undefined") { message = 'not-valid-uuid4'; }
+    return exports.match("^[a-f0-9]{8}\-[a-f0-9]{4}\-4[a-f0-9]{3}\-[89ab][a-f0-9]{3}\-[a-f0-9]{12}$", "i", message);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -7642,15 +7635,15 @@ exports.getRealPath = function (path_str, stack_index) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function length(min, max, message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;out-of-range-length&#x27;; }
+    if (typeof message === "undefined") { message = 'out-of-range-length'; }
     return new Validator(function (value, next) {
         if (value === undefined || value === null)
-            return next(&#x27;undefined&#x27;);
-        if (min === undefined &#x26;&#x26; value.length &#x3c;= max)
+            return next('undefined');
+        if (min === undefined &amp;&amp; value.length &lt;= max)
             return next();
-        if (max === undefined &#x26;&#x26; value.length &#x3e;= min)
+        if (max === undefined &amp;&amp; value.length &gt;= min)
             return next();
-        if (value.length &#x3e;= min &#x26;&#x26; value.length &#x3c;= max)
+        if (value.length &gt;= min &amp;&amp; value.length &lt;= max)
             return next();
         return next(message);
     });
@@ -7668,15 +7661,15 @@ exports.getRealPath = function (path_str, stack_index) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function number(min, max, message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;out-of-range-number&#x27;; }
+    if (typeof message === "undefined") { message = 'out-of-range-number'; }
     return new Validator(function (value, next) {
         if (value === undefined || value === null)
-            return next(&#x27;undefined&#x27;);
-        if (min === undefined &#x26;&#x26; value &#x3c;= max)
+            return next('undefined');
+        if (min === undefined &amp;&amp; value &lt;= max)
             return next();
-        if (max === undefined &#x26;&#x26; value &#x3e;= min)
+        if (max === undefined &amp;&amp; value &gt;= min)
             return next();
-        if (value &#x3e;= min &#x26;&#x26; value &#x3c;= max)
+        if (value &gt;= min &amp;&amp; value &lt;= max)
             return next();
         return next(message);
     });
@@ -7685,11 +7678,11 @@ exports.getRealPath = function (path_str, stack_index) {
 	}, {
 		methods: {
 			fullName: function () {
-				return this.name + &#x27; &#x27; + this.surname;
+				return this.name + ' ' + this.surname;
 			}
 		},
 		validations: {
-			age: orm.enforce.ranges.<span class="apidocCodeKeywordSpan">number</span>(18, undefined, &#x22;under-age&#x22;)
+			age: orm.enforce.ranges.<span class="apidocCodeKeywordSpan">number</span>(18, undefined, "under-age")
 		}
 	});
 
@@ -7714,7 +7707,7 @@ exports.getRealPath = function (path_str, stack_index) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function required(message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;required&#x27;; }
+    if (typeof message === "undefined") { message = 'required'; }
 
     return new Validator(function (value, next) {
         if (value === null || value === undefined) {
@@ -7735,11 +7728,11 @@ exports.getRealPath = function (path_str, stack_index) {
 			model.prependValidation(prop.name, Validators.<span class="apidocCodeKeywordSpan">required</span>());
 		}
 
-		if (prop.key &#x26;&#x26; prop.klass == &#x27;primary&#x27;) {
+		if (prop.key &amp;&amp; prop.klass == 'primary') {
 			keyProperties.push(prop);
 		}
 
-		if (prop.lazyload !== true &#x26;&#x26; !currFields[prop.name]) {
+		if (prop.lazyload !== true &amp;&amp; !currFields[prop.name]) {
 ...</pre></li>
     </ul>
 
@@ -7758,7 +7751,7 @@ exports.getRealPath = function (path_str, stack_index) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function sameAs(property, message) {
-	if (typeof message === &#x22;undefined&#x22;) { message = &#x27;not-same-as&#x27;; }
+	if (typeof message === "undefined") { message = 'not-same-as'; }
 
 	return new Validator(function (value, next) {
 		if (value !== this[property]) {
@@ -7786,62 +7779,62 @@ exports.getRealPath = function (path_str, stack_index) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function creditcard(types, message) {
-    if (typeof types === &#x22;undefined&#x22;) { types = [&#x22;amex&#x22;, &#x22;visa&#x22;, &#x22;maestro&#x22;, &#x22;discover&#x22;, &#x22;mastercard&#x22;]; }
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;not-valid-creditcard&#x27;; }
+    if (typeof types === "undefined") { types = ["amex", "visa", "maestro", "discover", "mastercard"]; }
+    if (typeof message === "undefined") { message = 'not-valid-creditcard'; }
     return new Validator(function (v, next) {
         if (!v)
             return next(message);
 
-        v = &#x22;&#x22; + v;
+        v = "" + v;
 
         var ok = false;
 
-        for (var i = 0; i &#x3c; types.length; i++) {
+        for (var i = 0; i &lt; types.length; i++) {
             switch (types[i]) {
-                case &#x22;amex&#x22;:
+                case "amex":
                     if (v.length != 15)
                         break;
 
-                    ok = (creditcard_prefixes[&#x22;amex&#x22;].indexOf(v.substr(0, 2)) &#x3e;= 0);
+                    ok = (creditcard_prefixes["amex"].indexOf(v.substr(0, 2)) &gt;= 0);
                     break;
-                case &#x22;visa&#x22;:
-                    if (v.length &#x3c; 13)
+                case "visa":
+                    if (v.length &lt; 13)
                         break;
-                    if (v.length &#x3e; 16)
+                    if (v.length &gt; 16)
                         break;
 
-                    ok = (v[0] == &#x22;4&#x22;);
+                    ok = (v[0] == "4");
                     break;
-                case &#x22;maestro&#x22;:
-                    if (v.length &#x3c; 16)
+                case "maestro":
+                    if (v.length &lt; 16)
                         break;
-                    if (v.length &#x3e; 19)
+                    if (v.length &gt; 19)
                         break;
 
-                    ok = (creditcard_prefixes[&#x22;maestro&#x22;].indexOf(v.substr(0, 4)) &#x3e;= 0);
+                    ok = (creditcard_prefixes["maestro"].indexOf(v.substr(0, 4)) &gt;= 0);
                     break;
-                case &#x22;mastercard&#x22;:
-                    if (v.length &#x3c; 16)
+                case "mastercard":
+                    if (v.length &lt; 16)
                         break;
-                    if (v.length &#x3e; 19)
+                    if (v.length &gt; 19)
                         break;
 
-                    ok = (creditcard_prefixes[&#x22;mastercard&#x22;].indexOf(v.substr(0, 2)) &#x3e;= 0);
+                    ok = (creditcard_prefixes["mastercard"].indexOf(v.substr(0, 2)) &gt;= 0);
                     break;
-                case &#x22;discover&#x22;:
+                case "discover":
                     if (v.length != 16)
                         break;
 
-                    ok = (creditcard_prefixes[&#x22;discover4&#x22;].indexOf(v.substr(0, 4)) &#x3e;= 0) || (creditcard_prefixes[&#x22;discover3&#x22;].indexOf
-(v.substr(0, 3)) &#x3e;= 0) || (creditcard_prefixes[&#x22;discover2&#x22;].indexOf(v.substr(0, 2)) &#x3e;= 0);
+                    ok = (creditcard_prefixes["discover4"].indexOf(v.substr(0, 4)) &gt;= 0) || (creditcard_prefixes["discover3"].indexOf
+(v.substr(0, 3)) &gt;= 0) || (creditcard_prefixes["discover2"].indexOf(v.substr(0, 2)) &gt;= 0);
 
                     if (!ok) {
                         var prefix = +v.substr(0, 6);
 
-                        ok = (!isNaN(prefix) &#x26;&#x26; prefix &#x3e;= 622126 &#x26;&#x26; prefix &#x3c;= 622925);
+                        ok = (!isNaN(prefix) &amp;&amp; prefix &gt;= 622126 &amp;&amp; prefix &lt;= 622925);
                     }
                     break;
-                case &#x22;luhn&#x22;:
+                case "luhn":
                     // fallback
                     ok = true;
                     break;
@@ -7854,17 +7847,17 @@ exports.getRealPath = function (path_str, stack_index) {
             return next(message);
         }
 
-        // it&#x27;s in one of possible types, let&#x27;s check Luhn
+        // it's in one of possible types, let's check Luhn
         var check = +v[v.length - 1];
 
         if (isNaN(check)) {
             return next(message);
         }
 
-        var digits = v.slice(0, v.length - 1).split(&#x27;&#x27;);
+        var digits = v.slice(0, v.length - 1).split('');
         digits.reverse();
 
-        for (var i = 0; i &#x3c; digits.length; i++) {
+        for (var i = 0; i &lt; digits.length; i++) {
             digits[i] = +digits[i];
             if (isNaN(digits[i])) {
                 return next(message);
@@ -7872,7 +7865,7 @@ exports.getRealPath = function (path_str, stack_index) {
 
             if (i % 2 === 0) {
                 digits[i] *= 2;
-                if (digits[i] &#x3e; 9) {
+                if (digits[i] &gt; 9) {
                     digits[i] -= 9;
                 }
             }
@@ -7900,11 +7893,11 @@ exports.getRealPath = function (path_str, stack_index) {
     <li>description and source-code<pre class="apidocCodePre">function password(checks, message) {
     if (!message) {
         message = checks;
-        checks = &#x22;luns6&#x22;;
+        checks = "luns6";
     }
 
     if (!message) {
-        message = &#x22;weak-password&#x22;;
+        message = "weak-password";
     }
 
     var m = checks.match(/([0-9]+)/);
@@ -7914,15 +7907,15 @@ exports.getRealPath = function (path_str, stack_index) {
         if (!value)
             return next(message);
 
-        if (checks.indexOf(&#x22;l&#x22;) &#x3e;= 0 &#x26;&#x26; !value.match(/[a-z]/))
+        if (checks.indexOf("l") &gt;= 0 &amp;&amp; !value.match(/[a-z]/))
             return next(message);
-        if (checks.indexOf(&#x22;u&#x22;) &#x3e;= 0 &#x26;&#x26; !value.match(/[A-Z]/))
+        if (checks.indexOf("u") &gt;= 0 &amp;&amp; !value.match(/[A-Z]/))
             return next(message);
-        if (checks.indexOf(&#x22;n&#x22;) &#x3e;= 0 &#x26;&#x26; !value.match(/[0-9]/))
+        if (checks.indexOf("n") &gt;= 0 &amp;&amp; !value.match(/[0-9]/))
             return next(message);
-        if (checks.indexOf(&#x22;s&#x22;) &#x3e;= 0 &#x26;&#x26; !value.match(/[^a-zA-Z0-9]/))
+        if (checks.indexOf("s") &gt;= 0 &amp;&amp; !value.match(/[^a-zA-Z0-9]/))
             return next(message);
-        if (min_len !== null &#x26;&#x26; min_len &#x3e; value.length)
+        if (min_len !== null &amp;&amp; min_len &gt; value.length)
             return next(message);
 
         return next();
@@ -7941,15 +7934,15 @@ exports.getRealPath = function (path_str, stack_index) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function username(options, message) {
-    if (typeof options === &#x22;undefined&#x22;) { options = { length: 2, expr: null }; }
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;invalid-username&#x27;; }
-    if (typeof options === &#x27;string&#x27;) {
+    if (typeof options === "undefined") { options = { length: 2, expr: null }; }
+    if (typeof message === "undefined") { message = 'invalid-username'; }
+    if (typeof options === 'string') {
         message = options.toString();
         options = { length: 2, expr: null };
     }
 
     if (!options.expr) {
-        options.expr = new RegExp(&#x22;^[a-z_][a-z0-9_\\-]{&#x22; + (options.length - 1) + &#x22;,}$&#x22;, &#x22;i&#x22;);
+        options.expr = new RegExp("^[a-z_][a-z0-9_\\-]{" + (options.length - 1) + ",}$", "i");
     }
 
     return patterns.match(options.expr, message);
@@ -7977,9 +7970,9 @@ exports.getRealPath = function (path_str, stack_index) {
 
 	for (k in arguments) {
 		arg = arguments[k];
-		if (typeof arg === &#x22;string&#x22;) {
+		if (typeof arg === "string") {
 			msg = arg;
-		} else if (typeof arg === &#x22;object&#x22;) {
+		} else if (typeof arg === "object") {
 			opts = arg;
 		}
 	}
@@ -7987,13 +7980,13 @@ exports.getRealPath = function (path_str, stack_index) {
 	return function (v, next, ctx) {
 		var s, scopeProp;
 
-		if (typeof v === &#x22;undefined&#x22; || v === null) {
+		if (typeof v === "undefined" || v === null) {
 			return next();
 		}
 
-		//Cannot process on database engines which don&#x27;t support SQL syntax
+		//Cannot process on database engines which don't support SQL syntax
 		if (!ctx.driver.isSql) {
-			return next(&#x27;not-supported&#x27;);
+			return next('not-supported');
 		}
 
 		var chain = ctx.model.find();
@@ -8001,8 +7994,8 @@ exports.getRealPath = function (path_str, stack_index) {
 		var chainQuery = function (prop, value) {
 			var query = null;
 
-			if (opts.ignoreCase === true &#x26;&#x26; ctx.model.properties[prop] &#x26;&#x26; ctx.model.properties[prop].type === &#x27;text&#x27;) {
-				query = util.format(&#x27;LOWER(%s.%s) LIKE LOWER(?)&#x27;,
+			if (opts.ignoreCase === true &amp;&amp; ctx.model.properties[prop] &amp;&amp; ctx.model.properties[prop].type === 'text') {
+				query = util.format('LOWER(%s.%s) LIKE LOWER(?)',
 					ctx.driver.query.escapeId(ctx.model.table), ctx.driver.query.escapeId(prop)
 				);
 				chain.where(query, [value]);
@@ -8020,10 +8013,10 @@ exports.getRealPath = function (path_str, stack_index) {
 			if (!records || records.length === 0) {
 				return next();
 			}
-			if (records.length === 1 &#x26;&#x26; records[0][ctx.model.id] === this[ctx.model.id]) {
+			if (records.length === 1 &amp;&amp; records[0][ctx.model.id] === this[ctx.model.id]) {
 				return next();
 			}
-			return next(msg || &#x27;not-unique&#x27;);
+			return next(msg || 'not-unique');
 		}.bind(this);
 
 		chainQuery(ctx.property, v);
@@ -8033,7 +8026,7 @@ exports.getRealPath = function (path_str, stack_index) {
 				scopeProp = opts.scope[s];
 
 				// In SQL unique index land, NULL values are not considered equal.
-				if (typeof ctx.instance[scopeProp] == &#x27;undefined&#x27; || ctx.instance[scopeProp] === null) {
+				if (typeof ctx.instance[scopeProp] == 'undefined' || ctx.instance[scopeProp] === null) {
 					return next();
 				}
 
@@ -8062,7 +8055,7 @@ exports.getRealPath = function (path_str, stack_index) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">eq = function (v) {
-	return createSpecialObject({ val: v }, &#x27;eq&#x27;);
+	return createSpecialObject({ val: v }, 'eq');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 { col1: [ 1, 3, 5 ] } // `col1` IN (1, 3, 5)
@@ -8073,11 +8066,11 @@ a few examples to describe it:
 
 ```js
 { col1: orm.<span class="apidocCodeKeywordSpan">eq</span>(123) } // `col1` = 123 (default)
-{ col1: orm.ne(123) } // `col1` &#x3c;&#x3e; 123
-{ col1: orm.gt(123) } // `col1` &#x3e; 123
-{ col1: orm.gte(123) } // `col1` &#x3e;= 123
-{ col1: orm.lt(123) } // `col1` &#x3c; 123
-{ col1: orm.lte(123) } // `col1` &#x3c;= 123
+{ col1: orm.ne(123) } // `col1` &lt;&gt; 123
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
 { col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
 { col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
 ...</pre></li>
@@ -8098,19 +8091,19 @@ a few examples to describe it:
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">express = function () {
-	return require(&#x22;./Express&#x22;).apply(this, arguments);
+	return require("./Express").apply(this, arguments);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-If you&#x27;re using Express, you might want to use the simple middleware to integrate more easily.
+If you're using Express, you might want to use the simple middleware to integrate more easily.
 
 ```js
-var express = require(&#x27;express&#x27;);
-var orm = require(&#x27;orm&#x27;);
+var express = require('express');
+var orm = require('orm');
 var app = express();
 
-app.use(orm.<span class="apidocCodeKeywordSpan">express</span>(&#x22;mysql://username:password@host/database&#x22;, {
+app.use(orm.<span class="apidocCodeKeywordSpan">express</span>("mysql://username:password@host/database", {
 	define: function (db, models, next) {
-		models.person = db.define(&#x22;person&#x22;, { ... });
+		models.person = db.define("person", { ... });
 		next();
 	}
 }));
@@ -8133,14 +8126,14 @@ app.listen(80);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">gt = function (v) {
-	return createSpecialObject({ val: v }, &#x27;gt&#x27;);
+	return createSpecialObject({ val: v }, 'gt');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 
 ```js
-var Person = db.define(&#x27;person&#x27;, {
+var Person = db.define('person', {
     name    : String,
-    height  : { type: &#x27;integer&#x27; }
+    height  : { type: 'integer' }
 });
 Person.tallerThan = function(height, callback) {
     this.find({ height: orm.<span class="apidocCodeKeywordSpan">gt</span>(height) }, callback);
@@ -8169,7 +8162,7 @@ Person.tallerThan( 192, function(err, tallPeople) { ... } );
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">gte = function (v) {
-	return createSpecialObject({ val: v }, &#x27;gte&#x27;);
+	return createSpecialObject({ val: v }, 'gte');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 If you need other comparisons, you have to use a special object created by some helper functions. Here are
@@ -8177,15 +8170,15 @@ a few examples to describe it:
 
 ```js
 { col1: orm.eq(123) } // `col1` = 123 (default)
-{ col1: orm.ne(123) } // `col1` &#x3c;&#x3e; 123
-{ col1: orm.gt(123) } // `col1` &#x3e; 123
-{ col1: orm.<span class="apidocCodeKeywordSpan">gte</span>(123) } // `col1` &#x3e;= 123
-{ col1: orm.lt(123) } // `col1` &#x3c; 123
-{ col1: orm.lte(123) } // `col1` &#x3c;= 123
+{ col1: orm.ne(123) } // `col1` &lt;&gt; 123
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.<span class="apidocCodeKeywordSpan">gte</span>(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
 { col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
 { col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
-{ col1: orm.like(12 + &#x22;%&#x22;) } // `col1` LIKE &#x27;12%&#x27;
-{ col1: orm.not_like(12 + &#x22;%&#x22;) } // `col1` NOT LIKE &#x27;12%&#x27;
+{ col1: orm.like(12 + "%") } // `col1` LIKE '12%'
+{ col1: orm.not_like(12 + "%") } // `col1` NOT LIKE '12%'
 { col1: orm.not_in([1, 4, 8]) } // `col1` NOT IN (1, 4, 8)
 ...</pre></li>
     </ul>
@@ -8205,18 +8198,18 @@ a few examples to describe it:
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">like = function (expr) {
-	return createSpecialObject({ expr: expr }, &#x27;like&#x27;);
+	return createSpecialObject({ expr: expr }, 'like');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-{ col1: orm.ne(123) } // `col1` &#x3c;&#x3e; 123
-{ col1: orm.gt(123) } // `col1` &#x3e; 123
-{ col1: orm.gte(123) } // `col1` &#x3e;= 123
-{ col1: orm.lt(123) } // `col1` &#x3c; 123
-{ col1: orm.lte(123) } // `col1` &#x3c;= 123
+{ col1: orm.ne(123) } // `col1` &lt;&gt; 123
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
 { col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
 { col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
-{ col1: orm.<span class="apidocCodeKeywordSpan">like</span>(12 + &#x22;%&#x22;) } // `col1` LIKE &#x27;12%&#x27;
-{ col1: orm.not_like(12 + &#x22;%&#x22;) } // `col1` NOT LIKE &#x27;12%&#x27;
+{ col1: orm.<span class="apidocCodeKeywordSpan">like</span>(12 + "%") } // `col1` LIKE '12%'
+{ col1: orm.not_like(12 + "%") } // `col1` NOT LIKE '12%'
 { col1: orm.not_in([1, 4, 8]) } // `col1` NOT IN (1, 4, 8)
 ```
 
@@ -8241,22 +8234,22 @@ a few examples to describe it:
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">lt = function (v) {
-	return createSpecialObject({ val: v }, &#x27;lt&#x27;);
+	return createSpecialObject({ val: v }, 'lt');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 a few examples to describe it:
 
 ```js
 { col1: orm.eq(123) } // `col1` = 123 (default)
-{ col1: orm.ne(123) } // `col1` &#x3c;&#x3e; 123
-{ col1: orm.gt(123) } // `col1` &#x3e; 123
-{ col1: orm.gte(123) } // `col1` &#x3e;= 123
-{ col1: orm.<span class="apidocCodeKeywordSpan">lt</span>(123) } // `col1` &#x3c; 123
-{ col1: orm.lte(123) } // `col1` &#x3c;= 123
+{ col1: orm.ne(123) } // `col1` &lt;&gt; 123
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.<span class="apidocCodeKeywordSpan">lt</span>(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
 { col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
 { col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
-{ col1: orm.like(12 + &#x22;%&#x22;) } // `col1` LIKE &#x27;12%&#x27;
-{ col1: orm.not_like(12 + &#x22;%&#x22;) } // `col1` NOT LIKE &#x27;12%&#x27;
+{ col1: orm.like(12 + "%") } // `col1` LIKE '12%'
+{ col1: orm.not_like(12 + "%") } // `col1` NOT LIKE '12%'
 { col1: orm.not_in([1, 4, 8]) } // `col1` NOT IN (1, 4, 8)
 ```
 ...</pre></li>
@@ -8277,21 +8270,21 @@ a few examples to describe it:
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">lte = function (v) {
-	return createSpecialObject({ val: v }, &#x27;lte&#x27;);
+	return createSpecialObject({ val: v }, 'lte');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 
 ```js
 { col1: orm.eq(123) } // `col1` = 123 (default)
-{ col1: orm.ne(123) } // `col1` &#x3c;&#x3e; 123
-{ col1: orm.gt(123) } // `col1` &#x3e; 123
-{ col1: orm.gte(123) } // `col1` &#x3e;= 123
-{ col1: orm.lt(123) } // `col1` &#x3c; 123
-{ col1: orm.<span class="apidocCodeKeywordSpan">lte</span>(123) } // `col1` &#x3c;= 123
+{ col1: orm.ne(123) } // `col1` &lt;&gt; 123
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.<span class="apidocCodeKeywordSpan">lte</span>(123) } // `col1` &lt;= 123
 { col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
 { col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
-{ col1: orm.like(12 + &#x22;%&#x22;) } // `col1` LIKE &#x27;12%&#x27;
-{ col1: orm.not_like(12 + &#x22;%&#x22;) } // `col1` NOT LIKE &#x27;12%&#x27;
+{ col1: orm.like(12 + "%") } // `col1` LIKE '12%'
+{ col1: orm.not_like(12 + "%") } // `col1` NOT LIKE '12%'
 { col1: orm.not_in([1, 4, 8]) } // `col1` NOT IN (1, 4, 8)
 ```
 ...</pre></li>
@@ -8312,7 +8305,7 @@ a few examples to describe it:
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">ne = function (v) {
-	return createSpecialObject({ val: v }, &#x27;ne&#x27;);
+	return createSpecialObject({ val: v }, 'ne');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 ```
@@ -8322,14 +8315,14 @@ a few examples to describe it:
 
 ```js
 { col1: orm.eq(123) } // `col1` = 123 (default)
-{ col1: orm.<span class="apidocCodeKeywordSpan">ne</span>(123) } // `col1` &#x3c;&#x3e; 123
-{ col1: orm.gt(123) } // `col1` &#x3e; 123
-{ col1: orm.gte(123) } // `col1` &#x3e;= 123
-{ col1: orm.lt(123) } // `col1` &#x3c; 123
-{ col1: orm.lte(123) } // `col1` &#x3c;= 123
+{ col1: orm.<span class="apidocCodeKeywordSpan">ne</span>(123) } // `col1` &lt;&gt; 123
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
 { col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
 { col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
-{ col1: orm.like(12 + &#x22;%&#x22;) } // `col1` LIKE &#x27;12%&#x27;
+{ col1: orm.like(12 + "%") } // `col1` LIKE '12%'
 ...</pre></li>
     </ul>
 
@@ -8348,19 +8341,19 @@ a few examples to describe it:
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">not_between = function (a, b) {
-	return createSpecialObject({ from: a, to: b }, &#x27;not_between&#x27;);
+	return createSpecialObject({ from: a, to: b }, 'not_between');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 { col1: orm.eq(123) } // `col1` = 123 (default)
-{ col1: orm.ne(123) } // `col1` &#x3c;&#x3e; 123
-{ col1: orm.gt(123) } // `col1` &#x3e; 123
-{ col1: orm.gte(123) } // `col1` &#x3e;= 123
-{ col1: orm.lt(123) } // `col1` &#x3c; 123
-{ col1: orm.lte(123) } // `col1` &#x3c;= 123
+{ col1: orm.ne(123) } // `col1` &lt;&gt; 123
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
 { col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
 { col1: orm.<span class="apidocCodeKeywordSpan">not_between</span>(123, 456) } // `col1` NOT BETWEEN 123 AND 456
-{ col1: orm.like(12 + &#x22;%&#x22;) } // `col1` LIKE &#x27;12%&#x27;
-{ col1: orm.not_like(12 + &#x22;%&#x22;) } // `col1` NOT LIKE &#x27;12%&#x27;
+{ col1: orm.like(12 + "%") } // `col1` LIKE '12%'
+{ col1: orm.not_like(12 + "%") } // `col1` NOT LIKE '12%'
 { col1: orm.not_in([1, 4, 8]) } // `col1` NOT IN (1, 4, 8)
 ```
 
@@ -8383,23 +8376,23 @@ a few examples to describe it:
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">not_in = function (v) {
-	return createSpecialObject({ val: v }, &#x27;not_in&#x27;);
+	return createSpecialObject({ val: v }, 'not_in');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-{ col1: orm.gte(123) } // `col1` &#x3e;= 123
-{ col1: orm.lt(123) } // `col1` &#x3c; 123
-{ col1: orm.lte(123) } // `col1` &#x3c;= 123
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
 { col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
 { col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
-{ col1: orm.like(12 + &#x22;%&#x22;) } // `col1` LIKE &#x27;12%&#x27;
-{ col1: orm.not_like(12 + &#x22;%&#x22;) } // `col1` NOT LIKE &#x27;12%&#x27;
+{ col1: orm.like(12 + "%") } // `col1` LIKE '12%'
+{ col1: orm.not_like(12 + "%") } // `col1` NOT LIKE '12%'
 { col1: orm.<span class="apidocCodeKeywordSpan">not_in</span>([1, 4, 8]) } // `col1` NOT IN (1, 4, 8)
 ```
 
 #### Raw queries
 
 ```js
-db.driver.execQuery(&#x22;SELECT id, email FROM user&#x22;, function (err, data) { ... })
+db.driver.execQuery("SELECT id, email FROM user", function (err, data) { ... })
 ...</pre></li>
     </ul>
 
@@ -8418,24 +8411,24 @@ db.driver.execQuery(&#x22;SELECT id, email FROM user&#x22;, function (err, data)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">not_like = function (expr) {
-	return createSpecialObject({ expr: expr }, &#x27;not_like&#x27;);
+	return createSpecialObject({ expr: expr }, 'not_like');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-{ col1: orm.gt(123) } // `col1` &#x3e; 123
-{ col1: orm.gte(123) } // `col1` &#x3e;= 123
-{ col1: orm.lt(123) } // `col1` &#x3c; 123
-{ col1: orm.lte(123) } // `col1` &#x3c;= 123
+{ col1: orm.gt(123) } // `col1` &gt; 123
+{ col1: orm.gte(123) } // `col1` &gt;= 123
+{ col1: orm.lt(123) } // `col1` &lt; 123
+{ col1: orm.lte(123) } // `col1` &lt;= 123
 { col1: orm.between(123, 456) } // `col1` BETWEEN 123 AND 456
 { col1: orm.not_between(123, 456) } // `col1` NOT BETWEEN 123 AND 456
-{ col1: orm.like(12 + &#x22;%&#x22;) } // `col1` LIKE &#x27;12%&#x27;
-{ col1: orm.<span class="apidocCodeKeywordSpan">not_like</span>(12 + &#x22;%&#x22;) } // `col1` NOT LIKE &#x27;12%&#x27;
+{ col1: orm.like(12 + "%") } // `col1` LIKE '12%'
+{ col1: orm.<span class="apidocCodeKeywordSpan">not_like</span>(12 + "%") } // `col1` NOT LIKE '12%'
 { col1: orm.not_in([1, 4, 8]) } // `col1` NOT IN (1, 4, 8)
 ```
 
 #### Raw queries
 
 ```js
-db.driver.execQuery(&#x22;SELECT id, email FROM user&#x22;, function (err, data) { ... })
+db.driver.execQuery("SELECT id, email FROM user", function (err, data) { ... })
 ...</pre></li>
     </ul>
 
@@ -8464,20 +8457,20 @@ db.driver.execQuery(&#x22;SELECT id, email FROM user&#x22;, function (err, data)
 		}</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 	define: function (db, models, next) {
-		models.person = db.define(&#x22;person&#x22;, { ... });
+		models.person = db.define("person", { ... });
 		next();
 	}
 }));
 app.listen(80);
 
-app.<span class="apidocCodeKeywordSpan">get</span>(&#x22;/&#x22;, function (req, res) {
+app.<span class="apidocCodeKeywordSpan">get</span>("/", function (req, res) {
 	// req.models is a reference to models used above in define()
 	req.models.person.find(...);
 });
 ```
 
 You can call `orm.express` more than once to have multiple database connections. Models defined across connections
-will be joined together in `req.models`. **Don&#x27;t forget to use it before `app.use(app.router)`, preferably right after your
+will be joined together in `req.models`. **Don't forget to use it before `app.use(app.router)`, preferably right after your
 ...</pre></li>
     </ul>
 
@@ -8497,16 +8490,16 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 		}</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 ```js
-var Person = db.define(&#x22;person&#x22;, {
-	personId : { type: &#x27;serial&#x27;, key: true },
+var Person = db.define("person", {
+	personId : { type: 'serial', key: true },
 	name     : String
 });
 
-// You can also change the default &#x22;id&#x22; property name globally:
-db.settings.<span class="apidocCodeKeywordSpan">set</span>(&#x22;properties.primary_key&#x22;, &#x22;UID&#x22;);
+// You can also change the default "id" property name globally:
+db.settings.<span class="apidocCodeKeywordSpan">set</span>("properties.primary_key", "UID");
 
 // ..and then define your Models
-var Pet = db.define(&#x22;pet&#x22;, {
+var Pet = db.define("pet", {
 	name : String
 });
 ```
@@ -8523,8 +8516,8 @@ var Pet = db.define(&#x22;pet&#x22;, {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">unset = function () {
-			for (var i = 0; i &#x3c; arguments.length; i++) {
-				if (typeof arguments[i] === &#x22;string&#x22;) {
+			for (var i = 0; i &lt; arguments.length; i++) {
+				if (typeof arguments[i] === "string") {
 					unset(arguments[i], settings);
 				}
 			}
@@ -8559,20 +8552,20 @@ var Pet = db.define(&#x22;pet&#x22;, {
 		}</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 	define: function (db, models, next) {
-		models.person = db.define(&#x22;person&#x22;, { ... });
+		models.person = db.define("person", { ... });
 		next();
 	}
 }));
 app.listen(80);
 
-app.<span class="apidocCodeKeywordSpan">get</span>(&#x22;/&#x22;, function (req, res) {
+app.<span class="apidocCodeKeywordSpan">get</span>("/", function (req, res) {
 	// req.models is a reference to models used above in define()
 	req.models.person.find(...);
 });
 ```
 
 You can call `orm.express` more than once to have multiple database connections. Models defined across connections
-will be joined together in `req.models`. **Don&#x27;t forget to use it before `app.use(app.router)`, preferably right after your
+will be joined together in `req.models`. **Don't forget to use it before `app.use(app.router)`, preferably right after your
 ...</pre></li>
     </ul>
 
@@ -8597,16 +8590,16 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 		}</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 ```js
-var Person = db.define(&#x22;person&#x22;, {
-	personId : { type: &#x27;serial&#x27;, key: true },
+var Person = db.define("person", {
+	personId : { type: 'serial', key: true },
 	name     : String
 });
 
-// You can also change the default &#x22;id&#x22; property name globally:
-db.settings.<span class="apidocCodeKeywordSpan">set</span>(&#x22;properties.primary_key&#x22;, &#x22;UID&#x22;);
+// You can also change the default "id" property name globally:
+db.settings.<span class="apidocCodeKeywordSpan">set</span>("properties.primary_key", "UID");
 
 // ..and then define your Models
-var Pet = db.define(&#x22;pet&#x22;, {
+var Pet = db.define("pet", {
 	name : String
 });
 ```
@@ -8628,8 +8621,8 @@ var Pet = db.define(&#x22;pet&#x22;, {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">unset = function () {
-			for (var i = 0; i &#x3c; arguments.length; i++) {
-				if (typeof arguments[i] === &#x22;string&#x22;) {
+			for (var i = 0; i &lt; arguments.length; i++) {
+				if (typeof arguments[i] === "string") {
 					unset(arguments[i], settings);
 				}
 			}
@@ -8654,7 +8647,7 @@ var Pet = db.define(&#x22;pet&#x22;, {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">clear = function (key) {
-	if (typeof key === &#x22;string&#x22;) {
+	if (typeof key === "string") {
 		delete map[key];
 	} else {
 		map = {};
@@ -8670,7 +8663,7 @@ var Pet = db.define(&#x22;pet&#x22;, {
 
 	model.clear = function (cb) {
 		opts.driver.<span class="apidocCodeKeywordSpan">clear</span>(opts.table, function (err) {
-			if (typeof cb === &#x22;function&#x22;) cb(err);
+			if (typeof cb === "function") cb(err);
 		});
 
 		return this;
@@ -8690,14 +8683,14 @@ var Pet = db.define(&#x22;pet&#x22;, {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">get = function (key, opts, createCb, returnCb) {
-	if (opts &#x26;&#x26; opts.identityCache === false) {
+	if (opts &amp;&amp; opts.identityCache === false) {
 		return createCb(returnCb);
 	}
 	if (map.hasOwnProperty(key)) {
-		if (opts &#x26;&#x26; opts.saveCheck &#x26;&#x26; typeof map[key].o.saved === &#x22;function&#x22; &#x26;&#x26; !map[key].o.saved()) {
-			// if not saved, don&#x27;t return it, fetch original from db
+		if (opts &amp;&amp; opts.saveCheck &amp;&amp; typeof map[key].o.saved === "function" &amp;&amp; !map[key].o.saved()) {
+			// if not saved, don't return it, fetch original from db
 			return createCb(returnCb);
-		} else if (map[key].t !== null &#x26;&#x26; map[key].t &#x3c;= Date.now()) {
+		} else if (map[key].t !== null &amp;&amp; map[key].t &lt;= Date.now()) {
 			delete map[key];
 		} else  {
 			return returnCb(null, map[key].o);
@@ -8709,27 +8702,27 @@ var Pet = db.define(&#x22;pet&#x22;, {
 
 		map[key] = { // object , timeout
 			o : value,
-			t : (opts &#x26;&#x26; typeof opts.identityCache === &#x22;number&#x22; ? Date.now() + (opts.identityCache * 1000) : null)
+			t : (opts &amp;&amp; typeof opts.identityCache === "number" ? Date.now() + (opts.identityCache * 1000) : null)
 		};
 		return returnCb(null, map[key].o);
 	});
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 	define: function (db, models, next) {
-		models.person = db.define(&#x22;person&#x22;, { ... });
+		models.person = db.define("person", { ... });
 		next();
 	}
 }));
 app.listen(80);
 
-app.<span class="apidocCodeKeywordSpan">get</span>(&#x22;/&#x22;, function (req, res) {
+app.<span class="apidocCodeKeywordSpan">get</span>("/", function (req, res) {
 	// req.models is a reference to models used above in define()
 	req.models.person.find(...);
 });
 ```
 
 You can call `orm.express` more than once to have multiple database connections. Models defined across connections
-will be joined together in `req.models`. **Don&#x27;t forget to use it before `app.use(app.router)`, preferably right after your
+will be joined together in `req.models`. **Don't forget to use it before `app.use(app.router)`, preferably right after your
 ...</pre></li>
     </ul>
 
@@ -8748,7 +8741,7 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">clear = function (key) {
-	if (typeof key === &#x22;string&#x22;) {
+	if (typeof key === "string") {
 		delete map[key];
 	} else {
 		map = {};
@@ -8764,7 +8757,7 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 
 	model.clear = function (cb) {
 		opts.driver.<span class="apidocCodeKeywordSpan">clear</span>(opts.table, function (err) {
-			if (typeof cb === &#x22;function&#x22;) cb(err);
+			if (typeof cb === "function") cb(err);
 		});
 
 		return this;
@@ -8789,14 +8782,14 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">get = function (key, opts, createCb, returnCb) {
-	if (opts &#x26;&#x26; opts.identityCache === false) {
+	if (opts &amp;&amp; opts.identityCache === false) {
 		return createCb(returnCb);
 	}
 	if (map.hasOwnProperty(key)) {
-		if (opts &#x26;&#x26; opts.saveCheck &#x26;&#x26; typeof map[key].o.saved === &#x22;function&#x22; &#x26;&#x26; !map[key].o.saved()) {
-			// if not saved, don&#x27;t return it, fetch original from db
+		if (opts &amp;&amp; opts.saveCheck &amp;&amp; typeof map[key].o.saved === "function" &amp;&amp; !map[key].o.saved()) {
+			// if not saved, don't return it, fetch original from db
 			return createCb(returnCb);
-		} else if (map[key].t !== null &#x26;&#x26; map[key].t &#x3c;= Date.now()) {
+		} else if (map[key].t !== null &amp;&amp; map[key].t &lt;= Date.now()) {
 			delete map[key];
 		} else  {
 			return returnCb(null, map[key].o);
@@ -8808,27 +8801,27 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 
 		map[key] = { // object , timeout
 			o : value,
-			t : (opts &#x26;&#x26; typeof opts.identityCache === &#x22;number&#x22; ? Date.now() + (opts.identityCache * 1000) : null)
+			t : (opts &amp;&amp; typeof opts.identityCache === "number" ? Date.now() + (opts.identityCache * 1000) : null)
 		};
 		return returnCb(null, map[key].o);
 	});
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 	define: function (db, models, next) {
-		models.person = db.define(&#x22;person&#x22;, { ... });
+		models.person = db.define("person", { ... });
 		next();
 	}
 }));
 app.listen(80);
 
-app.<span class="apidocCodeKeywordSpan">get</span>(&#x22;/&#x22;, function (req, res) {
+app.<span class="apidocCodeKeywordSpan">get</span>("/", function (req, res) {
 	// req.models is a reference to models used above in define()
 	req.models.person.find(...);
 });
 ```
 
 You can call `orm.express` more than once to have multiple database connections. Models defined across connections
-will be joined together in `req.models`. **Don&#x27;t forget to use it before `app.use(app.router)`, preferably right after your
+will be joined together in `req.models`. **Don't forget to use it before `app.use(app.router)`, preferably right after your
 ...</pre></li>
     </ul>
 
@@ -8850,16 +8843,16 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 	if (DriverAliases[proto]) {
 		proto = DriverAliases[proto];
 	}
-	if (typeof opts === &#x22;function&#x22;) {
+	if (typeof opts === "function") {
 		cb = opts;
 		opts = {};
 	}
 
 	try {
 		var Driver   = adapters.get(proto);
-		var settings = new Settings.Container(exports.settings.get(&#x27;*&#x27;));
+		var settings = new Settings.Container(exports.settings.get('*'));
 		var driver   = new Driver(null, connection, {
-			debug    : (opts.query &#x26;&#x26; opts.query.debug === &#x27;true&#x27;),
+			debug    : (opts.query &amp;&amp; opts.query.debug === 'true'),
 			settings : settings
 		});
 
@@ -8869,16 +8862,16 @@ will be joined together in `req.models`. **Don&#x27;t forget to use it before `a
 	}
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-If you&#x27;re using Express, you might want to use the simple middleware to integrate more easily.
+If you're using Express, you might want to use the simple middleware to integrate more easily.
 
 ```js
-var express = require(&#x27;express&#x27;);
-var orm = require(&#x27;orm&#x27;);
+var express = require('express');
+var orm = require('orm');
 var app = express();
 
-app.<span class="apidocCodeKeywordSpan">use</span>(orm.express(&#x22;mysql://username:password@host/database&#x22;, {
+app.<span class="apidocCodeKeywordSpan">use</span>(orm.express("mysql://username:password@host/database", {
 	define: function (db, models, next) {
-		models.person = db.define(&#x22;person&#x22;, { ... });
+		models.person = db.define("person", { ... });
 		next();
 	}
 }));
@@ -8905,7 +8898,7 @@ app.listen(80);
 		if (v === this[name]) {
 			return next();
 		}
-		return next(msg || &#x27;not-equal-to-property&#x27;);
+		return next(msg || 'not-equal-to-property');
 	};
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -8921,9 +8914,9 @@ app.listen(80);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function inside(list, message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;outside-list&#x27;; }
+    if (typeof message === "undefined") { message = 'outside-list'; }
     return new Validator(function (value, next) {
-        if (list.indexOf(value) &#x3e;= 0)
+        if (list.indexOf(value) &gt;= 0)
             return next();
         return next(message);
     });
@@ -8941,7 +8934,7 @@ app.listen(80);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function notEmptyString(message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;empty-string&#x27;; }
+    if (typeof message === "undefined") { message = 'empty-string'; }
 
     return Ranges.length(1, undefined, message);
 }</pre></li>
@@ -8958,7 +8951,7 @@ app.listen(80);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function outside(list, message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;inside-list&#x27;; }
+    if (typeof message === "undefined") { message = 'inside-list'; }
     return new Validator(function (value, next) {
         if (list.indexOf(value) === -1)
             return next();
@@ -8980,11 +8973,11 @@ app.listen(80);
     <li>description and source-code<pre class="apidocCodePre">function password(checks, message) {
     if (!message) {
         message = checks;
-        checks = &#x22;luns6&#x22;;
+        checks = "luns6";
     }
 
     if (!message) {
-        message = &#x22;weak-password&#x22;;
+        message = "weak-password";
     }
 
     var m = checks.match(/([0-9]+)/);
@@ -8994,15 +8987,15 @@ app.listen(80);
         if (!value)
             return next(message);
 
-        if (checks.indexOf(&#x22;l&#x22;) &#x3e;= 0 &#x26;&#x26; !value.match(/[a-z]/))
+        if (checks.indexOf("l") &gt;= 0 &amp;&amp; !value.match(/[a-z]/))
             return next(message);
-        if (checks.indexOf(&#x22;u&#x22;) &#x3e;= 0 &#x26;&#x26; !value.match(/[A-Z]/))
+        if (checks.indexOf("u") &gt;= 0 &amp;&amp; !value.match(/[A-Z]/))
             return next(message);
-        if (checks.indexOf(&#x22;n&#x22;) &#x3e;= 0 &#x26;&#x26; !value.match(/[0-9]/))
+        if (checks.indexOf("n") &gt;= 0 &amp;&amp; !value.match(/[0-9]/))
             return next(message);
-        if (checks.indexOf(&#x22;s&#x22;) &#x3e;= 0 &#x26;&#x26; !value.match(/[^a-zA-Z0-9]/))
+        if (checks.indexOf("s") &gt;= 0 &amp;&amp; !value.match(/[^a-zA-Z0-9]/))
             return next(message);
-        if (min_len !== null &#x26;&#x26; min_len &#x3e; value.length)
+        if (min_len !== null &amp;&amp; min_len &gt; value.length)
             return next(message);
 
         return next();
@@ -9021,15 +9014,15 @@ app.listen(80);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function length(min, max, message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;out-of-range-length&#x27;; }
+    if (typeof message === "undefined") { message = 'out-of-range-length'; }
     return new Validator(function (value, next) {
         if (value === undefined || value === null)
-            return next(&#x27;undefined&#x27;);
-        if (min === undefined &#x26;&#x26; value.length &#x3c;= max)
+            return next('undefined');
+        if (min === undefined &amp;&amp; value.length &lt;= max)
             return next();
-        if (max === undefined &#x26;&#x26; value.length &#x3e;= min)
+        if (max === undefined &amp;&amp; value.length &gt;= min)
             return next();
-        if (value.length &#x3e;= min &#x26;&#x26; value.length &#x3c;= max)
+        if (value.length &gt;= min &amp;&amp; value.length &lt;= max)
             return next();
         return next(message);
     });
@@ -9047,15 +9040,15 @@ app.listen(80);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function number(min, max, message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;out-of-range-number&#x27;; }
+    if (typeof message === "undefined") { message = 'out-of-range-number'; }
     return new Validator(function (value, next) {
         if (value === undefined || value === null)
-            return next(&#x27;undefined&#x27;);
-        if (min === undefined &#x26;&#x26; value &#x3c;= max)
+            return next('undefined');
+        if (min === undefined &amp;&amp; value &lt;= max)
             return next();
-        if (max === undefined &#x26;&#x26; value &#x3e;= min)
+        if (max === undefined &amp;&amp; value &gt;= min)
             return next();
-        if (value &#x3e;= min &#x26;&#x26; value &#x3c;= max)
+        if (value &gt;= min &amp;&amp; value &lt;= max)
             return next();
         return next(message);
     });
@@ -9073,7 +9066,7 @@ app.listen(80);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function required(message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;required&#x27;; }
+    if (typeof message === "undefined") { message = 'required'; }
 
     return new Validator(function (value, next) {
         if (value === null || value === undefined) {
@@ -9094,11 +9087,11 @@ app.listen(80);
 			model.prependValidation(prop.name, Validators.<span class="apidocCodeKeywordSpan">required</span>());
 		}
 
-		if (prop.key &#x26;&#x26; prop.klass == &#x27;primary&#x27;) {
+		if (prop.key &amp;&amp; prop.klass == 'primary') {
 			keyProperties.push(prop);
 		}
 
-		if (prop.lazyload !== true &#x26;&#x26; !currFields[prop.name]) {
+		if (prop.lazyload !== true &amp;&amp; !currFields[prop.name]) {
 ...</pre></li>
     </ul>
 
@@ -9117,9 +9110,9 @@ app.listen(80);
 
 	for (k in arguments) {
 		arg = arguments[k];
-		if (typeof arg === &#x22;string&#x22;) {
+		if (typeof arg === "string") {
 			msg = arg;
-		} else if (typeof arg === &#x22;object&#x22;) {
+		} else if (typeof arg === "object") {
 			opts = arg;
 		}
 	}
@@ -9127,13 +9120,13 @@ app.listen(80);
 	return function (v, next, ctx) {
 		var s, scopeProp;
 
-		if (typeof v === &#x22;undefined&#x22; || v === null) {
+		if (typeof v === "undefined" || v === null) {
 			return next();
 		}
 
-		//Cannot process on database engines which don&#x27;t support SQL syntax
+		//Cannot process on database engines which don't support SQL syntax
 		if (!ctx.driver.isSql) {
-			return next(&#x27;not-supported&#x27;);
+			return next('not-supported');
 		}
 
 		var chain = ctx.model.find();
@@ -9141,8 +9134,8 @@ app.listen(80);
 		var chainQuery = function (prop, value) {
 			var query = null;
 
-			if (opts.ignoreCase === true &#x26;&#x26; ctx.model.properties[prop] &#x26;&#x26; ctx.model.properties[prop].type === &#x27;text&#x27;) {
-				query = util.format(&#x27;LOWER(%s.%s) LIKE LOWER(?)&#x27;,
+			if (opts.ignoreCase === true &amp;&amp; ctx.model.properties[prop] &amp;&amp; ctx.model.properties[prop].type === 'text') {
+				query = util.format('LOWER(%s.%s) LIKE LOWER(?)',
 					ctx.driver.query.escapeId(ctx.model.table), ctx.driver.query.escapeId(prop)
 				);
 				chain.where(query, [value]);
@@ -9160,10 +9153,10 @@ app.listen(80);
 			if (!records || records.length === 0) {
 				return next();
 			}
-			if (records.length === 1 &#x26;&#x26; records[0][ctx.model.id] === this[ctx.model.id]) {
+			if (records.length === 1 &amp;&amp; records[0][ctx.model.id] === this[ctx.model.id]) {
 				return next();
 			}
-			return next(msg || &#x27;not-unique&#x27;);
+			return next(msg || 'not-unique');
 		}.bind(this);
 
 		chainQuery(ctx.property, v);
@@ -9173,7 +9166,7 @@ app.listen(80);
 				scopeProp = opts.scope[s];
 
 				// In SQL unique index land, NULL values are not considered equal.
-				if (typeof ctx.instance[scopeProp] == &#x27;undefined&#x27; || ctx.instance[scopeProp] === null) {
+				if (typeof ctx.instance[scopeProp] == 'undefined' || ctx.instance[scopeProp] === null) {
 					return next();
 				}
 
@@ -9204,9 +9197,9 @@ app.listen(80);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function inside(list, message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;outside-list&#x27;; }
+    if (typeof message === "undefined") { message = 'outside-list'; }
     return new Validator(function (value, next) {
-        if (list.indexOf(value) &#x3e;= 0)
+        if (list.indexOf(value) &gt;= 0)
             return next();
         return next(message);
     });
@@ -9229,7 +9222,7 @@ app.listen(80);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function outside(list, message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;inside-list&#x27;; }
+    if (typeof message === "undefined") { message = 'inside-list'; }
     return new Validator(function (value, next) {
         if (list.indexOf(value) === -1)
             return next();
@@ -9256,11 +9249,11 @@ app.listen(80);
     <li>description and source-code<pre class="apidocCodePre">function password(checks, message) {
     if (!message) {
         message = checks;
-        checks = &#x22;luns6&#x22;;
+        checks = "luns6";
     }
 
     if (!message) {
-        message = &#x22;weak-password&#x22;;
+        message = "weak-password";
     }
 
     var m = checks.match(/([0-9]+)/);
@@ -9270,15 +9263,15 @@ app.listen(80);
         if (!value)
             return next(message);
 
-        if (checks.indexOf(&#x22;l&#x22;) &#x3e;= 0 &#x26;&#x26; !value.match(/[a-z]/))
+        if (checks.indexOf("l") &gt;= 0 &amp;&amp; !value.match(/[a-z]/))
             return next(message);
-        if (checks.indexOf(&#x22;u&#x22;) &#x3e;= 0 &#x26;&#x26; !value.match(/[A-Z]/))
+        if (checks.indexOf("u") &gt;= 0 &amp;&amp; !value.match(/[A-Z]/))
             return next(message);
-        if (checks.indexOf(&#x22;n&#x22;) &#x3e;= 0 &#x26;&#x26; !value.match(/[0-9]/))
+        if (checks.indexOf("n") &gt;= 0 &amp;&amp; !value.match(/[0-9]/))
             return next(message);
-        if (checks.indexOf(&#x22;s&#x22;) &#x3e;= 0 &#x26;&#x26; !value.match(/[^a-zA-Z0-9]/))
+        if (checks.indexOf("s") &gt;= 0 &amp;&amp; !value.match(/[^a-zA-Z0-9]/))
             return next(message);
-        if (min_len !== null &#x26;&#x26; min_len &#x3e; value.length)
+        if (min_len !== null &amp;&amp; min_len &gt; value.length)
             return next(message);
 
         return next();
@@ -9302,15 +9295,15 @@ app.listen(80);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function length(min, max, message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;out-of-range-length&#x27;; }
+    if (typeof message === "undefined") { message = 'out-of-range-length'; }
     return new Validator(function (value, next) {
         if (value === undefined || value === null)
-            return next(&#x27;undefined&#x27;);
-        if (min === undefined &#x26;&#x26; value.length &#x3c;= max)
+            return next('undefined');
+        if (min === undefined &amp;&amp; value.length &lt;= max)
             return next();
-        if (max === undefined &#x26;&#x26; value.length &#x3e;= min)
+        if (max === undefined &amp;&amp; value.length &gt;= min)
             return next();
-        if (value.length &#x3e;= min &#x26;&#x26; value.length &#x3c;= max)
+        if (value.length &gt;= min &amp;&amp; value.length &lt;= max)
             return next();
         return next(message);
     });
@@ -9333,15 +9326,15 @@ app.listen(80);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function number(min, max, message) {
-    if (typeof message === &#x22;undefined&#x22;) { message = &#x27;out-of-range-number&#x27;; }
+    if (typeof message === "undefined") { message = 'out-of-range-number'; }
     return new Validator(function (value, next) {
         if (value === undefined || value === null)
-            return next(&#x27;undefined&#x27;);
-        if (min === undefined &#x26;&#x26; value &#x3c;= max)
+            return next('undefined');
+        if (min === undefined &amp;&amp; value &lt;= max)
             return next();
-        if (max === undefined &#x26;&#x26; value &#x3e;= min)
+        if (max === undefined &amp;&amp; value &gt;= min)
             return next();
-        if (value &#x3e;= min &#x26;&#x26; value &#x3c;= max)
+        if (value &gt;= min &amp;&amp; value &lt;= max)
             return next();
         return next(message);
     });
@@ -9358,3 +9351,4 @@ app.listen(80);
     ]
 </div>
 </div>
+</body></html>

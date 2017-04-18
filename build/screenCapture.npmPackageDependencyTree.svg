@@ -1,13 +1,16 @@
-<svg height="158" width="720" xmlns="http://www.w3.org/2000/svg">
-<rect height="158" fill="#555" width="720"></rect>
+<svg height="206" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect height="206" fill="#555" width="720"></rect>
 <text fill="#7f7" font-family="Courier New" font-size="12" xml:space="preserve">
-<tspan x="10" y="26">└─┬ orm@3.2.3 </tspan>
-<tspan x="10" y="42">  ├── async@2.1.4 </tspan>
-<tspan x="10" y="58">  ├── enforce@0.1.7 </tspan>
-<tspan x="10" y="74">  ├── hat@0.0.3 </tspan>
-<tspan x="10" y="90">  ├── lodash@4.17.2 </tspan>
-<tspan x="10" y="106">  ├── path-is-absolute@1.0.1 </tspan>
-<tspan x="10" y="122">  ├── sql-ddl-sync@0.3.12 </tspan>
-<tspan x="10" y="138">  └── sql-query@0.1.26</tspan>
+<tspan x="10" y="26">7 megabytes installed</tspan>
+<tspan x="10" y="42"></tspan>
+<tspan x="10" y="58">node_modules</tspan>
+<tspan x="10" y="74">└─┬ orm@3.2.3 </tspan>
+<tspan x="10" y="90">  ├── async@2.1.4 </tspan>
+<tspan x="10" y="106">  ├── enforce@0.1.7 </tspan>
+<tspan x="10" y="122">  ├── hat@0.0.3 </tspan>
+<tspan x="10" y="138">  ├── lodash@4.17.2 </tspan>
+<tspan x="10" y="154">  ├── path-is-absolute@1.0.1 </tspan>
+<tspan x="10" y="170">  ├── sql-ddl-sync@0.3.12 </tspan>
+<tspan x="10" y="186">  └── sql-query@0.1.26</tspan>
 </text>
 </svg>
