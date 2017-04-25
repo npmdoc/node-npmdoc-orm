@@ -1,6 +1,6 @@
 # npmdoc-orm
 
-#### api documentation for  [orm (v3.2.3)](http://dresende.github.io/node-orm2)  [![npm package](https://img.shields.io/npm/v/npmdoc-orm.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-orm) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-orm.svg)](https://travis-ci.org/npmdoc/node-npmdoc-orm)
+#### basic api documentation for  [orm (v3.2.3)](http://dresende.github.io/node-orm2)  [![npm package](https://img.shields.io/npm/v/npmdoc-orm.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-orm) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-orm.svg)](https://travis-ci.org/npmdoc/node-npmdoc-orm)
 
 #### NodeJS Object-relational mapping
 
@@ -115,7 +115,8 @@
     "scripts": {
         "test": "make test"
     },
-    "version": "3.2.3"
+    "version": "3.2.3",
+    "bin": {}
 }
 ```
 
